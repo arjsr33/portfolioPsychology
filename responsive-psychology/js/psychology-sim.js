@@ -49,9 +49,37 @@ class ResponsivePsychologyCore {
         this.startRealTimeMonitoring();
         this.initializeMentalStateControls();
         this.trackUserBehavior();
+        this.setupGlobalFunctions(); // NEW: Add this line
         
         console.log('🧠 Core psychology simulation engine initialized');
         return this;
+    }
+    
+    // NEW: Setup global functions for HTML onclick handlers
+    setupGlobalFunctions() {
+        // Make functions globally available for onclick handlers
+        window.animateGrid = () => this.animateGrid();
+        window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
+        window.startReactionTest = () => {
+            if (window.psychologyTestSuite) {
+                window.psychologyTestSuite.startReactionTest();
+            }
+        };
+        window.startMemoryTest = () => {
+            if (window.psychologyTestSuite) {
+                window.psychologyTestSuite.startMemoryTest();
+            }
+        };
+        window.startColorTest = () => {
+            if (window.psychologyTestSuite) {
+                window.psychologyTestSuite.startColorTest();
+            }
+        };
+        window.resetSimulations = () => {
+            if (window.psychologyTestSuite) {
+                window.psychologyTestSuite.resetSimulations();
+            }
+        };
     }
     
     // Setup all event listeners for psychology tracking
@@ -621,6 +649,84 @@ class ResponsivePsychologyCore {
         if (type === 'focus' && element.matches('input, textarea, select')) {
             console.log(`🎯 User focused on: ${element.tagName}`);
         }
+    }
+    
+    // NEW: Grid animation
+    animateGrid() {
+        const gridItems = document.querySelectorAll('.grid-item');
+        
+        gridItems.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.transform = 'scale(1.1) rotate(5deg)';
+                item.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                
+                setTimeout(() => {
+                    item.style.transform = 'scale(1) rotate(0deg)';
+                    item.style.background = 'linear-gradient(45deg, #8B5CF6, #EC4899)';
+                }, 300);
+            }, index * 100);
+        });
+        
+        this.showToast('Neural pathways reorganized!', 'success');
+    }
+    
+    // NEW: Color psychology demonstration
+    demonstrateColorPsychology() {
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        
+        colorSwatches.forEach((swatch, index) => {
+            setTimeout(() => {
+                swatch.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.8)';
+                swatch.style.transform = 'scale(1.3)';
+                
+                setTimeout(() => {
+                    swatch.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+                    swatch.style.transform = 'scale(1)';
+                }, 800);
+            }, index * 200);
+        });
+        
+        setTimeout(() => {
+            this.showToast('Color psychology demonstration complete!', 'info');
+        }, colorSwatches.length * 200);
+    }
+    
+    // NEW: Toast notification helper
+    showToast(message, type = 'info') {
+        const toastContainer = document.getElementById('toastContainer');
+        if (!toastContainer) return;
+        
+        const toastId = 'toast-' + Date.now();
+        const bgClass = {
+            success: 'bg-success',
+            info: 'bg-info', 
+            warning: 'bg-warning',
+            danger: 'bg-danger'
+        }[type] || 'bg-info';
+        
+        const toastHTML = `
+            <div class="toast align-items-center text-white border-0 ${bgClass}" role="alert" id="${toastId}">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        
+        toastContainer.innerHTML = toastHTML;
+        
+        const toast = new bootstrap.Toast(document.getElementById(toastId));
+        toast.show();
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            const toastElement = document.getElementById(toastId);
+            if (toastElement) {
+                toastElement.remove();
+            }
+        }, 3000);
     }
     
     // Get comprehensive behavior analysis
