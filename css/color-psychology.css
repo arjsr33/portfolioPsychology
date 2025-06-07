@@ -1,383 +1,547 @@
-/* css/color-psychology.css - Color Psychology Implementation */
+/* css/color-psychology.css - Refined Color Psychology System */
 
-/* Color Psychology Variables */
 :root {
-  /* Emotional Color Responses */
-  --calm-blue: #3B82F6;        /* Trust, stability, communication */
-  --creative-purple: #8B5CF6;   /* Innovation, imagination, wisdom */
-  --energetic-pink: #EC4899;    /* Passion, excitement, playfulness */
-  --attention-orange: #F97316;  /* Urgency, warmth, enthusiasm */
-  --growth-green: #10B981;      /* Success, nature, harmony */
-  --warning-red: #EF4444;       /* Alert, importance, action */
-  --neutral-gray: #6B7280;      /* Balance, sophistication, calm */
-  --pure-white: #FFFFFF;        /* Clarity, simplicity, space */
-  --deep-black: #000000;        /* Power, elegance, mystery */
-
-  /* Psychological Context Colors */
-  --focus-color: var(--calm-blue);
-  --creativity-color: var(--creative-purple);
-  --energy-color: var(--energetic-pink);
-  --success-color: var(--growth-green);
-  --warning-color: var(--attention-orange);
-  --danger-color: var(--warning-red);
-
-  /* Color Temperature Psychology */
-  --warm-gradient: linear-gradient(135deg, var(--attention-orange), var(--energetic-pink));
-  --cool-gradient: linear-gradient(135deg, var(--calm-blue), var(--creative-purple));
-  --balanced-gradient: linear-gradient(135deg, var(--growth-green), var(--calm-blue));
-  --energetic-gradient: linear-gradient(135deg, var(--energetic-pink), var(--attention-orange));
-
-  /* Cognitive Load Colors */
-  --low-cognitive: var(--growth-green);
-  --medium-cognitive: var(--attention-orange);
-  --high-cognitive: var(--warning-red);
-
+  /* Core Psychology Colors */
+  --psychology-purple: #8B5CF6;    /* Creativity, wisdom, innovation */
+  --psychology-pink: #EC4899;      /* Energy, passion, engagement */
+  --psychology-blue: #3B82F6;      /* Trust, stability, focus */
+  --psychology-orange: #F97316;    /* Attention, warmth, action */
+  --psychology-green: #10B981;     /* Growth, success, balance */
+  --psychology-red: #EF4444;       /* Alert, urgency, importance */
+  
   /* Emotional State Colors */
-  --happy: var(--attention-orange);
-  --calm: var(--calm-blue);
-  --excited: var(--energetic-pink);
-  --focused: var(--creative-purple);
-  --stressed: var(--warning-red);
-  --relaxed: var(--growth-green);
+  --emotion-calm: var(--psychology-blue);
+  --emotion-energetic: var(--psychology-pink);
+  --emotion-creative: var(--psychology-purple);
+  --emotion-focused: #6366F1;
+  --emotion-relaxed: var(--psychology-green);
+  --emotion-alert: var(--psychology-orange);
+  --emotion-stressed: var(--psychology-red);
+  
+  /* Cognitive Load Colors */
+  --cognitive-low: var(--psychology-green);
+  --cognitive-medium: var(--psychology-orange);
+  --cognitive-high: var(--psychology-red);
+  --cognitive-optimal: var(--psychology-blue);
+  
+  /* Interaction State Colors */
+  --interaction-hover: rgba(236, 72, 153, 0.1);
+  --interaction-active: rgba(236, 72, 153, 0.2);
+  --interaction-focus: rgba(59, 130, 246, 0.2);
+  --interaction-success: rgba(16, 185, 129, 0.1);
+  --interaction-warning: rgba(249, 115, 22, 0.1);
+  --interaction-error: rgba(239, 68, 68, 0.1);
+  
+  /* Gradient Combinations */
+  --gradient-creative: linear-gradient(135deg, var(--psychology-purple), var(--psychology-pink));
+  --gradient-trust: linear-gradient(135deg, var(--psychology-blue), var(--psychology-purple));
+  --gradient-energy: linear-gradient(135deg, var(--psychology-pink), var(--psychology-orange));
+  --gradient-growth: linear-gradient(135deg, var(--psychology-green), var(--psychology-blue));
+  --gradient-focus: linear-gradient(135deg, var(--psychology-blue), #6366F1);
+  --gradient-warm: linear-gradient(135deg, var(--psychology-orange), var(--psychology-pink));
+  --gradient-cool: linear-gradient(135deg, var(--psychology-blue), var(--psychology-green));
 }
 
-/* Color Psychology Classes */
+/* Base Color Classes */
 
-/* Emotional Response Colors */
-.color-calm {
-  background-color: var(--calm-blue);
+/* Background Colors */
+.bg-psychology-purple { background-color: var(--psychology-purple); }
+.bg-psychology-pink { background-color: var(--psychology-pink); }
+.bg-psychology-blue { background-color: var(--psychology-blue); }
+.bg-psychology-orange { background-color: var(--psychology-orange); }
+.bg-psychology-green { background-color: var(--psychology-green); }
+.bg-psychology-red { background-color: var(--psychology-red); }
+
+/* Text Colors */
+.text-psychology-purple { color: var(--psychology-purple); }
+.text-psychology-pink { color: var(--psychology-pink); }
+.text-psychology-blue { color: var(--psychology-blue); }
+.text-psychology-orange { color: var(--psychology-orange); }
+.text-psychology-green { color: var(--psychology-green); }
+.text-psychology-red { color: var(--psychology-red); }
+
+/* Border Colors */
+.border-psychology-purple { border-color: var(--psychology-purple); }
+.border-psychology-pink { border-color: var(--psychology-pink); }
+.border-psychology-blue { border-color: var(--psychology-blue); }
+.border-psychology-orange { border-color: var(--psychology-orange); }
+.border-psychology-green { border-color: var(--psychology-green); }
+.border-psychology-red { border-color: var(--psychology-red); }
+
+/* Emotional State Classes */
+.emotion-calm {
+  background-color: var(--emotion-calm);
   color: white;
+  border-left: 4px solid var(--psychology-blue);
 }
 
-.color-creative {
-  background-color: var(--creative-purple);
+.emotion-energetic {
+  background-color: var(--emotion-energetic);
   color: white;
+  border-left: 4px solid var(--psychology-pink);
 }
 
-.color-energetic {
-  background-color: var(--energetic-pink);
+.emotion-creative {
+  background-color: var(--emotion-creative);
   color: white;
+  border-left: 4px solid var(--psychology-purple);
 }
 
-.color-attention {
-  background-color: var(--attention-orange);
+.emotion-focused {
+  background-color: var(--emotion-focused);
   color: white;
+  border-left: 4px solid #6366F1;
 }
 
-.color-success {
-  background-color: var(--growth-green);
+.emotion-relaxed {
+  background-color: var(--emotion-relaxed);
   color: white;
+  border-left: 4px solid var(--psychology-green);
 }
 
-.color-warning {
-  background-color: var(--warning-red);
+.emotion-alert {
+  background-color: var(--emotion-alert);
   color: white;
+  border-left: 4px solid var(--psychology-orange);
 }
 
-/* Text Color Psychology */
-.text-calm { color: var(--calm-blue); }
-.text-creative { color: var(--creative-purple); }
-.text-energetic { color: var(--energetic-pink); }
-.text-attention { color: var(--attention-orange); }
-.text-success { color: var(--growth-green); }
-.text-warning { color: var(--warning-red); }
-
-/* Border Color Psychology */
-.border-calm { border-color: var(--calm-blue); }
-.border-creative { border-color: var(--creative-purple); }
-.border-energetic { border-color: var(--energetic-pink); }
-.border-attention { border-color: var(--attention-orange); }
-.border-success { border-color: var(--growth-green); }
-.border-warning { border-color: var(--warning-red); }
-
-/* Gradient Backgrounds for Emotional Impact */
-.bg-warm-gradient {
-  background: var(--warm-gradient);
+.emotion-stressed {
+  background-color: var(--emotion-stressed);
   color: white;
+  border-left: 4px solid var(--psychology-red);
 }
 
-.bg-cool-gradient {
-  background: var(--cool-gradient);
-  color: white;
-}
-
-.bg-balanced-gradient {
-  background: var(--balanced-gradient);
-  color: white;
-}
-
-.bg-energetic-gradient {
-  background: var(--energetic-gradient);
-  color: white;
-}
-
-/* Color Transitions for Psychological Comfort */
-.color-transition {
-  transition: 
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.color-transition-slow {
-  transition: 
-    background-color 0.6s ease,
-    color 0.6s ease,
-    border-color 0.6s ease;
-}
-
-/* Cognitive Load Visual Indicators */
+/* Cognitive Load Indicators */
 .cognitive-load-indicator {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.cognitive-load-indicator::before {
+.cognitive-load-indicator::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  height: 3px;
-  background: var(--low-cognitive);
+  height: 100%;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
-.cognitive-load-indicator.load-low::before {
+.cognitive-load-low::after {
   width: 33%;
-  background: var(--low-cognitive);
+  background: var(--cognitive-low);
 }
 
-.cognitive-load-indicator.load-medium::before {
+.cognitive-load-medium::after {
   width: 66%;
-  background: var(--medium-cognitive);
+  background: var(--cognitive-medium);
 }
 
-.cognitive-load-indicator.load-high::before {
+.cognitive-load-high::after {
   width: 100%;
-  background: var(--high-cognitive);
+  background: var(--cognitive-high);
 }
 
-/* Emotional State Indicators */
-.emotional-state {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+.cognitive-load-optimal::after {
+  width: 100%;
+  background: var(--cognitive-optimal);
+}
+
+/* Interaction State Classes */
+.interaction-hover {
+  transition: all 0.2s ease;
+}
+
+.interaction-hover:hover {
+  background-color: var(--interaction-hover);
+  transform: translateY(-2px);
+}
+
+.interaction-active:active {
+  background-color: var(--interaction-active);
+  transform: translateY(0);
+}
+
+.interaction-focus:focus {
+  background-color: var(--interaction-focus);
+  outline: 2px solid var(--psychology-blue);
+  outline-offset: 2px;
+}
+
+/* Gradient Background Classes */
+.bg-gradient-creative {
+  background: var(--gradient-creative);
+  color: white;
+}
+
+.bg-gradient-trust {
+  background: var(--gradient-trust);
+  color: white;
+}
+
+.bg-gradient-energy {
+  background: var(--gradient-energy);
+  color: white;
+}
+
+.bg-gradient-growth {
+  background: var(--gradient-growth);
+  color: white;
+}
+
+.bg-gradient-focus {
+  background: var(--gradient-focus);
+  color: white;
+}
+
+.bg-gradient-warm {
+  background: var(--gradient-warm);
+  color: white;
+}
+
+.bg-gradient-cool {
+  background: var(--gradient-cool);
+  color: white;
+}
+
+/* Text Gradient Classes */
+.text-gradient-creative {
+  background: var(--gradient-creative);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-trust {
+  background: var(--gradient-trust);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-energy {
+  background: var(--gradient-energy);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-growth {
+  background: var(--gradient-growth);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Psychology-Based Component Classes */
+
+/* Alert States */
+.alert-psychology {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+  margin: 1rem 0;
+}
+
+.alert-psychology.success {
+  background: var(--interaction-success);
+  border-left-color: var(--psychology-green);
+  color: var(--psychology-green);
+}
+
+.alert-psychology.warning {
+  background: var(--interaction-warning);
+  border-left-color: var(--psychology-orange);
+  color: var(--psychology-orange);
+}
+
+.alert-psychology.error {
+  background: var(--interaction-error);
+  border-left-color: var(--psychology-red);
+  color: var(--psychology-red);
+}
+
+.alert-psychology.info {
+  background: var(--interaction-focus);
+  border-left-color: var(--psychology-blue);
+  color: var(--psychology-blue);
+}
+
+/* Badge Components */
+.badge-psychology {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-psychology.creative {
+  background: var(--psychology-purple);
+  color: white;
+}
+
+.badge-psychology.energetic {
+  background: var(--psychology-pink);
+  color: white;
+}
+
+.badge-psychology.focused {
+  background: var(--psychology-blue);
+  color: white;
+}
+
+.badge-psychology.growth {
+  background: var(--psychology-green);
+  color: white;
+}
+
+.badge-psychology.attention {
+  background: var(--psychology-orange);
+  color: white;
+}
+
+/* Progress Bars */
+.progress-psychology {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-psychology {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar-psychology.creative {
+  background: var(--gradient-creative);
+}
+
+.progress-bar-psychology.trust {
+  background: var(--gradient-trust);
+}
+
+.progress-bar-psychology.energy {
+  background: var(--gradient-energy);
+}
+
+.progress-bar-psychology.growth {
+  background: var(--gradient-growth);
+}
+
+/* Button States */
+.btn-psychology {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-psychology.creative {
+  background: var(--gradient-creative);
+  color: white;
+}
+
+.btn-psychology.trust {
+  background: var(--gradient-trust);
+  color: white;
+}
+
+.btn-psychology.energy {
+  background: var(--gradient-energy);
+  color: white;
+}
+
+.btn-psychology.growth {
+  background: var(--gradient-growth);
+  color: white;
+}
+
+.btn-psychology:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-psychology:active {
+  transform: translateY(0);
+}
+
+/* Card States */
+.card-psychology {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
   transition: all 0.3s ease;
 }
 
-.emotional-state.happy {
-  background: var(--happy);
+.card-psychology.creative {
+  border-left: 4px solid var(--psychology-purple);
+}
+
+.card-psychology.energetic {
+  border-left: 4px solid var(--psychology-pink);
+}
+
+.card-psychology.focused {
+  border-left: 4px solid var(--psychology-blue);
+}
+
+.card-psychology.growth {
+  border-left: 4px solid var(--psychology-green);
+}
+
+.card-psychology:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Form Elements */
+.input-psychology {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
   color: white;
-  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+  font-size: 1rem;
+  transition: all 0.2s ease;
 }
 
-.emotional-state.calm {
-  background: var(--calm);
-  color: white;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+.input-psychology:focus {
+  outline: none;
+  border-color: var(--psychology-blue);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.emotional-state.excited {
-  background: var(--excited);
-  color: white;
-  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
-  animation: pulse 2s ease-in-out infinite;
+.input-psychology::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.emotional-state.focused {
-  background: var(--focused);
-  color: white;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+/* Accessibility and Special States */
+.psychology-focus-ring:focus {
+  outline: 2px solid var(--psychology-orange);
+  outline-offset: 2px;
 }
 
-.emotional-state.stressed {
-  background: var(--stressed);
-  color: white;
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-  animation: shake 0.5s ease-in-out infinite;
+.psychology-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
-.emotional-state.relaxed {
-  background: var(--relaxed);
-  color: white;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+.psychology-loading {
+  position: relative;
+  pointer-events: none;
 }
 
-/* Color Accessibility Enhancements */
-.high-contrast {
-  filter: contrast(1.2);
+.psychology-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-.low-contrast {
-  filter: contrast(0.8);
-}
-
-/* Color Psychology Hover Effects */
-.color-hover-calm:hover {
-  background-color: var(--calm-blue);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.color-hover-creative:hover {
-  background-color: var(--creative-purple);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.color-hover-energetic:hover {
-  background-color: var(--energetic-pink);
-  color: white;
-  transform: translateY(-2px);
-}
-
-/* Color Temperature Mood Classes */
-.warm-mood {
-  background: linear-gradient(135deg, 
-    rgba(249, 115, 22, 0.1), 
-    rgba(236, 72, 153, 0.1)
-  );
-  border-left: 4px solid var(--attention-orange);
-}
-
-.cool-mood {
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.1), 
-    rgba(139, 92, 246, 0.1)
-  );
-  border-left: 4px solid var(--calm-blue);
-}
-
-.neutral-mood {
-  background: linear-gradient(135deg, 
-    rgba(107, 114, 128, 0.1), 
-    rgba(16, 185, 129, 0.1)
-  );
-  border-left: 4px solid var(--neutral-gray);
-}
-
-/* Attention and Focus Enhancement */
-.attention-magnet {
-  background: var(--energetic-gradient);
-  animation: attentionPulse 2s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
-}
-
-@keyframes attentionPulse {
-  0%, 100% { 
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4); 
+/* Responsive Color Adjustments */
+@media (max-width: 768px) {
+  .card-psychology:hover {
+    transform: translateY(-3px);
   }
-  50% { 
-    box-shadow: 0 0 30px rgba(236, 72, 153, 0.7); 
+  
+  .btn-psychology:hover {
+    transform: translateY(-1px);
   }
 }
 
-.focus-enhancer {
-  background: var(--cool-gradient);
-  border: 2px solid var(--calm-blue);
-  box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.2);
-}
-
-/* Color-Based Feedback System */
-.feedback-positive {
-  background: linear-gradient(45deg, var(--growth-green), rgba(16, 185, 129, 0.8));
-  color: white;
-  border: 1px solid var(--growth-green);
-}
-
-.feedback-negative {
-  background: linear-gradient(45deg, var(--warning-red), rgba(239, 68, 68, 0.8));
-  color: white;
-  border: 1px solid var(--warning-red);
-}
-
-.feedback-neutral {
-  background: linear-gradient(45deg, var(--neutral-gray), rgba(107, 114, 128, 0.8));
-  color: white;
-  border: 1px solid var(--neutral-gray);
-}
-
-/* Psychology-Based Color Schemes */
-.therapy-calm {
-  background: linear-gradient(135deg, 
-    rgba(59, 130, 246, 0.05),
-    rgba(16, 185, 129, 0.05)
-  );
-  color: var(--calm-blue);
-}
-
-.creativity-boost {
-  background: linear-gradient(135deg, 
-    rgba(139, 92, 246, 0.1),
-    rgba(236, 72, 153, 0.1)
-  );
-  color: var(--creative-purple);
-}
-
-.energy-surge {
-  background: linear-gradient(135deg, 
-    rgba(236, 72, 153, 0.1),
-    rgba(249, 115, 22, 0.1)
-  );
-  color: var(--energetic-pink);
-}
-
-/* Semantic Color Classes */
-.semantic-info {
-  background-color: var(--calm-blue);
-  color: white;
-}
-
-.semantic-success {
-  background-color: var(--growth-green);
-  color: white;
-}
-
-.semantic-warning {
-  background-color: var(--attention-orange);
-  color: white;
-}
-
-.semantic-danger {
-  background-color: var(--warning-red);
-  color: white;
-}
-
-/* Color Intensity Variations */
-.color-intensity-low {
-  opacity: 0.7;
-  filter: saturate(0.8);
-}
-
-.color-intensity-medium {
-  opacity: 0.9;
-  filter: saturate(1);
-}
-
-.color-intensity-high {
-  opacity: 1;
-  filter: saturate(1.2);
-}
-
-/* Accessibility: High contrast mode support */
+/* High Contrast Mode */
 @media (prefers-contrast: high) {
-  .color-calm { background-color: #0000FF; }
-  .color-creative { background-color: #800080; }
-  .color-energetic { background-color: #FF0080; }
-  .color-attention { background-color: #FF8000; }
-  .color-success { background-color: #008000; }
-  .color-warning { background-color: #FF0000; }
+  .bg-psychology-purple,
+  .bg-psychology-pink,
+  .bg-psychology-blue,
+  .bg-psychology-orange,
+  .bg-psychology-green,
+  .bg-psychology-red {
+    border: 2px solid white;
+  }
+  
+  .text-gradient-creative,
+  .text-gradient-trust,
+  .text-gradient-energy,
+  .text-gradient-growth {
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: white;
+  }
 }
 
-/* Color blindness considerations */
-@media (prefers-color-scheme: high-contrast) {
-  .color-calm,
-  .color-creative,
-  .color-energetic,
-  .color-attention,
-  .color-success,
-  .color-warning {
-    border: 2px solid white;
-    font-weight: bold;
+/* Print Mode */
+@media print {
+  .bg-gradient-creative,
+  .bg-gradient-trust,
+  .bg-gradient-energy,
+  .bg-gradient-growth,
+  .bg-gradient-focus,
+  .bg-gradient-warm,
+  .bg-gradient-cool {
+    background: #333 !important;
+    color: white !important;
   }
+  
+  .text-gradient-creative,
+  .text-gradient-trust,
+  .text-gradient-energy,
+  .text-gradient-growth {
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    color: #333 !important;
+  }
+}
+
+/* Color Utility Classes */
+.opacity-10 { opacity: 0.1; }
+.opacity-20 { opacity: 0.2; }
+.opacity-30 { opacity: 0.3; }
+.opacity-40 { opacity: 0.4; }
+.opacity-50 { opacity: 0.5; }
+.opacity-60 { opacity: 0.6; }
+.opacity-70 { opacity: 0.7; }
+.opacity-80 { opacity: 0.8; }
+.opacity-90 { opacity: 0.9; }
+
+/* Color Transition Classes */
+.color-transition-fast {
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.color-transition-normal {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.color-transition-slow {
+  transition: color 0.6s ease, background-color 0.6s ease, border-color 0.6s ease;
 }

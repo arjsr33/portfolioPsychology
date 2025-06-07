@@ -1,4 +1,4 @@
-/* css/main.css - Visual Psychology Implementation */
+/* css/main.css - Refined Visual Psychology Implementation */
 
 :root {
   /* Psychology-driven color palette */
@@ -6,16 +6,24 @@
   --secondary-pink: #EC4899;
   --accent-blue: #3B82F6;
   --warm-orange: #F97316;
-  --deep-indigo: #4C1D95;
   --success-green: #10B981;
+  --neutral-gray: #6B7280;
+  --dark-slate: #1E293B;
+  --light-slate: #334155;
   
-  /* Gradient backgrounds for psychological impact */
-  --gradient-primary: linear-gradient(135deg, var(--primary-purple), var(--secondary-pink));
-  --gradient-secondary: linear-gradient(135deg, var(--accent-blue), var(--primary-purple));
-  --gradient-tertiary: linear-gradient(135deg, var(--secondary-pink), var(--warm-orange));
+  /* Refined background system */
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  --bg-surface: rgba(255, 255, 255, 0.05);
+  --bg-surface-hover: rgba(255, 255, 255, 0.08);
   
-  /* Typography scale based on golden ratio */
-  --font-scale: 1.618;
+  /* Glass morphism effects */
+  --glass-light: rgba(255, 255, 255, 0.1);
+  --glass-medium: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  
+  /* Typography scale */
   --font-xs: 0.75rem;
   --font-sm: 0.875rem;
   --font-base: 1rem;
@@ -24,8 +32,9 @@
   --font-2xl: 1.5rem;
   --font-3xl: 2rem;
   --font-4xl: 2.5rem;
+  --font-5xl: 3rem;
   
-  /* Spacing system for cognitive comfort */
+  /* Spacing system */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -34,19 +43,28 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   
-  /* Glass morphism effects */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  
-  /* Animation durations for smooth psychology */
+  /* Animation durations */
   --duration-fast: 0.15s;
   --duration-normal: 0.3s;
   --duration-slow: 0.6s;
-  --duration-slower: 1.2s;
-
+  
+  /* Border radius system */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  
+  /* Shadow system */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.25);
+  
   /* Text colors */
-  --text-light: #F8FAFC;
-  --text-dark: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --text-inverse: #1E293B;
 }
 
 /* Reset and base styles */
@@ -56,1018 +74,989 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--gradient-primary);
-  color: var(--text-light);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Smooth scrolling for psychological comfort */
-html {
-  scroll-behavior: smooth;
+/* Psychology page specific styling */
+.psychology-page {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  background-attachment: fixed;
 }
 
-/* Visual Psychology Layout System */
-.visual-psychology-container {
-  padding: 20px;
+/* Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass-light);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all var(--duration-normal) ease;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-xl);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: var(--space-md);
+}
+
+.nav-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+.nav-link.active {
+  background: var(--glass-medium);
+  color: var(--secondary-pink);
+}
+
+/* Main container */
+.psychology-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
   margin-top: 80px;
 }
 
-.visual-psychology-grid {
-  display: grid;
-  grid-template-areas: 
-    "hero hero"
-    "nav-local content"
-    "demos demos";
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 250px 1fr;
-  gap: 20px;
-  margin-top: 2rem;
-}
-
+/* Hero section */
 .psychology-hero {
-  grid-area: hero;
-  text-align: center;
-  padding: 3rem 2rem;
-  background: rgba(30, 41, 59, 0.8);
-  border-radius: 20px;
-  backdrop-filter: blur(15px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-3xl);
+  align-items: center;
+  padding: var(--space-3xl) 0;
+  margin-bottom: var(--space-3xl);
   position: relative;
-  overflow: hidden;
-  color: var(--text-light);
 }
 
-.psychology-hero::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-  animation: shimmer 3s ease-in-out infinite;
+.hero-content {
+  max-width: 600px;
 }
 
-.psychology-hero h1 {
-  font-size: 3rem;
+.hero-title {
+  font-size: var(--font-5xl);
+  font-weight: 800;
   background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue), var(--warm-orange));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textPulse 4s ease-in-out infinite;
-  margin-bottom: 1rem;
-  z-index: 2;
-  position: relative;
+  margin-bottom: var(--space-md);
+  line-height: 1.1;
 }
 
-.psychology-hero .subtitle {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  z-index: 2;
-  position: relative;
+.hero-subtitle {
+  font-size: var(--font-xl);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+  font-weight: 500;
 }
 
-.psychology-nav {
-  grid-area: nav-local;
-  background: rgba(30, 41, 59, 0.9);
-  border-radius: 15px;
-  padding: 2rem 1rem;
+.hero-description {
+  color: var(--text-muted);
+  margin-bottom: var(--space-xl);
+  font-size: var(--font-lg);
+}
+
+.hero-cta {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-base);
+  transition: all var(--duration-normal) ease;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  color: white;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-surface-hover);
+  transform: translateY(-2px);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.neural-network {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.neural-node {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+}
+
+.neural-node.node-1 {
+  top: 20%;
+  left: 20%;
+  background: var(--primary-purple);
+  animation: neuralPulse 2s ease-in-out infinite;
+}
+
+.neural-node.node-2 {
+  top: 20%;
+  right: 20%;
+  background: var(--secondary-pink);
+  animation: neuralPulse 2s ease-in-out infinite 0.5s;
+}
+
+.neural-node.node-3 {
+  bottom: 20%;
+  left: 20%;
+  background: var(--accent-blue);
+  animation: neuralPulse 2s ease-in-out infinite 1s;
+}
+
+.neural-node.node-4 {
+  bottom: 20%;
+  right: 20%;
+  background: var(--warm-orange);
+  animation: neuralPulse 2s ease-in-out infinite 1.5s;
+}
+
+/* Content grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+}
+
+/* Section navigation */
+.section-nav {
+  background: var(--bg-surface);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 1px solid var(--glass-border);
   height: fit-content;
   position: sticky;
-  top: 100px;
+  top: 120px;
 }
 
-.psychology-content {
-  grid-area: content;
-  background: rgba(30, 41, 59, 0.8);
-  border-radius: 20px;
-  padding: 3rem;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-light);
+.nav-title {
+  color: var(--text-secondary);
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--glass-border);
 }
 
-.psychology-demos {
-  grid-area: demos;
-  margin-top: 2rem;
-}
-
-/* Local Navigation */
-.local-nav-menu {
+.section-nav-menu {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-sm);
   list-style: none;
 }
 
-.local-nav-link {
+.section-nav-link {
   display: block;
-  padding: 1rem;
+  padding: var(--space-md);
   text-decoration: none;
-  color: var(--text-light);
-  border-radius: 10px;
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
   transition: all var(--duration-normal) ease;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid transparent;
+  border-left: 3px solid transparent;
+  font-weight: 500;
 }
 
-.local-nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary-purple), var(--secondary-pink));
-  transition: left 0.5s ease;
-  z-index: -1;
-}
-
-.local-nav-link:hover {
-  transform: translateX(10px) scale(1.05);
-  border-color: var(--secondary-pink);
-  box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
-}
-
-.local-nav-link:hover::before {
-  left: 0;
-}
-
-.local-nav-link.active {
-  background: linear-gradient(90deg, var(--primary-purple), var(--secondary-pink));
-  border-color: var(--secondary-pink);
+.section-nav-link:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
   transform: translateX(5px);
-  box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
+  border-left-color: var(--secondary-pink);
+  text-decoration: none;
 }
 
-.local-nav-link.active::before {
-  left: 0;
-}
-
-/* Content Sections */
-.content-section {
-  margin: 3rem 0;
-}
-
-.content-section h2 {
+.section-nav-link.active {
+  background: var(--glass-medium);
   color: var(--secondary-pink);
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
-  position: relative;
+  border-left-color: var(--secondary-pink);
+  transform: translateX(5px);
 }
 
-.content-section h2::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 50px;
-  height: 3px;
+/* Main content */
+.main-content {
+  background: var(--bg-surface);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.content-section {
+  padding: var(--space-3xl);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.content-section:last-child {
+  border-bottom: none;
+}
+
+.section-header {
+  margin-bottom: var(--space-xl);
+}
+
+.section-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
   background: linear-gradient(90deg, var(--secondary-pink), var(--accent-blue));
   border-radius: 2px;
 }
 
-.content-section h3 {
+.section-intro {
+  font-size: var(--font-lg);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+}
+
+/* Insight cards */
+.insight-card {
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--glass-border);
+  margin: var(--space-xl) 0;
+}
+
+.insight-title {
   color: var(--accent-blue);
-  margin: 2rem 0 1rem 0;
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
 }
 
-.content-section p {
-  color: var(--text-light);
-  opacity: 0.9;
-  line-height: 1.6;
-}
-
-.highlight-box {
-  background: rgba(139, 92, 246, 0.1);
-  border: 2px solid var(--primary-purple);
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin: 2rem 0;
-  position: relative;
-}
-
-.highlight-box::before {
-  content: '✨';
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  background: var(--gradient-primary);
-  padding: 5px 10px;
-  border-radius: 15px;
-  animation: sparkle 3s ease-in-out infinite;
-}
-
-.highlight-box h3 {
-  color: var(--accent-blue);
-  margin-bottom: 1rem;
-}
-
-.highlight-box ul {
-  list-style: none;
-  padding: 0;
-}
-
-.highlight-box li {
-  margin: 0.5rem 0;
-  padding-left: 1rem;
-  position: relative;
-  color: var(--text-light);
-}
-
-.highlight-box li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--secondary-pink);
-}
-
-.code-showcase {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  padding: 2rem;
-  margin: 2rem 0;
-  border-left: 4px solid var(--warm-orange);
-  font-family: 'Courier New', monospace;
-  overflow-x: auto;
-}
-
-.code-showcase pre {
-  color: var(--text-light);
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* CSS Features Grid */
-.css-features {
+.principles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
+  gap: var(--space-lg);
 }
 
-.feature-card {
-  background: rgba(30, 41, 59, 0.6);
-  border-radius: 15px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+.principle-item {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: center;
   transition: all var(--duration-normal) ease;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid var(--glass-border);
 }
 
-.feature-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.principle-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  background: var(--bg-surface-hover);
 }
 
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary-purple), var(--secondary-pink), var(--accent-blue));
+.principle-icon {
+  font-size: var(--font-2xl);
+  margin-bottom: var(--space-md);
+  display: block;
 }
 
-.feature-title {
-  color: var(--secondary-pink);
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+.principle-item h4 {
+  color: var(--text-primary);
+  font-size: var(--font-lg);
+  margin-bottom: var(--space-sm);
   font-weight: 600;
 }
 
-.feature-card p {
-  color: var(--text-light);
-  opacity: 0.9;
-}
-
-/* Skills Navigation */
-.skills-navigation {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-}
-
-.skill-nav-card {
-  background: rgba(30, 41, 59, 0.8);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 2rem;
-  text-decoration: none;
-  color: var(--text-light);
-  transition: all var(--duration-normal) ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.skill-nav-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gradient-primary);
-  transform: scaleX(0);
-  transition: transform var(--duration-normal) ease;
-}
-
-.skill-nav-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  color: var(--text-light);
-  text-decoration: none;
-}
-
-.skill-nav-card:hover::before {
-  transform: scaleX(1);
-}
-
-.skill-nav-card.level-2::before {
-  background: var(--gradient-secondary);
-}
-
-.skill-nav-card.level-3::before {
-  background: var(--gradient-tertiary);
-}
-
-.skill-nav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.skill-nav-icon {
-  font-size: 2rem;
-  color: var(--secondary-pink);
-}
-
-.skill-level-badge {
-  background: var(--gradient-primary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-light);
-}
-
-.skill-nav-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--secondary-pink);
-}
-
-.skill-nav-description {
-  color: var(--text-light);
-  opacity: 0.9;
+.principle-item p {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
   line-height: 1.5;
-  margin-bottom: 1rem;
 }
 
-.skill-nav-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* Code examples */
+.code-example {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  margin: var(--space-xl) 0;
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
 }
 
-.tech-tag {
-  background: rgba(59, 130, 246, 0.2);
-  padding: 0.25rem 0.5rem;
-  border-radius: 10px;
-  font-size: 0.75rem;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  color: var(--text-light);
-}
-
-/* Default container system - only used when not using visual-psychology-grid */
-.container:not(.visual-psychology-container) {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all var(--duration-normal) ease;
-}
-
-.nav-container {
+.code-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: var(--space-md) var(--space-lg);
-  max-width: 1200px;
-  margin: 0 auto;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--glass-border);
 }
 
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.code-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.code-lang {
+  color: var(--warm-orange);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  background: var(--bg-surface);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+.code-content {
+  padding: var(--space-lg);
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: var(--font-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.code-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* Demo showcase */
+.demo-showcase {
+  margin: var(--space-xl) 0;
+}
+
+.demo-title {
+  color: var(--accent-blue);
   font-size: var(--font-xl);
-  font-weight: 700;
-  background: var(--gradient-tertiary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  text-align: center;
 }
 
-.nav-menu {
-  display: flex;
-  list-style: none;
+.motion-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.motion-demo {
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  border: 1px solid var(--glass-border);
+  transition: all var(--duration-normal) ease;
+}
+
+.motion-demo:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  background: var(--glass-medium);
+}
+
+.motion-element {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--space-md);
+  border-radius: 50%;
+}
+
+.circular-motion {
+  background: var(--secondary-pink);
+  animation: spin 3s linear infinite;
+}
+
+.floating-motion {
+  background: linear-gradient(45deg, var(--primary-purple), var(--warm-orange));
+  animation: float 4s ease-in-out infinite;
+}
+
+.morphing-motion {
+  background: linear-gradient(45deg, var(--accent-blue), var(--secondary-pink));
+  animation: morph 5s ease-in-out infinite;
+  border-radius: 0;
+}
+
+.pulsing-motion {
+  background: radial-gradient(circle, var(--warm-orange), var(--primary-purple));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.motion-demo h4 {
+  color: var(--text-primary);
+  font-size: var(--font-lg);
+  margin-bottom: var(--space-sm);
+  font-weight: 600;
+}
+
+.motion-demo p {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.motion-explanation {
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+  border-left: 4px solid var(--accent-blue);
+}
+
+.motion-explanation p {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Structure grid */
+.structure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+.structure-card {
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--glass-border);
+  transition: all var(--duration-normal) ease;
+  text-align: center;
+}
+
+.structure-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  background: var(--glass-medium);
+}
+
+.structure-icon {
+  font-size: var(--font-2xl);
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.structure-card h4 {
+  color: var(--text-primary);
+  font-size: var(--font-lg);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+}
+
+.structure-card p {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  line-height: 1.6;
+}
+
+/* Color showcase */
+.color-showcase {
+  margin: var(--space-xl) 0;
+}
+
+.color-title {
+  color: var(--accent-blue);
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.color-connections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--space-lg);
 }
 
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: 25px;
+.color-connection {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--glass-border);
   transition: all var(--duration-normal) ease;
-  position: relative;
 }
 
-.nav-link:hover {
-  background: var(--glass-bg);
-  transform: translateY(-2px);
-  color: white;
+.color-connection:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-sm);
+  background: var(--glass-medium);
 }
 
-.nav-link.active {
-  background: rgba(236, 72, 153, 0.2);
-  color: var(--secondary-pink);
+.color-connection .color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--glass-border);
+  flex-shrink: 0;
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--gradient-tertiary);
-  transition: all var(--duration-normal) ease;
-  transform: translateX(-50%);
+.color-connection.creative .color-swatch {
+  background: var(--primary-purple);
 }
 
-.nav-link:hover::after {
-  width: 80%;
+.color-connection.energetic .color-swatch {
+  background: var(--secondary-pink);
 }
 
-/* Section Titles - for general use */
-.section-title {
-  font-size: var(--font-3xl);
+.color-connection.calm .color-swatch {
+  background: var(--accent-blue);
+}
+
+.color-connection.attention .color-swatch {
+  background: var(--warm-orange);
+}
+
+.color-info h4 {
+  color: var(--text-primary);
+  font-size: var(--font-base);
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.color-info p {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.psychology-summary {
+  background: var(--glass-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  border-left: 4px solid var(--secondary-pink);
+}
+
+.psychology-summary p {
+  color: var(--text-secondary);
+  font-size: var(--font-base);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Skills showcase */
+.skills-showcase {
+  margin: var(--space-3xl) 0;
+}
+
+.skills-header {
   text-align: center;
-  margin-bottom: var(--space-md);
-  background: var(--gradient-secondary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-subtitle {
-  text-align: center;
-  font-size: var(--font-lg);
-  opacity: 0.8;
   margin-bottom: var(--space-3xl);
 }
 
-/* Footer */
-.footer {
-  background: rgba(30, 41, 59, 0.95);
-  padding: var(--space-3xl) 0 var(--space-lg);
-  margin-top: var(--space-3xl);
+.skills-title {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: var(--space-md);
 }
 
-.footer-content {
+.skills-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-lg);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+}
+
+.skill-card {
+  background: var(--bg-surface);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  transition: all var(--duration-normal) ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  color: inherit;
+}
+
+.skill-card.level-2:hover {
+  border-color: var(--success-green);
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+}
+
+.skill-card.level-3:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+.skill-card.full-stack:hover {
+  border-color: var(--warm-orange);
+  box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xl);
+  background: var(--glass-light);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.skill-icons {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--font-2xl);
+}
+
+.skill-icons i {
+  color: var(--text-secondary);
+}
+
+.skill-level {
+  background: var(--glass-medium);
+  color: var(--text-primary);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  border: 1px solid var(--glass-border);
+}
+
+.skill-content {
+  padding: var(--space-xl);
+  flex-grow: 1;
+}
+
+.skill-title {
+  color: var(--text-primary);
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.skill-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.skill-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.tech-badge {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
+}
+
+.skill-footer {
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--glass-light);
+  border-top: 1px solid var(--glass-border);
+}
+
+.skill-cta {
+  color: var(--accent-blue);
+  font-weight: 600;
+  font-size: var(--font-sm);
+}
+
+/* Footer */
+.site-footer {
+  background: var(--bg-secondary);
+  margin-top: var(--space-3xl);
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-lg) var(--space-lg);
+}
+
+.footer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: var(--space-2xl);
   margin-bottom: var(--space-xl);
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 var(--space-lg);
 }
 
-.footer-section h4 {
+.footer-title {
   color: var(--secondary-pink);
+  font-size: var(--font-lg);
+  font-weight: 600;
   margin-bottom: var(--space-lg);
-  font-size: var(--font-xl);
 }
 
-.footer-section ul {
+.footer-list {
   list-style: none;
 }
 
-.footer-section li {
+.footer-list li {
+  color: var(--text-muted);
   margin-bottom: var(--space-sm);
-  opacity: 0.8;
+  font-size: var(--font-sm);
 }
 
-.social-links {
+.tech-showcase {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-sm);
-  color: white;
-  text-decoration: none;
-  transition: all var(--duration-normal) ease;
 }
 
-.social-link:hover {
-  color: var(--secondary-pink);
-  transform: translateX(5px);
+.tech-highlight {
+  background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
+  color: white;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-xs);
+  font-weight: 600;
 }
 
 .footer-bottom {
   text-align: center;
-  padding-top: var(--space-xl);
+  padding-top: var(--space-lg);
   border-top: 1px solid var(--glass-border);
-  opacity: 0.6;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: var(--space-lg);
-  padding-right: var(--space-lg);
+  color: var(--text-muted);
+  font-size: var(--font-sm);
 }
 
-/* Utility classes */
-.text-center {
-  text-align: center;
-}
-
-.mt-4 {
-  margin-top: var(--space-xl);
-}
-
-.opacity-80 {
-  opacity: 0.8;
-}
-
-.skill-progress {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-badge {
-  background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  margin: 0.25rem;
-  font-weight: 600;
-  font-size: 0.75rem;
-  animation: badgeGlow 3s ease-in-out infinite alternate;
-}
-
-/* Additional Visual Psychology Animations - moved to animations.css */
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .nav-menu {
-    display: none;
-  }
-  
-  .nav-container {
-    padding: var(--space-md);
-  }
-  
-  .visual-psychology-grid {
-    grid-template-areas: 
-      "hero"
-      "nav-local"
-      "content"
-      "demos";
+/* Responsive design */
+@media (max-width: 1024px) {
+  .content-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-xl);
   }
-
-  .psychology-nav {
+  
+  .section-nav {
     position: static;
     top: auto;
   }
-
-  .local-nav-menu {
+  
+  .section-nav-menu {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
+}
 
-  .psychology-hero h1 {
-    font-size: 2rem;
-  }
-
-  .skills-navigation {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-content {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .psychology-container {
     padding: 0 var(--space-md);
   }
   
-  .footer-bottom {
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
-  }
-}
-
-@media (max-width: 480px) {
-  .section-title {
-    font-size: var(--font-2xl);
-  }
-
   .psychology-hero {
-    padding: 2rem 1rem;
-  }
-
-  .psychology-content {
-    padding: 2rem;
-  }
-
-  .content-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .feature-card,
-  .skill-nav-card {
-    padding: 1.5rem;
-  }
-}
-
-/* Accessibility and Performance */
-@media (prefers-reduced-motion: reduce) {
-  .psychology-hero::before,
-  .psychology-hero h1,
-  .highlight-box::before {
-    animation: none;
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-xl);
+    padding: var(--space-xl) 0;
   }
   
-  .local-nav-link:hover,
-  .feature-card:hover,
-  .skill-nav-card:hover {
-    transform: none;
-  }
-}
-
-/* Focus states for accessibility */
-.nav-link:focus,
-.local-nav-link:focus,
-.skill-nav-card:focus,
-.social-link:focus {
-  outline: 2px solid var(--warm-orange);
-  outline-offset: 2px;
-}
-
-/* Print styles */
-@media print {
-  .navbar {
-    display: none;
+  .hero-title {
+    font-size: var(--font-4xl);
   }
   
-  body {
-    background: white;
-    color: black;
+  .hero-cta {
+    justify-content: center;
   }
-}/* css/main.css - Visual Psychology Implementation */
-
-:root {
-  /* Psychology-driven color palette */
-  --primary-purple: #8B5CF6;
-  --secondary-pink: #EC4899;
-  --accent-blue: #3B82F6;
-  --warm-orange: #F97316;
-  --deep-indigo: #4C1D95;
-  --success-green: #10B981;
   
-  /* Gradient backgrounds for psychological impact */
-  --gradient-primary: linear-gradient(135deg, var(--primary-purple), var(--secondary-pink));
-  --gradient-secondary: linear-gradient(135deg, var(--accent-blue), var(--primary-purple));
-  --gradient-tertiary: linear-gradient(135deg, var(--secondary-pink), var(--warm-orange));
-  
-  /* Typography scale based on golden ratio */
-  --font-scale: 1.618;
-  --font-xs: 0.75rem;
-  --font-sm: 0.875rem;
-  --font-base: 1rem;
-  --font-lg: 1.125rem;
-  --font-xl: 1.25rem;
-  --font-2xl: 1.5rem;
-  --font-3xl: 2rem;
-  --font-4xl: 2.5rem;
-  
-  /* Spacing system for cognitive comfort */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  
-  /* Glass morphism effects */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  
-  /* Animation durations for smooth psychology */
-  --duration-fast: 0.15s;
-  --duration-normal: 0.3s;
-  --duration-slow: 0.6s;
-  --duration-slower: 1.2s;
-
-  /* Text colors */
-  --text-light: #F8FAFC;
-  --text-dark: #1E293B;
-}
-
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--gradient-primary);
-  color: var(--text-light);
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
-
-/* Smooth scrolling for psychological comfort */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Default container system - only used when not using visual-psychology-grid */
-.container:not(.visual-psychology-grid *) {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all var(--duration-normal) ease;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-md) var(--space-lg);
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: var(--font-xl);
-  font-weight: 700;
-  background: var(--gradient-tertiary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: var(--space-lg);
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: 25px;
-  transition: all var(--duration-normal) ease;
-  position: relative;
-}
-
-.nav-link:hover {
-  background: var(--glass-bg);
-  transform: translateY(-2px);
-  color: white;
-}
-
-.nav-link.active {
-  background: rgba(236, 72, 153, 0.2);
-  color: var(--secondary-pink);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--gradient-tertiary);
-  transition: all var(--duration-normal) ease;
-  transform: translateX(-50%);
-}
-
-.nav-link:hover::after {
-  width: 80%;
-}
-
-/* Section Titles - for general use */
-.section-title {
-  font-size: var(--font-3xl);
-  text-align: center;
-  margin-bottom: var(--space-md);
-  background: var(--gradient-secondary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-subtitle {
-  text-align: center;
-  font-size: var(--font-lg);
-  opacity: 0.8;
-  margin-bottom: var(--space-3xl);
-}
-
-/* Footer */
-.footer {
-  background: rgba(30, 41, 59, 0.95);
-  padding: var(--space-3xl) 0 var(--space-lg);
-  margin-top: var(--space-3xl);
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-xl);
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 var(--space-lg);
-}
-
-.footer-section h4 {
-  color: var(--secondary-pink);
-  margin-bottom: var(--space-lg);
-  font-size: var(--font-xl);
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section li {
-  margin-bottom: var(--space-sm);
-  opacity: 0.8;
-}
-
-.social-links {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  color: white;
-  text-decoration: none;
-  transition: all var(--duration-normal) ease;
-}
-
-.social-link:hover {
-  color: var(--secondary-pink);
-  transform: translateX(5px);
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: var(--space-xl);
-  border-top: 1px solid var(--glass-border);
-  opacity: 0.6;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding-left: var(--space-lg);
-  padding-right: var(--space-lg);
-}
-
-/* Utility classes for text alignment */
-.text-center {
-  text-align: center;
-}
-
-.mt-4 {
-  margin-top: var(--space-xl);
-}
-
-.opacity-80 {
-  opacity: 0.8;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
   .nav-menu {
     display: none;
   }
   
-  .nav-container {
-    padding: var(--space-md);
+  .content-section {
+    padding: var(--space-xl);
   }
   
-  .footer-content {
+  .principles-grid,
+  .motion-gallery,
+  .structure-grid,
+  .color-connections {
     grid-template-columns: 1fr;
-    padding: 0 var(--space-md);
   }
   
-  .footer-bottom {
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
+  .psychology-container {
+    padding: 0 var(--space-sm);
+  }
+  
+  .hero-title {
+    font-size: var(--font-3xl);
+  }
+  
   .section-title {
     font-size: var(--font-2xl);
   }
+  
+  .content-section {
+    padding: var(--space-lg);
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
-/* Focus states for accessibility */
-.nav-link:focus {
-  outline: 2px solid var(--warm-orange);
-  outline-offset: 2px;
-}
-
-.social-link:focus {
-  outline: 2px solid var(--warm-orange);
-  outline-offset: 2px;
-}
-
-/* Reduced motion preferences */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-    transition-duration: 0.01ms;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
+  
+  .skill-card:hover,
+  .motion-demo:hover,
+  .principle-item:hover {
+    transform: none;
+  }
+}
+
+/* Focus states */
+.nav-link:focus,
+.section-nav-link:focus,
+.btn-primary:focus,
+.btn-secondary:focus,
+.skill-card:focus {
+  outline: 2px solid var(--warm-orange);
+  outline-offset: 2px;
 }
 
 /* Print styles */
 @media print {
-  .navbar {
+  .navbar,
+  .neural-network {
     display: none;
   }
   
   body {
     background: white;
     color: black;
+  }
+  
+  .psychology-hero,
+  .main-content,
+  .skill-card {
+    background: white;
+    border: 1px solid #ccc;
   }
 }
