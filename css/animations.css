@@ -323,3 +323,79 @@
   backface-visibility: hidden;
   perspective: 1000px;
 }
+/* Demo Section Animations */
+.demo-section {
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border-left: 5px solid var(--accent-blue);
+  position: relative;
+}
+
+.demo-section h3 {
+  margin-bottom: 1.5rem;
+  color: var(--accent-blue);
+}
+
+.demo-section p {
+  color: var(--text-light);
+  opacity: 0.9;
+}
+
+.animation-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.animation-demo {
+  background: rgba(236, 72, 153, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  border: 2px solid rgba(236, 72, 153, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.animation-demo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+}
+
+/* Demo Elements - Specific implementations */
+.demo-hypno-circle {
+  width: 80px;
+  height: 80px;
+  border: 6px solid transparent;
+  border-top: 6px solid var(--secondary-pink);
+  border-right: 6px solid var(--accent-blue);
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+}
+
+.demo-morph-shape {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, var(--accent-blue), var(--secondary-pink));
+  margin: 0 auto 1rem;
+}
+
+.demo-pulse-element {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, var(--warm-orange), var(--primary-purple));
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+}
+
+.demo-float-element {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, var(--primary-purple), var(--warm-orange));
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+}

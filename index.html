@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychology-Driven Web Development Portfolio</title>
+    <title>Visual Psychology & The Mind's Response to Design</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/color-psychology.css">
@@ -18,333 +18,263 @@
                 <span>Psychology-Driven Development</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#demos" class="nav-link">Demos</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#home" class="nav-link active">Visual Psychology</a></li>
+                <li><a href="responsive-psychology/responsive.html" class="nav-link">Responsive Mind</a></li>
+                <li><a href="fullstack-psychology/frontend/dist/index.html" class="nav-link">Interactive Cognition</a></li>
+                <li><a href="fullstack-psychology/backend/demo" class="nav-link" target="_blank">Subconscious Systems</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="neural-particle" style="--delay: 0s;"></div>
-            <div class="neural-particle" style="--delay: 1s;"></div>
-            <div class="neural-particle" style="--delay: 2s;"></div>
-            <div class="neural-particle" style="--delay: 3s;"></div>
-            <div class="neural-particle" style="--delay: 4s;"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-title">Where Psychology Meets Code</h1>
-            <p class="hero-subtitle">
-                Exploring web development through the lens of human psychology and cognitive science
-            </p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Skill Levels</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label">Technologies</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">∞</span>
-                    <span class="stat-label">Possibilities</span>
-                </div>
+    <!-- Main Container -->
+    <div class="visual-psychology-container">
+        <!-- Visual Psychology Content Grid -->
+        <div class="visual-psychology-grid">
+            <!-- Hero Section -->
+            <div class="psychology-hero" id="home">
+                <h1>The Psychology of Visual Perception</h1>
+                <p class="subtitle">How Color, Motion, and Design Shape Human Consciousness</p>
+                <p class="mt-4 opacity-80">Demonstrating Pure HTML5 & CSS3 Mastery with Advanced Styling Techniques</p>
             </div>
-            <a href="#skills" class="cta-button">
-                <span>Explore My Skills</span>
-                <i class="fas fa-arrow-down"></i>
-            </a>
-        </div>
-    </section>
 
-    <!-- Skills Overview -->
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <h2 class="section-title">Technical Skills Progression</h2>
-            <p class="section-subtitle">
-                Each demonstration showcases different levels of web development expertise
-            </p>
+            <!-- Local Navigation -->
+            <nav class="psychology-nav">
+                <ul class="local-nav-menu">
+                    <li class="nav-item">
+                        <a href="#foundation" class="local-nav-link">🧠 Foundation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#motion" class="local-nav-link">🌀 Motion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#structure" class="local-nav-link">📐 Structure</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#influence" class="local-nav-link">✨ Influence</a>
+                    </li>
+                </ul>
+            </nav>
 
-            <div class="skills-grid">
-                <!-- HTML + CSS Skills -->
-                <div class="skill-card level-1">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <i class="fab fa-html5"></i>
-                            <i class="fab fa-css3-alt"></i>
-                        </div>
-                        <span class="skill-level">Level 1</span>
+            <!-- Main Content -->
+            <main class="psychology-content">
+                <section class="content-section" id="foundation">
+                    <h2>The Mind's Architecture</h2>
+                    <p>Human consciousness processes visual information through structured pathways, much like how well-organized content flows through logical hierarchies. The brain seeks patterns, meaning, and order in everything it perceives.</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Cognitive Processing Principles:</h3>
+                        <ul>
+                            <li><strong>Semantic Recognition</strong> - The mind categorizes information into meaningful chunks</li>
+                            <li><strong>Hierarchical Processing</strong> - Information flows from general concepts to specific details</li>
+                            <li><strong>Pattern Formation</strong> - Neural networks create connections between related elements</li>
+                            <li><strong>Memory Anchoring</strong> - Structured information becomes more memorable and accessible</li>
+                            <li><strong>Cognitive Flow</strong> - Smooth transitions prevent mental fatigue and maintain engagement</li>
+                            <li><strong>Contextual Understanding</strong> - Surrounding elements influence interpretation of content</li>
+                        </ul>
                     </div>
-                    <h3 class="skill-title">Visual Psychology</h3>
-                    <p class="skill-description">
-                        Pure HTML5 and CSS3 implementation showcasing advanced styling techniques, 
-                        animations, and responsive design without frameworks.
-                    </p>
-                    <div class="skill-features">
-                        <span class="feature">CSS Grid & Flexbox</span>
-                        <span class="feature">Custom Properties</span>
-                        <span class="feature">CSS Animations</span>
-                        <span class="feature">Color Psychology</span>
-                    </div>
-                    <div class="skill-metrics">
-                        <div class="metric">
-                            <span class="metric-value">0</span>
-                            <span class="metric-label">Dependencies</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">100%</span>
-                            <span class="metric-label">Custom CSS</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Bootstrap + JS Skills -->
-                <div class="skill-card level-2">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <i class="fab fa-bootstrap"></i>
-                            <i class="fab fa-js-square"></i>
-                        </div>
-                        <span class="skill-level">Level 2</span>
-                    </div>
-                    <h3 class="skill-title">Responsive Psychology</h3>
-                    <p class="skill-description">
-                        Framework-based development using Bootstrap with custom JavaScript interactions 
-                        and real-time psychology simulations.
-                    </p>
-                    <div class="skill-features">
-                        <span class="feature">Bootstrap Components</span>
-                        <span class="feature">DOM Manipulation</span>
-                        <span class="feature">Event Handling</span>
-                        <span class="feature">Local Storage</span>
-                    </div>
-                    <div class="skill-metrics">
-                        <div class="metric">
-                            <span class="metric-value">2</span>
-                            <span class="metric-label">Frameworks</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">Real-time</span>
-                            <span class="metric-label">Interactions</span>
-                        </div>
-                    </div>
-                </div>
+                    <div class="code-showcase">
+                        <pre><code>The Foundation of Mental Structure:
 
-                <!-- React + Node Skills -->
-                <div class="skill-card level-3">
-                    <div class="skill-header">
-                        <div class="skill-icon">
-                            <i class="fab fa-react"></i>
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                        <span class="skill-level">Level 3</span>
-                    </div>
-                    <h3 class="skill-title">Full-Stack Psychology</h3>
-                    <p class="skill-description">
-                        Complete web application with React frontend, Node.js backend, 
-                        MongoDB database, and real-time features.
-                    </p>
-                    <div class="skill-features">
-                        <span class="feature">React Hooks</span>
-                        <span class="feature">Express APIs</span>
-                        <span class="feature">MongoDB</span>
-                        <span class="feature">WebSockets</span>
-                    </div>
-                    <div class="skill-metrics">
-                        <div class="metric">
-                            <span class="metric-value">Full</span>
-                            <span class="metric-label">Stack</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">Live</span>
-                            <span class="metric-label">Backend</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+Consciousness operates like a well-designed system:
+- Clear hierarchies guide attention flow
+- Semantic meaning emerges from organized content  
+- Navigation pathways mirror thought processes
+- Visual elements create psychological anchors
+- Content relationships build understanding
 
-    <!-- Demos Section -->
-    <section id="demos" class="demos-section">
-        <div class="container">
-            <h2 class="section-title">Interactive Demonstrations</h2>
-            <p class="section-subtitle">
-                Click on any demonstration to explore the implementation in detail
-            </p>
-
-            <div class="demos-grid">
-                <!-- Visual Psychology Demo -->
-                <a href="visual-psychology/" class="demo-card demo-1">
-                    <div class="demo-preview">
-                        <div class="preview-animation">
-                            <div class="css-shape shape-1"></div>
-                            <div class="css-shape shape-2"></div>
-                            <div class="css-shape shape-3"></div>
-                        </div>
+Each element serves both form and function,
+creating experiences that feel natural and intuitive.</code></pre>
                     </div>
-                    <div class="demo-content">
-                        <h3 class="demo-title">Visual Psychology</h3>
-                        <p class="demo-description">
-                            Pure CSS implementation with advanced animations and color psychology
-                        </p>
-                        <div class="demo-tech">
-                            <span class="tech-badge">HTML5</span>
-                            <span class="tech-badge">CSS3</span>
-                            <span class="tech-badge">Animations</span>
-                        </div>
-                        <div class="demo-action">
-                            <span>Explore Pure CSS</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </a>
+                </section>
 
-                <!-- Responsive Psychology Demo -->
-                <a href="responsive-psychology/responsive.html" class="demo-card demo-2">
-                    <div class="demo-preview">
-                        <div class="preview-animation">
-                            <div class="bootstrap-grid">
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
-                                <div class="grid-item"></div>
+                <section class="content-section" id="motion">
+                    <h2>Movement and Attention</h2>
+                    <p>Motion triggers primitive survival instincts, immediately capturing attention and guiding focus. When used thoughtfully, animated elements can create hypnotic experiences that enhance engagement without overwhelming the conscious mind.</p>
+
+                    <div class="demo-section">
+                        <h3>Psychological Motion Patterns</h3>
+                        <div class="animation-gallery">
+                            <div class="animation-demo">
+                                <div class="demo-hypno-circle hypnotic-element"></div>
+                                <p>Circular Rhythm</p>
+                                <small>Creates meditative focus through repetitive motion</small>
+                            </div>
+                            <div class="animation-demo">
+                                <div class="demo-float-element floating-element"></div>
+                                <p>Organic Flow</p>
+                                <small>Mimics natural breathing patterns for relaxation</small>
+                            </div>
+                            <div class="animation-demo">
+                                <div class="demo-morph-shape morphing-shape"></div>
+                                <p>Shape Evolution</p>
+                                <small>Represents transformation and adaptability</small>
+                            </div>
+                            <div class="animation-demo">
+                                <div class="demo-pulse-element neural-node"></div>
+                                <p>Heartbeat Pulse</p>
+                                <small>Synchronizes with biological rhythms</small>
                             </div>
                         </div>
                     </div>
-                    <div class="demo-content">
-                        <h3 class="demo-title">Responsive Psychology</h3>
-                        <p class="demo-description">
-                            Bootstrap framework with interactive JavaScript psychology simulations
-                        </p>
-                        <div class="demo-tech">
-                            <span class="tech-badge">Bootstrap</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">Responsive</span>
+
+                    <p>These motion patterns work because they tap into fundamental aspects of human perception. Circular motions calm the mind, organic flows feel natural and comfortable, transformations suggest growth and possibility, while rhythmic pulses create subconscious synchronization with our internal biological rhythms.</p>
+                </section>
+
+                <section class="content-section" id="structure">
+                    <h2>Spatial Organization & Mental Models</h2>
+                    <p>The way information is spatially arranged directly influences how the mind processes and retains it. Modern layout systems mirror the brain's preference for organized, predictable structures.</p>
+
+                    <div class="css-features">
+                        <div class="feature-card">
+                            <div class="feature-title">Grid Thinking</div>
+                            <p>Two-dimensional organization matches how we naturally categorize information. Complex layouts become manageable when broken into logical grid systems.</p>
                         </div>
-                        <div class="demo-action">
-                            <span>Explore Framework</span>
-                            <i class="fas fa-arrow-right"></i>
+                        <div class="feature-card">
+                            <div class="feature-title">Flexible Flow</div>
+                            <p>One-dimensional arrangement creates reading flows that guide attention naturally from one element to the next, reducing cognitive load.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-title">Visual Consistency</div>
+                            <p>Repeated design patterns create psychological comfort by establishing predictable rules that the subconscious mind can follow effortlessly.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-title">Depth Perception</div>
+                            <p>Layered transparency and blur effects create spatial hierarchy, helping the mind understand which elements are most important.</p>
                         </div>
                     </div>
-                </a>
 
-                <!-- Interactive Psychology Demo -->
-                <a href="fullstack-psychology/frontend/dist/index.html" class="demo-card demo-3">
-                    <div class="demo-preview">
-                        <div class="preview-animation">
-                            <div class="react-component">
-                                <div class="component-header"></div>
-                                <div class="component-body">
-                                    <div class="data-flow"></div>
-                                    <div class="data-flow"></div>
-                                </div>
+                    <div class="highlight-box">
+                        <h3>Psychological Space Principles:</h3>
+                        <p>Our spatial arrangement follows established psychological principles: proximity groups related concepts, alignment creates order, repetition builds familiarity, contrast establishes hierarchy, and whitespace provides mental rest. These aren't arbitrary design choices—they're based on how human perception naturally works.</p>
+                    </div>
+                </section>
+
+                <section class="content-section" id="influence">
+                    <h2>Color Psychology & Emotional Response</h2>
+                    <p>Colors trigger immediate emotional and physiological responses. The carefully chosen palette here—vibrant purples, energetic pinks, and trustworthy blues—creates a specific psychological environment designed to inspire creativity while maintaining professionalism.</p>
+
+                    <div class="highlight-box">
+                        <h3>Color-Mind Connections:</h3>
+                        <ul>
+                            <li><strong class="text-creative">Purple Spectrum</strong> - Stimulates creativity, wisdom, and introspection</li>
+                            <li><strong class="text-energetic">Pink Energy</strong> - Combines passion with approachability</li>
+                            <li><strong class="text-calm">Blue Foundation</strong> - Establishes trust, stability, and communication</li>
+                            <li><strong class="text-attention">Orange Accents</strong> - Adds warmth and encourages action</li>
+                            <li><strong>Gradient Transitions</strong> - Create smooth emotional shifts between concepts</li>
+                        </ul>
+                    </div>
+
+                    <p>The interplay between these colors isn't random—it's designed to create a psychological journey. Cool blues provide a stable foundation that feels trustworthy, while warm purples and pinks stimulate creativity and engagement. The gradual transitions between colors prevent jarring mental shifts, creating a smooth, almost hypnotic visual experience.</p>
+
+                    <div class="code-showcase">
+                        <pre><code>Visual Psychology in Action:
+
+Every design choice has psychological purpose:
+→ Smooth curves reduce mental tension
+→ Consistent spacing creates rhythm
+→ Color gradients guide emotional flow  
+→ Transparency suggests openness
+→ Motion patterns induce focus states
+
+The result: interfaces that feel intuitive
+because they align with natural perception.</code></pre>
+                    </div>
+
+                    <p>Understanding these psychological principles allows designers to create interfaces that don't just look beautiful—they actively support the user's mental processes, reducing cognitive load and enhancing the overall experience.</p>
+                </section>
+            </main>
+
+            <!-- Skills Navigation Demos -->
+            <section class="psychology-demos" id="demos">
+                <h2 class="section-title">Explore Advanced Development Skills</h2>
+                <p class="section-subtitle">
+                    Each demonstration showcases different levels of web development expertise with psychological principles
+                </p>
+
+                <div class="skills-navigation">
+                    <!-- Level 2: Responsive Psychology -->
+                    <a href="responsive-psychology/responsive.html" class="skill-nav-card level-2">
+                        <div class="skill-nav-header">
+                            <div class="skill-nav-icon">
+                                <i class="fab fa-bootstrap"></i>
+                                <i class="fab fa-js-square"></i>
                             </div>
+                            <span class="skill-level-badge">Level 2</span>
                         </div>
-                    </div>
-                    <div class="demo-content">
-                        <h3 class="demo-title">Interactive Psychology</h3>
-                        <p class="demo-description">
-                            React frontend with dynamic state management and real-time interactions
+                        <h3 class="skill-nav-title">Responsive Psychology</h3>
+                        <p class="skill-nav-description">
+                            Framework-based development using Bootstrap with custom JavaScript interactions 
+                            and real-time psychology simulations.
                         </p>
-                        <div class="demo-tech">
-                            <span class="tech-badge">React</span>
-                            <span class="tech-badge">Hooks</span>
-                            <span class="tech-badge">State Management</span>
+                        <div class="skill-nav-tech">
+                            <span class="tech-tag">Bootstrap Components</span>
+                            <span class="tech-tag">DOM Manipulation</span>
+                            <span class="tech-tag">Event Handling</span>
+                            <span class="tech-tag">Real-time Interactions</span>
                         </div>
-                        <div class="demo-action">
-                            <span>Explore React</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </a>
+                    </a>
 
-                <!-- Backend Architecture Demo -->
-                <a href="fullstack-psychology/backend/demo" target="_blank" class="demo-card demo-4">
-                    <div class="demo-preview">
-                        <div class="preview-animation">
-                            <div class="server-architecture">
-                                <div class="server-layer api"></div>
-                                <div class="server-layer database"></div>
-                                <div class="server-connection"></div>
+                    <!-- Level 3: Interactive Psychology -->
+                    <a href="fullstack-psychology/frontend/dist/index.html" class="skill-nav-card level-3">
+                        <div class="skill-nav-header">
+                            <div class="skill-nav-icon">
+                                <i class="fab fa-react"></i>
+                                <i class="fab fa-node-js"></i>
                             </div>
+                            <span class="skill-level-badge">Level 3</span>
                         </div>
-                    </div>
-                    <div class="demo-content">
-                        <h3 class="demo-title">Subconscious Architecture</h3>
-                        <p class="demo-description">
-                            Live Node.js backend with MongoDB integration and real-time monitoring
+                        <h3 class="skill-nav-title">Interactive Psychology</h3>
+                        <p class="skill-nav-description">
+                            React frontend with dynamic state management, real-time interactions,
+                            and advanced component-based architecture.
                         </p>
-                        <div class="demo-tech">
-                            <span class="tech-badge">Node.js</span>
-                            <span class="tech-badge">Express</span>
-                            <span class="tech-badge">MongoDB</span>
+                        <div class="skill-nav-tech">
+                            <span class="tech-tag">React Hooks</span>
+                            <span class="tech-tag">State Management</span>
+                            <span class="tech-tag">Component Architecture</span>
+                            <span class="tech-tag">Real-time Features</span>
                         </div>
-                        <div class="demo-action">
-                            <span>View Backend</span>
-                            <i class="fas fa-external-link-alt"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
+                    </a>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>The Psychology-First Approach</h2>
-                    <p>
-                        This portfolio demonstrates how understanding human psychology can create 
-                        more intuitive and engaging web experiences. Each technical implementation 
-                        is grounded in cognitive science principles.
-                    </p>
-                    <div class="philosophy-points">
-                        <div class="point">
-                            <i class="fas fa-eye"></i>
-                            <span>Visual perception guides interface design</span>
+                    <!-- Backend Architecture -->
+                    <a href="fullstack-psychology/backend/demo" target="_blank" class="skill-nav-card level-3">
+                        <div class="skill-nav-header">
+                            <div class="skill-nav-icon">
+                                <i class="fas fa-server"></i>
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <span class="skill-level-badge">Full Stack</span>
                         </div>
-                        <div class="point">
-                            <i class="fas fa-brain"></i>
-                            <span>Cognitive load theory shapes user interactions</span>
+                        <h3 class="skill-nav-title">Subconscious Systems</h3>
+                        <p class="skill-nav-description">
+                            Live Node.js backend with MongoDB integration, RESTful APIs,
+                            and real-time consciousness monitoring systems.
+                        </p>
+                        <div class="skill-nav-tech">
+                            <span class="tech-tag">Express APIs</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">WebSockets</span>
+                            <span class="tech-tag">Real-time Backend</span>
                         </div>
-                        <div class="point">
-                            <i class="fas fa-heart"></i>
-                            <span>Emotional responses influence color and motion choices</span>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="about-visual">
-                    <div class="psychology-diagram">
-                        <div class="brain-section visual">Visual</div>
-                        <div class="brain-section cognitive">Cognitive</div>
-                        <div class="brain-section emotional">Emotional</div>
-                        <div class="neural-connection"></div>
-                        <div class="neural-connection"></div>
-                        <div class="neural-connection"></div>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Technical Skills</h4>
+                    <h4>Pure CSS Implementation</h4>
                     <ul>
-                        <li>Frontend: HTML5, CSS3, JavaScript, React</li>
-                        <li>Backend: Node.js, Express, MongoDB</li>
-                        <li>Frameworks: Bootstrap, Tailwind CSS</li>
-                        <li>Tools: Git, Webpack, Vite</li>
+                        <li>Advanced CSS Grid & Flexbox</li>
+                        <li>Custom Properties & Variables</li>
+                        <li>CSS Animations & Keyframes</li>
+                        <li>Responsive Design Principles</li>
+                        <li>Accessibility & Performance</li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -353,33 +283,128 @@
                         <li>Color Psychology</li>
                         <li>Cognitive Load Theory</li>
                         <li>Gestalt Principles</li>
-                        <li>User Experience Psychology</li>
+                        <li>Visual Hierarchy</li>
+                        <li>Motion & Attention</li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Connect</h4>
+                    <h4>Technical Skills</h4>
                     <div class="social-links">
-                        <a href="#" class="social-link">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-linkedin"></i>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Email</span>
-                        </a>
+                        <div class="skill-progress">
+                            <span class="tech-badge">Semantic HTML5</span>
+                            <span class="tech-badge">Pure CSS3</span>
+                            <span class="tech-badge">CSS Grid</span>
+                            <span class="tech-badge">Flexbox</span>
+                            <span class="tech-badge">Animations</span>
+                            <span class="tech-badge">Responsive Design</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Psychology-Driven Web Development Portfolio</p>
+                <p>&copy; 2024 Psychology-Driven Web Development Portfolio - Pure HTML5 & CSS3 Implementation</p>
             </div>
         </div>
     </footer>
 
     <script src="js/navigation.js"></script>
+    <script>
+        // Smooth scrolling for local navigation
+        document.querySelectorAll('.local-nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for section highlighting
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.local-nav-link');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.6 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Psychology demo interactions
+        document.querySelectorAll('.animation-demo').forEach(demo => {
+            demo.addEventListener('click', function() {
+                // Add clicked animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+                
+                // Track interaction for psychology demonstration
+                if (window.PsychologyNavigation) {
+                    window.PsychologyNavigation.trackInteraction('animation-demo', this.textContent);
+                }
+            });
+        });
+
+        // Color psychology demonstration
+        function demonstrateColorPsychology() {
+            const colorElements = document.querySelectorAll('.text-creative, .text-energetic, .text-calm, .text-attention');
+            
+            colorElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.transform = 'scale(1.1)';
+                    element.style.textShadow = '0 0 20px currentColor';
+                    
+                    setTimeout(() => {
+                        element.style.transform = '';
+                        element.style.textShadow = '';
+                    }, 1000);
+                }, index * 200);
+            });
+        }
+
+        // Auto-demonstrate color psychology after page load
+        window.addEventListener('load', () => {
+            setTimeout(demonstrateColorPsychology, 2000);
+        });
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' && e.ctrlKey) {
+                e.preventDefault();
+                const currentActive = document.querySelector('.local-nav-link.active');
+                const allLinks = Array.from(document.querySelectorAll('.local-nav-link'));
+                const currentIndex = allLinks.indexOf(currentActive);
+                const nextIndex = (currentIndex + 1) % allLinks.length;
+                allLinks[nextIndex].click();
+            }
+            
+            if (e.key === 'ArrowUp' && e.ctrlKey) {
+                e.preventDefault();
+                const currentActive = document.querySelector('.local-nav-link.active');
+                const allLinks = Array.from(document.querySelectorAll('.local-nav-link'));
+                const currentIndex = allLinks.indexOf(currentActive);
+                const prevIndex = currentIndex > 0 ? currentIndex - 1 : allLinks.length - 1;
+                allLinks[prevIndex].click();
+            }
+        });
+
+        console.log('🎨 Visual Psychology interface loaded');
+        console.log('🧠 Pure HTML5 & CSS3 demonstration active');
+        console.log('✨ Advanced styling techniques showcased');
+    </script>
 </body>
 </html>
