@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology-Driven Web Development Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --secondary-pink: #EC4899;
+            --accent-blue: #3B82F6;
+            --warm-orange: #F97316;
+            --deep-indigo: #4C1D95;
+            --node-green: #68A063;
+            --gradient-bg: linear-gradient(135deg, var(--primary-purple), var(--secondary-pink), var(--accent-blue));
+            --text-light: #F8FAFC;
+            --glass-bg: rgba(30, 41, 59, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+        }
+
+        /* Navigation */
+        .navbar-custom {
+            background: var(--glass-bg) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--secondary-pink);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue), var(--warm-orange));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 0 0.5rem;
+            padding: 0.8rem 1.2rem !important;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-pink) !important;
+            transform: translateY(-2px);
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary-pink), var(--accent-blue));
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue), var(--warm-orange));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 4s ease-in-out infinite alternate;
+            margin-bottom: 2rem;
+            font-weight: 800;
+        }
+
+        @keyframes textGlow {
+            from { filter: drop-shadow(0 0 20px var(--secondary-pink)); }
+            to { filter: drop-shadow(0 0 40px var(--accent-blue)); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Navigation Cards */
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .nav-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--secondary-pink);
+            box-shadow: 0 25px 50px rgba(236, 72, 153, 0.3);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(236, 72, 153, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .nav-card:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(50%, 50%);
+        }
+
+        .nav-card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .nav-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .nav-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-card-tech {
+            font-size: 0.9rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Specific card colors */
+        .card-visual { border-left: 5px solid var(--warm-orange); }
+        .card-responsive { border-left: 5px solid var(--accent-blue); }
+        .card-interactive { border-left: 5px solid var(--secondary-pink); }
+        .card-architecture { border-left: 5px solid var(--node-green); }
+
+        .card-visual .nav-card-icon { color: var(--warm-orange); }
+        .card-responsive .nav-card-icon { color: var(--accent-blue); }
+        .card-interactive .nav-card-icon { color: var(--secondary-pink); }
+        .card-architecture .nav-card-icon { color: var(--node-green); }
+
+        /* Hypnotic Elements */
+        .spiral {
+            width: 150px;
+            height: 150px;
+            border: 6px solid transparent;
+            border-top: 6px solid var(--secondary-pink);
+            border-right: 6px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: hypnoSpin 5s linear infinite;
+            position: absolute;
+            opacity: 0.2;
+        }
+
+        @keyframes hypnoSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 4rem 3rem;
+            margin: 4rem 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .about-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--secondary-pink);
+            text-align: center;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .about-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .about-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--secondary-pink);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-pink);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-pink);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .nav-card {
+                padding: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .about-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Page transition effects */
+        .page-transition {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading animation for page transitions */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid var(--secondary-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-brain me-2"></i>Psychology-Driven Development
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateToPage('visual-psychology')">Visual Psychology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateToPage('responsive-psychology')">Responsive Mind</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateToPage('interactive-psychology')">Interactive Cognition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="navigateToPage('subconscious-architecture')">Subconscious Systems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="spiral" style="top: 15%; right: 10%;"></div>
+            <div class="spiral" style="bottom: 20%; left: 8%; animation-delay: -2s;"></div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 hero-content page-transition">
+                        <h1>Where Psychology Meets Technology</h1>
+                        <p>Exploring how visual design, user interaction, and system architecture influence human behavior and cognitive processes. Each interface element is crafted with psychological principles to create intuitive, engaging digital experiences.</p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="btn btn-lg px-4 py-3" style="background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue)); border: none; color: white; border-radius: 25px; font-weight: 600;" onclick="navigateToPage('visual-psychology')">
+                                <i class="fas fa-eye me-2"></i>Explore Visual Psychology
+                            </button>
+                            <button class="btn btn-outline-light btn-lg px-4 py-3" style="border-radius: 25px; font-weight: 600;" onclick="document.getElementById('navigation').scrollIntoView({behavior: 'smooth'})">
+                                <i class="fas fa-compass me-2"></i>View All Experiences
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Cards -->
+        <section id="navigation" class="container my-5 page-transition" style="animation-delay: 0.2s;">
+            <div class="text-center mb-5">
+                <h2 style="font-size: 2.5rem; color: var(--secondary-pink); margin-bottom: 1rem;">Psychological Experiences</h2>
+                <p style="font-size: 1.2rem; opacity: 0.8; max-width: 800px; margin: 0 auto;">
+                    Each section demonstrates different aspects of web development through the lens of human psychology and cognitive science.
+                </p>
+            </div>
+
+            <div class="nav-cards">
+                <!-- Visual Psychology Card -->
+                <a href="#" class="nav-card card-visual" onclick="navigateToPage('visual-psychology')">
+                    <i class="nav-card-icon fas fa-palette"></i>
+                    <h3>Visual Psychology & Perception</h3>
+                    <p>How color, motion, and spatial design influence human consciousness and emotional states. Explore the psychological principles behind effective visual communication.</p>
+                    <div class="nav-card-tech">Pure HTML5 + Advanced CSS</div>
+                </a>
+
+                <!-- Responsive Psychology Card -->
+                <a href="#" class="nav-card card-responsive" onclick="navigateToPage('responsive-psychology')">
+                    <i class="nav-card-icon fas fa-mobile-alt"></i>
+                    <h3>Adaptive Interface Psychology</h3>
+                    <p>Understanding how responsive design and interactive components adapt to different mental states and device contexts, creating seamless user experiences.</p>
+                    <div class="nav-card-tech">Bootstrap Framework + JavaScript</div>
+                </a>
+
+                <!-- Interactive Psychology Card -->
+                <a href="#" class="nav-card card-interactive" onclick="navigateToPage('interactive-psychology')">
+                    <i class="nav-card-icon fas fa-brain"></i>
+                    <h3>Dynamic Interface Psychology</h3>
+                    <p>How interactive components mirror human cognitive processes. Real-time state management and neural network visualizations demonstrate component-based thinking.</p>
+                    <div class="nav-card-tech">React + Modern Hooks</div>
+                </a>
+
+                <!-- System Architecture Card -->
+                <a href="#" class="nav-card card-architecture" onclick="navigateToPage('subconscious-architecture')">
+                    <i class="nav-card-icon fas fa-server"></i>
+                    <h3>Subconscious Server Architecture</h3>
+                    <p>Backend systems that mirror the unconscious mind's parallel processing capabilities. Explore how servers handle multiple psychological processes simultaneously.</p>
+                    <div class="nav-card-tech">Node.js + Express Architecture</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="container page-transition" style="animation-delay: 0.4s;">
+            <div class="about-section">
+                <h2>The Psychology-First Approach</h2>
+                <p style="text-align: center; font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto;">
+                    This portfolio demonstrates how understanding human psychology can create more intuitive, engaging, and effective web experiences. Every design choice is grounded in cognitive science and behavioral psychology.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-item">
+                        <i class="about-icon fas fa-eye"></i>
+                        <h4>Visual Cognition</h4>
+                        <p>Color theory, gestalt principles, and attention patterns guide every visual decision</p>
+                    </div>
+
+                    <div class="about-item">
+                        <i class="about-icon fas fa-hand-pointer"></i>
+                        <h4>Interaction Psychology</h4>
+                        <p>User behaviors and mental models shape interface patterns and feedback systems</p>
+                    </div>
+
+                    <div class="about-item">
+                        <i class="about-icon fas fa-chart-line"></i>
+                        <h4>Performance Psychology</h4>
+                        <p>Loading times and responsiveness directly impact user satisfaction and stress levels</p>
+                    </div>
+
+                    <div class="about-item">
+                        <i class="about-icon fas fa-users"></i>
+                        <h4>Social Psychology</h4>
+                        <p>Understanding how interfaces facilitate human connection and collaborative experiences</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Psychology-Driven Development</h4>
+                    <p>Combining technical expertise with deep understanding of human psychology to create more effective digital experiences.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Technical Skills</h4>
+                    <p>HTML5, CSS3, JavaScript, React, Node.js, Express, Bootstrap, Responsive Design, API Development</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Psychological Principles</h4>
+                    <p>Cognitive Load Theory, Color Psychology, Gestalt Principles, User Experience Psychology, Behavioral Design</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <p>
+                        <a href="#" class="me-3"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="#"><i class="fas fa-envelope"></i> Email</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="color: rgba(255,255,255,0.6);">&copy; 2024 Psychology-Driven Web Development Portfolio</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Page navigation with loading effect
+        function navigateToPage(page) {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.add('active');
+
+            // Simulate loading time for smooth transition
+            setTimeout(() => {
+                let url;
+                switch(page) {
+                    case 'visual-psychology':
+                        // In a real implementation, this would navigate to the HTML5+CSS page
+                        alert('This would navigate to: Visual Psychology & Perception page (HTML5 + CSS)');
+                        break;
+                    case 'responsive-psychology':
+                        // This would navigate to the Bootstrap+JS page
+                        alert('This would navigate to: Adaptive Interface Psychology page (Bootstrap + JavaScript)');
+                        break;
+                    case 'interactive-psychology':
+                        // This would navigate to the React component page
+                        alert('This would navigate to: Dynamic Interface Psychology page (React)');
+                        break;
+                    case 'subconscious-architecture':
+                        // This would navigate to the Node.js page
+                        alert('This would navigate to: Subconscious Server Architecture page (Node.js)');
+                        break;
+                }
+                
+                loadingOverlay.classList.remove('active');
+            }, 1200);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#') && this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(30, 41, 59, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(30, 41, 59, 0.8)';
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all page transition elements
+            document.querySelectorAll('.page-transition').forEach(element => {
+                element.style.animationPlayState = 'paused';
+                observer.observe(element);
+            });
+
+            // Add some interactive effects
+            document.querySelectorAll('.nav-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.nav-card-icon');
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                    icon.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.nav-card-icon');
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+
+            console.log('🧠 Psychology-driven portfolio initialized');
+            console.log('🎨 Visual psychology systems active');
+            console.log('🔗 Navigation pathways established');
+        });
+
+        // Keyboard shortcuts for navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        navigateToPage('visual-psychology');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        navigateToPage('responsive-psychology');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        navigateToPage('interactive-psychology');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        navigateToPage('subconscious-architecture');
+                        break;
+                }
+            }
+        });
+
+        // Add subtle parallax effect to spirals
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const spirals = document.querySelectorAll('.spiral');
+            
+            spirals.forEach((spiral, index) => {
+                const rate = scrolled * -0.3;
+                spiral.style.transform = `translateY(${rate * (index + 1)}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>

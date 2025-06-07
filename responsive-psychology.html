@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Psychology - Dynamic Mental States</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --hypno-purple: #8B5CF6;
+            --hypno-pink: #EC4899;
+            --hypno-blue: #3B82F6;
+            --hypno-orange: #F97316;
+            --dark-bg: #1E293B;
+            --glass-bg: rgba(30, 41, 59, 0.8);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Custom Bootstrap Overrides */
+        .navbar-custom {
+            background: var(--glass-bg) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--hypno-pink);
+        }
+
+        .card-custom {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-hypno {
+            background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
+            border: none;
+            color: white;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-hypno:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-hypno::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-hypno:hover::before {
+            left: 100%;
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--hypno-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mood-ring {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .progress-custom {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+            transition: all 0.8s ease;
+            animation: progressGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progressGlow {
+            from { box-shadow: 0 0 10px rgba(139, 92, 246, 0.5); }
+            to { box-shadow: 0 0 20px rgba(236, 72, 153, 0.8); }
+        }
+
+        /* Modal customizations */
+        .modal-content-custom {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--hypno-pink);
+            border-radius: 20px;
+        }
+
+        /* Form controls */
+        .form-control-custom {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .form-control-custom:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--hypno-pink);
+            box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25);
+            color: white;
+        }
+
+        .form-control-custom::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Accordion customizations */
+        .accordion-button-custom {
+            background: var(--glass-bg);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .accordion-button-custom:not(.collapsed) {
+            background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .accordion-body-custom {
+            background: rgba(30, 41, 59, 0.6);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Offcanvas customizations */
+        .offcanvas-custom {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-left: 3px solid var(--hypno-pink);
+        }
+
+        /* Alert customizations */
+        .alert-custom {
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            border: 2px solid var(--hypno-pink);
+            color: white;
+            border-radius: 15px;
+        }
+
+        /* Tab customizations */
+        .nav-tabs-custom .nav-link.active {
+            background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
+            border-color: var(--hypno-pink);
+            color: white;
+        }
+
+        .tab-content-custom {
+            background: var(--glass-bg);
+            border: 2px solid var(--hypno-pink);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            padding: 2rem;
+        }
+
+        /* Responsive text sizing */
+        .display-responsive {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue), var(--hypno-orange));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* JavaScript Demo Styles */
+        .js-demo {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed var(--hypno-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .counter-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--hypno-pink);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 1rem 0;
+        }
+
+        .color-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            margin: 0 auto 1rem;
+            transition: all 0.5s ease;
+            border: 3px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Animation classes for JavaScript */
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .fade-slide-in {
+            animation: fadeSlideIn 0.8s ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-brain text-warning"></i> Responsive Psychology
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#adaptation">Adaptation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#interaction">Interaction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#behavior">Behavior</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-hypno btn-sm ms-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+                            <i class="fas fa-bars"></i> Explore
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h1 class="display-responsive">Adaptive Interface Psychology</h1>
+                <p class="lead text-center text-white mb-4">
+                    Exploring how responsive design and interactive elements influence user behavior and create seamless experiences across all devices and mental states.
+                </p>
+            </div>
+        </div>
+
+        <!-- Responsive Design Psychology -->
+        <section id="adaptation" class="mb-5">
+            <h2 class="text-white mb-4">
+                <i class="fas fa-mobile-alt text-info"></i> Mental Adaptation Patterns
+            </h2>
+            
+            <div class="row g-4">
+                <!-- Responsive Framework -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-custom text-white h-100">
+                        <div class="card-header bg-transparent border-bottom border-light">
+                            <h5 class="mb-0"><i class="fas fa-expand-arrows-alt"></i> Flexible Layouts</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">The mind adapts differently to various screen sizes. What feels spacious on desktop may overwhelm on mobile, requiring psychological recalibration of information density.</p>
+                            <div class="progress progress-custom mb-3">
+                                <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 95%">
+                                    Adaptation Complete
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <button class="btn btn-hypno btn-sm" onclick="animateCard(this)">
+                                <i class="fas fa-magic"></i> Transform
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Forms -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-custom text-white h-100">
+                        <div class="card-header bg-transparent border-bottom border-light">
+                            <h5 class="mb-0"><i class="fas fa-brain"></i> Cognitive Input</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label class="form-label">Mental State</label>
+                                    <input type="text" class="form-control form-control-custom" placeholder="How are you feeling?">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Focus Level</label>
+                                    <select class="form-select form-control-custom">
+                                        <option>Highly Focused</option>
+                                        <option>Moderately Focused</option>
+                                        <option>Relaxed</option>
+                                        <option>Distracted</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Psychology -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card card-custom text-white h-100">
+                        <div class="card-header bg-transparent border-bottom border-light">
+                            <h5 class="mb-0"><i class="fas fa-window-maximize"></i> Focused Attention</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">Modal windows isolate attention, creating tunnel vision that enhances focus but can also increase anxiety if overused.</p>
+                            <button type="button" class="btn btn-hypno" data-bs-toggle="modal" data-bs-target="#psychologyModal">
+                                <i class="fas fa-eye"></i> Enter Focus Mode
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Behavior Analysis -->
+        <section id="interaction" class="mb-5">
+            <h2 class="text-white mb-4">
+                <i class="fas fa-hand-pointer text-warning"></i> Behavioral Response Patterns
+            </h2>
+
+            <div class="row g-4">
+                <!-- Behavioral Counter -->
+                <div class="col-lg-6">
+                    <div class="js-demo">
+                        <h4 class="text-white mb-3">
+                            <i class="fas fa-chart-line"></i> Decision Tracking
+                        </h4>
+                        <p class="text-white-50">Each interaction creates neural pathways. Watch how repeated actions become habitual.</p>
+                        <div class="counter-display" id="counterValue">0</div>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-success" onclick="updateCounter(-1)">
+                                <i class="fas fa-minus"></i> Reduce
+                            </button>
+                            <button class="btn btn-danger" onclick="resetCounter()">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                            <button class="btn btn-success" onclick="updateCounter(1)">
+                                <i class="fas fa-plus"></i> Increase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emotional Color Response -->
+                <div class="col-lg-6">
+                    <div class="js-demo">
+                        <h4 class="text-white mb-3">
+                            <i class="fas fa-palette"></i> Emotional State Visualization
+                        </h4>
+                        <p class="text-white-50">Colors trigger immediate emotional responses. Notice how your feeling changes with each transformation.</p>
+                        <div class="color-box" id="colorBox" style="background: linear-gradient(45deg, #8B5CF6, #EC4899);"></div>
+                        <div class="mood-ring mb-3" id="moodRing" style="background: radial-gradient(circle, #8B5CF6, #EC4899);">
+                            😌
+                        </div>
+                        <button class="btn btn-hypno" onclick="changeColorMood()">
+                            <i class="fas fa-sync-alt"></i> Shift Emotion
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time Psychological Monitoring -->
+            <div class="interactive-demo mt-4">
+                <h4 class="text-white mb-3">
+                    <i class="fas fa-heartbeat"></i> Real-time Psychological State Monitor
+                </h4>
+                <p class="text-white-50 mb-4">
+                    These sliders simulate how interface elements can track and respond to user psychological states in real-time.
+                </p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="form-label text-white">Attention Level</label>
+                        <input type="range" class="form-range" min="0" max="100" value="50" id="attentionRange" 
+                               oninput="updatePsychState()">
+                        <div class="progress progress-custom mt-2">
+                            <div class="progress-bar progress-bar-custom" id="attentionProgress" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-white">Stress Level</label>
+                        <input type="range" class="form-range" min="0" max="100" value="30" id="stressRange" 
+                               oninput="updatePsychState()">
+                        <div class="progress progress-custom mt-2">
+                            <div class="progress-bar bg-warning" id="stressProgress" style="width: 30%"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <div class="text-white mb-2">Current State:</div>
+                            <span class="badge bg-info fs-6" id="currentPsychState">Balanced</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Behavioral Components -->
+        <section id="behavior" class="mb-5">
+            <h2 class="text-white mb-4">
+                <i class="fas fa-brain"></i> Complex Behavioral Patterns
+            </h2>
+
+            <!-- Tabs for Information Architecture -->
+            <div class="mb-4">
+                <ul class="nav nav-tabs nav-tabs-custom" id="behaviorTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="hierarchy-tab" data-bs-toggle="tab" data-bs-target="#hierarchy-content" type="button" role="tab">
+                            <i class="fas fa-sitemap"></i> Information Hierarchy
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="flow-tab" data-bs-toggle="tab" data-bs-target="#flow-content" type="button" role="tab">
+                            <i class="fas fa-route"></i> User Flow
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="feedback-tab" data-bs-toggle="tab" data-bs-target="#feedback-content" type="button" role="tab">
+                            <i class="fas fa-comments"></i> Feedback Loops
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content tab-content-custom" id="behaviorTabContent">
+                    <div class="tab-pane fade show active" id="hierarchy-content" role="tabpanel">
+                        <h5 class="text-white">Cognitive Information Processing</h5>
+                        <p class="text-white-50">The mind processes information hierarchically. Primary elements capture attention first, secondary elements provide context, and tertiary elements offer detail.</p>
+                        <div class="row g-2">
+                            <div class="col-4"><div class="bg-primary p-3 rounded text-center">Primary Focus</div></div>
+                            <div class="col-4"><div class="bg-success p-3 rounded text-center">Secondary Context</div></div>
+                            <div class="col-4"><div class="bg-warning p-3 rounded text-center">Tertiary Detail</div></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="flow-content" role="tabpanel">
+                        <h5 class="text-white">Psychological Navigation Patterns</h5>
+                        <p class="text-white-50">Users follow predictable mental paths. Understanding these patterns allows designers to guide attention and reduce cognitive load.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-primary p-2">Entry Point</span>
+                            <i class="fas fa-arrow-right text-white"></i>
+                            <span class="badge bg-secondary p-2">Decision Node</span>
+                            <i class="fas fa-arrow-right text-white"></i>
+                            <span class="badge bg-success p-2">Goal Achievement</span>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="feedback-content" role="tabpanel">
+                        <h5 class="text-white">Behavioral Reinforcement</h5>
+                        <p class="text-white-50">Immediate feedback creates psychological satisfaction and encourages continued engagement through positive reinforcement loops.</p>
+                        <div class="d-flex justify-content-around align-items-center bg-dark p-3 rounded">
+                            <div class="bg-info p-2 rounded">Action</div>
+                            <div class="bg-warning p-2 rounded">Feedback</div>
+                            <div class="bg-success p-2 rounded">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accordion for Detailed Psychology -->
+            <div class="accordion" id="psychAccordion">
+                <div class="accordion-item bg-transparent border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button accordion-button-custom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <i class="fas fa-mobile-alt me-2"></i> Device-Specific Psychological Responses
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#psychAccordion">
+                        <div class="accordion-body accordion-body-custom">
+                            Mobile users exhibit different behavioral patterns than desktop users. Touch interfaces create more intimate connections, while larger screens allow for complex multitasking. Responsive design must account for these psychological differences, adapting not just layout but also interaction patterns to match the user's mental model for each device type.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-transparent border-0">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <i class="fas fa-rocket me-2"></i> Performance Impact on Psychology
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#psychAccordion">
+                        <div class="accordion-body accordion-body-custom">
+                            Loading times directly affect user psychology. Every second of delay increases stress and decreases satisfaction. Modern frameworks enable smooth interactions that maintain user engagement, while slow responses trigger anxiety and abandonment behaviors. Optimized performance isn't just technical—it's psychological therapy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Psychological Insights -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="alert alert-custom" role="alert">
+                    <h4 class="alert-heading">
+                        <i class="fas fa-lightbulb"></i> Key Psychological Insights
+                    </h4>
+                    <p class="mb-0">Responsive frameworks succeed because they mirror human adaptability. Just as our minds adjust to different social contexts, interfaces must adapt to different devices and usage patterns. The combination of flexible layouts and interactive feedback creates environments that feel natural and supportive to human psychology.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="psychologyModal" tabindex="-1" aria-labelledby="psychologyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-content-custom text-white">
+                <div class="modal-header border-bottom border-light">
+                    <h5 class="modal-title" id="psychologyModalLabel">
+                        <i class="fas fa-brain"></i> Deep Focus Psychology
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal windows create psychological tunnel vision—they isolate attention by removing peripheral distractions. This can enhance focus but may also increase cognitive pressure.</p>
+                    <div class="text-center my-4">
+                        <div class="spinner-border text-info" role="status">
+                            <span class="visually-hidden">Processing attention...</span>
+                        </div>
+                        <p class="mt-3">Focusing mental resources...</p>
+                    </div>
+                    <p>The key to effective modal design is balancing focus with comfort—providing clear escape routes and maintaining visual breathing room.</p>
+                </div>
+                <div class="modal-footer border-top border-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Return to Context</button>
+                    <button type="button" class="btn btn-hypno" onclick="deeperFocus()">Intensify Focus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end offcanvas-custom text-white" tabindex="-1" id="offcanvasMenu">
+        <div class="offcanvas-header border-bottom border-light">
+            <h5 class="offcanvas-title">
+                <i class="fas fa-compass"></i> Psychological Navigation
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                    <a href="#adaptation" class="text-decoration-none text-white d-flex align-items-center">
+                        <i class="fas fa-mobile-alt me-3"></i> Mental Adaptation
+                    </a>
+                </li>
+                <li class="mb-3">
+                    <a href="#interaction" class="text-decoration-none text-white d-flex align-items-center">
+                        <i class="fas fa-hand-pointer me-3"></i> Behavioral Responses
+                    </a>
+                </li>
+                <li class="mb-3">
+                    <a href="#behavior" class="text-decoration-none text-white d-flex align-items-center">
+                        <i class="fas fa-brain me-3"></i> Complex Patterns
+                    </a>
+                </li>
+            </ul>
+            <hr class="border-light">
+            <div class="mt-4">
+                <h6>Psychological Tools</h6>
+                <button class="btn btn-hypno btn-sm mb-2 w-100" onclick="randomizeEmotions()">
+                    <i class="fas fa-random"></i> Shift Emotional State
+                </button>
+                <button class="btn btn-outline-light btn-sm w-100" onclick="showPsychNotification()">
+                    <i class="fas fa-bell"></i> Trigger Feedback
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Behavioral tracking counter
+        let counter = 0;
+        
+        function updateCounter(change) {
+            counter += change;
+            const counterElement = document.getElementById('counterValue');
+            counterElement.textContent = counter;
+            counterElement.classList.add('bounce-in');
+            setTimeout(() => counterElement.classList.remove('bounce-in'), 600);
+        }
+        
+        function resetCounter() {
+            counter = 0;
+            const counterElement = document.getElementById('counterValue');
+            counterElement.textContent = counter;
+            counterElement.classList.add('shake');
+            setTimeout(() => counterElement.classList.remove('shake'), 500);
+        }
+
+        // Emotional state color system
+        const emotionalStates = [
+            { bg: 'linear-gradient(45deg, #8B5CF6, #EC4899)', mood: '😌', state: 'Calm & Creative' },
+            { bg: 'linear-gradient(45deg, #F97316, #EF4444)', mood: '🔥', state: 'Energetic & Alert' },
+            { bg: 'linear-gradient(45deg, #10B981, #3B82F6)', mood: '🌊', state: 'Peaceful & Focused' },
+            { bg: 'linear-gradient(45deg, #8B5CF6, #3B82F6)', mood: '🧠', state: 'Analytical & Sharp' },
+            { bg: 'linear-gradient(45deg, #EC4899, #F97316)', mood: '✨', state: 'Inspired & Optimistic' }
+        ];
+        
+        let currentEmotionIndex = 0;
+        
+        function changeColorMood() {
+            currentEmotionIndex = (currentEmotionIndex + 1) % emotionalStates.length;
+            const emotion = emotionalStates[currentEmotionIndex];
+            
+            document.getElementById('colorBox').style.background = emotion.bg;
+            document.getElementById('moodRing').style.background = `radial-gradient(circle, ${emotion.bg})`;
+            document.getElementById('moodRing').textContent = emotion.mood;
+            
+            // Add animation feedback
+            const colorBox = document.getElementById('colorBox');
+            colorBox.classList.add('bounce-in');
+            setTimeout(() => colorBox.classList.remove('bounce-in'), 600);
+        }
+
+        // Psychological state monitoring
+        function updatePsychState() {
+            const attentionValue = document.getElementById('attentionRange').value;
+            const stressValue = document.getElementById('stressRange').value;
+            
+            document.getElementById('attentionProgress').style.width = attentionValue + '%';
+            document.getElementById('stressProgress').style.width = stressValue + '%';
+            
+            // Determine psychological state
+            let state = 'Overwhelmed';
+            if (attentionValue > 70 && stressValue < 30) {
+                state = 'Flow State';
+            } else if (attentionValue > 50 && stressValue < 50) {
+                state = 'Balanced Focus';
+            } else if (attentionValue < 30 && stressValue < 30) {
+                state = 'Relaxed';
+            } else if (stressValue > 70) {
+                state = 'High Stress';
+            } else if (attentionValue > 30 && stressValue < 60) {
+                state = 'Balanced';
+            }
+            
+            document.getElementById('currentPsychState').textContent = state;
+            
+            // Change badge color based on state
+            const badge = document.getElementById('currentPsychState');
+            badge.className = 'badge fs-6 ';
+            if (state === 'Flow State') badge.className += 'bg-success';
+            else if (state === 'Balanced Focus') badge.className += 'bg-info';
+            else if (state === 'High Stress') badge.className += 'bg-danger';
+            else if (state === 'Relaxed') badge.className += 'bg-primary';
+            else badge.className += 'bg-warning';
+        }
+
+        // Card animation
+        function animateCard(button) {
+            const card = button.closest('.card');
+            card.classList.add('bounce-in');
+            setTimeout(() => card.classList.remove('bounce-in'), 600);
+        }
+
+        // Modal psychology
+        function deeperFocus() {
+            const modalBody = document.querySelector('#psychologyModal .modal-body');
+            modalBody.innerHTML = `
+                <div class="text-center">
+                    <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Deep focus loading...</span>
+                    </div>
+                    <h4 class="mt-3">Entering deep psychological focus...</h4>
+                    <p>Your attention is now completely isolated from external distractions. This demonstrates how interface design can actively guide mental states.</p>
+                    <div class="progress progress-custom mt-3">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" style="width: 100%">
+                            Maximum Focus Achieved
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Offcanvas psychology tools
+        function randomizeEmotions() {
+            const cards = document.querySelectorAll('.card-custom');
+            const progressBars = document.querySelectorAll('.progress-bar');
+            
+            cards.forEach(card => {
+                const randomEmotion = emotionalStates[Math.floor(Math.random() * emotionalStates.length)];
+                card.style.borderColor = randomEmotion.bg.split(',')[0].split('(')[2];
+            });
+            
+            changeColorMood();
+        }
+
+        function showPsychNotification() {
+            // Create psychological feedback toast
+            const toastHTML = `
+                <div class="toast align-items-center text-white border-0" role="alert" style="background: var(--glass-bg); backdrop-filter: blur(15px);">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-brain text-info me-2"></i>
+                            Psychological feedback loop activated - your brain just received positive reinforcement!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>
+                </div>
+            `;
+            
+            if (!document.querySelector('.toast-container')) {
+                const container = document.createElement('div');
+                container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+                document.body.appendChild(container);
+            }
+            
+            const container = document.querySelector('.toast-container');
+            container.innerHTML = toastHTML;
+            
+            const toast = new bootstrap.Toast(container.querySelector('.toast'));
+            toast.show();
+        }
+
+        // Initialize psychological monitoring
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('fade-slide-in');
+                }, index * 200);
+            });
+
+            // Initialize tooltips for better UX
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        // Smooth scrolling psychology
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Dynamic background psychology - color affects mood
+        window.addEventListener('scroll', function() {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const hue = Math.floor(scrollPercent * 60) + 240; // Stay in purple-blue range
+            document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 50%), hsl(${hue + 30}, 70%, 50%), hsl(${hue + 60}, 70%, 50%))`;
+        });
+
+        // Auto-update progress bars to simulate learning/adaptation
+        setInterval(() => {
+            const progressBars = document.querySelectorAll('.progress-bar-custom');
+            progressBars.forEach(bar => {
+                const currentWidth = parseInt(bar.style.width) || 0;
+                const newWidth = Math.min(100, currentWidth + Math.random() * 2);
+                bar.style.width = newWidth + '%';
+                if (newWidth >= 95) {
+                    bar.textContent = 'Mastery Achieved';
+                } else {
+                    bar.textContent = 'Adaptation Complete';
+                }
+            });
+        }, 4000);
+
+        // Enhanced form interactions for psychological feedback
+        document.querySelectorAll('.form-control-custom').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('.card').style.borderColor = '#EC4899';
+                this.closest('.card').style.boxShadow = '0 0 20px rgba(236, 72, 153, 0.3)';
+                // Positive psychological reinforcement
+                this.placeholder = 'Great choice! Your input matters...';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.closest('.card').style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                this.closest('.card').style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            });
+        });
+
+        // Keyboard shortcuts for psychological flow
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.querySelector('#adaptation').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.querySelector('#interaction').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.querySelector('#behavior').scrollIntoView({ behavior: 'smooth' });
+                        break;
+                    case 'm':
+                        e.preventDefault();
+                        new bootstrap.Modal(document.getElementById('psychologyModal')).show();
+                        break;
+                }
+            }
+        });
+
+        // Performance monitoring for psychological impact
+        window.addEventListener('load', function() {
+            console.log('🧠 Interactive psychology interface loaded');
+            console.log('📱 Responsive adaptation systems active');
+            console.log('💫 User behavior tracking initialized');
+            
+            // Measure and log psychological load time impact
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            if (loadTime < 1000) {
+                console.log('⚡ Fast load time - positive psychological impact');
+            } else if (loadTime < 3000) {
+                console.log('⏱️ Moderate load time - acceptable psychological impact');
+            } else {
+                console.log('⚠️ Slow load time - may cause user anxiety');
+            }
+        });
+    </script>
+
+    <!-- Technology Credit Footer -->
+    <footer class="container-fluid mt-5 py-4" style="background: var(--glass-bg); backdrop-filter: blur(15px);">
+        <div class="container text-center">
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem; margin-bottom: 1rem;">
+                Responsive psychology demonstration built with modern web frameworks
+            </p>
+            <div>
+                <span class="badge" style="background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink)); margin: 0.25rem;">Bootstrap 5</span>
+                <span class="badge" style="background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue)); margin: 0.25rem;">Vanilla JavaScript</span>
+                <span class="badge" style="background: linear-gradient(45deg, var(--hypno-blue), var(--hypno-orange)); margin: 0.25rem;">Responsive Design</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>tabs-custom .nav-link {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            margin-right: 0.5rem;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .nav-
