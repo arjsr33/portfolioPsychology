@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Psychology - Bootstrap + JavaScript</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-brain me-2"></i>Psychology-Driven Development
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Responsive Psychology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../fullstack-psychology/frontend/dist/index.html">Interactive</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../fullstack-psychology/backend/demo" target="_blank">Backend</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4 hero-title">
+                        Adaptive Interface Psychology
+                    </h1>
+                    <p class="lead mb-5">
+                        Demonstrating Bootstrap framework mastery with psychological principles 
+                        and interactive JavaScript simulations
+                    </p>
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-number" id="componentCount">12</div>
+                                <div class="stat-label">Bootstrap Components</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-number" id="interactionCount">0</div>
+                                <div class="stat-label">User Interactions</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <div class="stat-number" id="mentalLoadMeter">45%</div>
+                                <div class="stat-label">Cognitive Load</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-hypno btn-lg" data-bs-toggle="modal" data-bs-target="#skillsModal">
+                        <i class="fas fa-code me-2"></i>Explore Skills
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Demonstration -->
+    <section class="py-5 bg-dark-glass">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Bootstrap Framework Mastery</h2>
+            
+            <!-- Bootstrap Grid System Demo -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card card-glass">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-th me-2"></i>Responsive Grid Psychology
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text mb-4">
+                                The Bootstrap grid system mirrors how the human mind organizes information 
+                                into digestible chunks. Watch how content adapts to different screen sizes.
+                            </p>
+                            <div class="row g-3" id="gridDemo">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="grid-item">Visual Processing</div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="grid-item">Memory Formation</div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="grid-item">Decision Making</div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="grid-item">Motor Response</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-primary mt-3" onclick="animateGrid()">
+                                <i class="fas fa-sync-alt me-2"></i>Reorganize Neural Pathways
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Components -->
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card card-glass h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-sliders-h me-2"></i>Mental State Controller
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <label for="focusRange" class="form-label">Focus Level</label>
+                                <input type="range" class="form-range" id="focusRange" min="0" max="100" value="50">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-info" id="focusProgress" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="creativityRange" class="form-label">Creativity Index</label>
+                                <input type="range" class="form-range" id="creativityRange" min="0" max="100" value="30">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-warning" id="creativityProgress" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="stressRange" class="form-label">Stress Level</label>
+                                <input type="range" class="form-range" id="stressRange" min="0" max="100" value="25">
+                                <div class="progress mb-3">
+                                    <div class="progress-bar bg-danger" id="stressProgress" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <span class="badge bg-primary fs-6" id="mentalState">Balanced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card card-glass h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-line me-2"></i>Real-time Psychology Monitor
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="psychology-monitor" id="psychologyMonitor">
+                                <div class="brainwave alpha"></div>
+                                <div class="brainwave beta"></div>
+                                <div class="brainwave theta"></div>
+                                <div class="brainwave gamma"></div>
+                            </div>
+                            <div class="mt-4">
+                                <h6>Current Brain Activity:</h6>
+                                <div class="activity-list" id="activityList">
+                                    <div class="activity-item">
+                                        <span class="activity-type">Alpha</span>
+                                        <span class="activity-value" id="alphaValue">8.2 Hz</span>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-type">Beta</span>
+                                        <span class="activity-value" id="betaValue">15.4 Hz</span>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-type">Theta</span>
+                                        <span class="activity-value" id="thetaValue">6.1 Hz</span>
+                                    </div>
+                                    <div class="activity-item">
+                                        <span class="activity-type">Gamma</span>
+                                        <span class="activity-value" id="gammaValue">42.3 Hz</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Bootstrap Components -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Advanced Component Psychology</h2>
+            
+            <!-- Tabs for Information Architecture -->
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-tabs nav-fill mb-4" id="psychologyTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="perception-tab" data-bs-toggle="tab" data-bs-target="#perception" type="button">
+                                <i class="fas fa-eye me-2"></i>Visual Perception
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="cognition-tab" data-bs-toggle="tab" data-bs-target="#cognition" type="button">
+                                <i class="fas fa-brain me-2"></i>Cognitive Processing
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="behavior-tab" data-bs-toggle="tab" data-bs-target="#behavior" type="button">
+                                <i class="fas fa-hand-pointer me-2"></i>User Behavior
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="psychologyTabContent">
+                        <div class="tab-pane fade show active" id="perception" role="tabpanel">
+                            <div class="card card-glass">
+                                <div class="card-body">
+                                    <h5 class="card-title">Color Psychology & Visual Hierarchy</h5>
+                                    <p class="card-text">Colors trigger immediate emotional responses. This interface uses a carefully chosen palette designed to promote focus while reducing cognitive fatigue.</p>
+                                    <div class="color-palette mb-4">
+                                        <div class="color-swatch" style="background: #8B5CF6;" data-bs-toggle="tooltip" title="Primary Purple - Creativity & Innovation"></div>
+                                        <div class="color-swatch" style="background: #EC4899;" data-bs-toggle="tooltip" title="Secondary Pink - Energy & Passion"></div>
+                                        <div class="color-swatch" style="background: #3B82F6;" data-bs-toggle="tooltip" title="Accent Blue - Trust & Stability"></div>
+                                        <div class="color-swatch" style="background: #F97316;" data-bs-toggle="tooltip" title="Warning Orange - Attention & Action"></div>
+                                        <div class="color-swatch" style="background: #10B981;" data-bs-toggle="tooltip" title="Success Green - Growth & Positive Feedback"></div>
+                                    </div>
+                                    <button class="btn btn-outline-primary" onclick="demonstrateColorPsychology()">
+                                        <i class="fas fa-palette me-2"></i>Demonstrate Color Impact
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="cognition" role="tabpanel">
+                            <div class="card card-glass">
+                                <div class="card-body">
+                                    <h5 class="card-title">Cognitive Load Management</h5>
+                                    <p class="card-text">Information processing capacity is limited. Progressive disclosure and logical grouping prevent cognitive overload.</p>
+                                    <div class="accordion" id="cognitiveAccordion">
+                                        <div class="accordion-item bg-transparent">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                                    Working Memory (7±2 Rule)
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#cognitiveAccordion">
+                                                <div class="accordion-body">
+                                                    The human mind can hold approximately 7 (±2) items in working memory simultaneously. This interface groups related information to respect this limitation.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item bg-transparent">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                                    Progressive Disclosure
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#cognitiveAccordion">
+                                                <div class="accordion-body">
+                                                    Information is revealed gradually as users demonstrate readiness, preventing overwhelm while maintaining access to advanced features.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="behavior" role="tabpanel">
+                            <div class="card card-glass">
+                                <div class="card-body">
+                                    <h5 class="card-title">Behavioral Pattern Recognition</h5>
+                                    <p class="card-text">Every interaction creates data points that reveal user psychology and preferences.</p>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="behavior-metric">
+                                                <h6>Click Patterns</h6>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-info" id="clickPattern" style="width: 0%"></div>
+                                                </div>
+                                                <small class="text-muted">Deliberate vs Exploratory: <span id="clickType">Analyzing...</span></small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="behavior-metric">
+                                                <h6>Attention Span</h6>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-warning" id="attentionSpan" style="width: 0%"></div>
+                                                </div>
+                                                <small class="text-muted">Time on section: <span id="timeOnSection">0s</span></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Area -->
+    <section class="py-5 bg-dark-glass">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">JavaScript Psychology Simulations</h2>
+            
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card card-glass">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-gamepad me-2"></i>Interactive Psychology Lab
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="simulation-controls mb-4">
+                                <button class="btn btn-primary me-2" onclick="startReactionTest()">
+                                    <i class="fas fa-stopwatch me-2"></i>Reaction Time Test
+                                </button>
+                                <button class="btn btn-success me-2" onclick="startMemoryTest()">
+                                    <i class="fas fa-brain me-2"></i>Memory Challenge
+                                </button>
+                                <button class="btn btn-info me-2" onclick="startColorTest()">
+                                    <i class="fas fa-palette me-2"></i>Color Perception
+                                </button>
+                                <button class="btn btn-warning" onclick="resetSimulations()">
+                                    <i class="fas fa-redo me-2"></i>Reset All
+                                </button>
+                            </div>
+                            
+                            <div class="simulation-area" id="simulationArea">
+                                <div class="text-center p-5">
+                                    <i class="fas fa-play-circle fa-3x text-muted mb-3"></i>
+                                    <h5>Select a psychology simulation to begin</h5>
+                                    <p class="text-muted">Each test demonstrates different aspects of human cognition and perception</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card card-glass h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-bar me-2"></i>Results Dashboard
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="result-item mb-3">
+                                <h6>Reaction Time</h6>
+                                <div class="d-flex justify-content-between">
+                                    <span>Average:</span>
+                                    <span id="avgReaction">--ms</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" id="reactionProgress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item mb-3">
+                                <h6>Memory Score</h6>
+                                <div class="d-flex justify-content-between">
+                                    <span>Accuracy:</span>
+                                    <span id="memoryScore">--%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" id="memoryProgress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-item mb-3">
+                                <h6>Color Perception</h6>
+                                <div class="d-flex justify-content-between">
+                                    <span>Sensitivity:</span>
+                                    <span id="colorScore">--</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" id="colorProgress" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            <div class="text-center">
+                                <h6>Overall Psychology Profile</h6>
+                                <span class="badge bg-primary" id="profileBadge">Baseline</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Modal -->
+    <div class="modal fade" id="skillsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-glass">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-code me-2"></i>Bootstrap + JavaScript Skills Demonstrated
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6>Bootstrap Framework</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Responsive Grid System</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Component Library</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Utility Classes</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Custom Theming</li>
+                                <li><i class="fas fa-check text-success me-2"></i>JavaScript Plugins</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>JavaScript Features</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>DOM Manipulation</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Event Handling</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Local Storage</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Real-time Updates</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Animation Control</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <h6>Psychology Concepts Applied</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <span class="badge bg-primary">Cognitive Load Theory</span>
+                            <span class="badge bg-success">Color Psychology</span>
+                            <span class="badge bg-info">Progressive Disclosure</span>
+                            <span class="badge bg-warning">Behavioral Feedback</span>
+                            <span class="badge bg-danger">Attention Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="../fullstack-psychology/frontend/dist/index.html" class="btn btn-hypno">
+                        Next: React Implementation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container for Notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="js/psychology-sim.js"></script>
+    <script src="js/bootstrap-custom.js"></script>
+</body>
+</html>

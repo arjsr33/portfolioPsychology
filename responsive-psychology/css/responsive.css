@@ -1,0 +1,616 @@
+/* responsive-psychology/css/responsive.css - Bootstrap Customizations */
+
+:root {
+    /* Psychology-driven color scheme for Bootstrap */
+    --bs-primary: #8B5CF6;
+    --bs-secondary: #EC4899;
+    --bs-success: #10B981;
+    --bs-info: #3B82F6;
+    --bs-warning: #F97316;
+    --bs-danger: #EF4444;
+    --bs-light: #F8FAFC;
+    --bs-dark: #1E293B;
+
+    /* Custom psychology variables */
+    --hypno-purple: #8B5CF6;
+    --hypno-pink: #EC4899;
+    --hypno-blue: #3B82F6;
+    --hypno-orange: #F97316;
+    --glass-bg: rgba(30, 41, 59, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Global body styling */
+body {
+    background: linear-gradient(135deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+/* Bootstrap Navigation Customizations */
+.navbar-custom {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid var(--hypno-pink);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue), var(--hypno-orange));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+    padding: 0.8rem 1.2rem !important;
+    border-radius: 25px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--hypno-pink) !important;
+    background: rgba(236, 72, 153, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Custom Button Styles */
+.btn-hypno {
+    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-hypno:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+}
+
+.btn-hypno::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-hypno:hover::before {
+    left: 100%;
+}
+
+/* Glass Morphism Cards */
+.card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.card-glass:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+}
+
+.card-glass .card-header {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--glass-border);
+    border-radius: 20px 20px 0 0 !important;
+}
+
+.card-glass .card-body {
+    color: white;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        rgba(139, 92, 246, 0.9), 
+        rgba(236, 72, 153, 0.9), 
+        rgba(59, 130, 246, 0.9)
+    );
+}
+
+.hero-title {
+    background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue), var(--hypno-orange));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 4s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5)); }
+    50% { filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.8)); }
+}
+
+/* Statistics Cards */
+.stat-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, var(--hypno-orange), var(--hypno-pink));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Background Sections */
+.bg-dark-glass {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 2.5rem;
+    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* Grid Demonstration */
+.grid-item {
+    background: linear-gradient(45deg, var(--hypno-blue), var(--hypno-purple));
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Custom Range Inputs */
+.form-range {
+    background: transparent;
+}
+
+.form-range::-webkit-slider-track {
+    background: linear-gradient(90deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+    border-radius: 10px;
+    height: 8px;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: white;
+    border: 2px solid var(--hypno-pink);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.form-range::-moz-range-track {
+    background: linear-gradient(90deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+    border-radius: 10px;
+    height: 8px;
+    border: none;
+}
+
+.form-range::-moz-range-thumb {
+    background: white;
+    border: 2px solid var(--hypno-pink);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Progress Bar Customizations */
+.progress {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 12px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    transition: all 0.8s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Psychology Monitor */
+.psychology-monitor {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.brainwave {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--hypno-blue);
+    animation: brainwaveActivity 3s ease-in-out infinite;
+}
+
+.brainwave.alpha {
+    top: 20%;
+    background: var(--hypno-purple);
+    animation-delay: 0s;
+}
+
+.brainwave.beta {
+    top: 40%;
+    background: var(--hypno-pink);
+    animation-delay: 0.5s;
+}
+
+.brainwave.theta {
+    top: 60%;
+    background: var(--hypno-blue);
+    animation-delay: 1s;
+}
+
+.brainwave.gamma {
+    top: 80%;
+    background: var(--hypno-orange);
+    animation-delay: 1.5s;
+}
+
+@keyframes brainwaveActivity {
+    0%, 100% { 
+        transform: scaleX(1) scaleY(1);
+        opacity: 0.6;
+    }
+    50% { 
+        transform: scaleX(1.5) scaleY(3);
+        opacity: 1;
+    }
+}
+
+/* Activity List */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.activity-type {
+    font-weight: 600;
+    color: var(--hypno-pink);
+}
+
+.activity-value {
+    font-family: 'Courier New', monospace;
+    color: var(--hypno-blue);
+}
+
+/* Color Palette */
+.color-palette {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-swatch {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.color-swatch:hover {
+    transform: scale(1.2);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Accordion Customizations */
+.accordion-item {
+    background: transparent !important;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 0.5rem;
+    border-radius: 10px !important;
+}
+
+.accordion-button {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink)) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+.accordion-body {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+/* Tab Customizations */
+.nav-tabs {
+    border-bottom: 2px solid var(--hypno-pink);
+}
+
+.nav-tabs .nav-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    color: white;
+    margin-right: 0.5rem;
+    border-radius: 10px 10px 0 0;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: var(--hypno-pink);
+    background: rgba(236, 72, 153, 0.2);
+}
+
+.nav-tabs .nav-link.active {
+    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink)) !important;
+    border-color: var(--hypno-pink);
+    color: white !important;
+}
+
+.tab-content {
+    background: var(--glass-bg);
+    border: 2px solid var(--hypno-pink);
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+    backdrop-filter: blur(15px);
+}
+
+/* Behavior Metrics */
+.behavior-metric h6 {
+    color: var(--hypno-pink);
+    margin-bottom: 0.5rem;
+}
+
+/* Modal Customizations */
+.modal-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--glass-border);
+    border-radius: 20px;
+}
+
+.modal-glass .modal-header {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-glass .modal-footer {
+    border-top: 1px solid var(--glass-border);
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Simulation Area */
+.simulation-area {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.simulation-area.active {
+    border-color: var(--hypno-pink);
+    background: rgba(236, 72, 153, 0.1);
+}
+
+/* Result Items */
+.result-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.result-item h6 {
+    color: var(--hypno-orange);
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .color-palette {
+        gap: 0.5rem;
+    }
+    
+    .color-swatch {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .psychology-monitor {
+        height: 150px;
+        padding: 1rem;
+    }
+    
+    .activity-item {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-tabs .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .demo-button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        margin: 0.25rem;
+    }
+    
+    .simulation-area {
+        min-height: 200px;
+        padding: 1rem;
+    }
+    
+    .card-glass {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animation Performance Optimization */
+.card-glass,
+.stat-card,
+.grid-item,
+.color-swatch,
+.activity-item {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Focus States for Accessibility */
+.btn-hypno:focus,
+.form-range:focus,
+.nav-link:focus,
+.accordion-button:focus,
+.color-swatch:focus {
+    outline: 2px solid var(--hypno-orange);
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .card-glass,
+    .stat-card,
+    .grid-item {
+        border: 2px solid white;
+    }
+    
+    .nav-link {
+        border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .hero-title,
+    .brainwave,
+    .progress-bar::after,
+    .card-glass,
+    .stat-card,
+    .grid-item,
+    .color-swatch,
+    .btn-hypno {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .card-glass:hover,
+    .stat-card:hover,
+    .grid-item:hover,
+    .color-swatch:hover {
+        transform: none;
+    }
+}

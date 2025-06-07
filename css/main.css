@@ -1,0 +1,916 @@
+/* css/main.css - Visual Psychology Implementation */
+
+:root {
+  /* Psychology-driven color palette */
+  --primary-purple: #8B5CF6;
+  --secondary-pink: #EC4899;
+  --accent-blue: #3B82F6;
+  --warm-orange: #F97316;
+  --deep-indigo: #4C1D95;
+  --success-green: #10B981;
+  
+  /* Gradient backgrounds for psychological impact */
+  --gradient-primary: linear-gradient(135deg, var(--primary-purple), var(--secondary-pink));
+  --gradient-secondary: linear-gradient(135deg, var(--accent-blue), var(--primary-purple));
+  --gradient-tertiary: linear-gradient(135deg, var(--secondary-pink), var(--warm-orange));
+  
+  /* Typography scale based on golden ratio */
+  --font-scale: 1.618;
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 2rem;
+  --font-4xl: 2.5rem;
+  
+  /* Spacing system for cognitive comfort */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Glass morphism effects */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  
+  /* Animation durations for smooth psychology */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+  --duration-slower: 1.2s;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--gradient-primary);
+  color: white;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Smooth scrolling for psychological comfort */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Container system */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Navigation */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all var(--duration-normal) ease;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-xl);
+  font-weight: 700;
+  background: var(--gradient-tertiary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: var(--space-lg);
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 25px;
+  transition: all var(--duration-normal) ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: var(--glass-bg);
+  transform: translateY(-2px);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-tertiary);
+  transition: all var(--duration-normal) ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* Neural particle animation for psychological engagement */
+.neural-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: neuralFloat 8s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.neural-particle:nth-child(1) { top: 20%; left: 10%; }
+.neural-particle:nth-child(2) { top: 60%; left: 80%; }
+.neural-particle:nth-child(3) { top: 30%; left: 70%; }
+.neural-particle:nth-child(4) { top: 80%; left: 20%; }
+.neural-particle:nth-child(5) { top: 40%; left: 50%; }
+
+@keyframes neuralFloat {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  25% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  50% { transform: translateY(-40px) scale(0.8); opacity: 0.4; }
+  75% { transform: translateY(-20px) scale(1.1); opacity: 0.8; }
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: clamp(var(--font-3xl), 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: var(--space-lg);
+  background: var(--gradient-tertiary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titlePulse 4s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5));
+    transform: scale(1);
+  }
+  50% { 
+    filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.8));
+    transform: scale(1.02);
+  }
+}
+
+.hero-subtitle {
+  font-size: var(--font-xl);
+  margin-bottom: var(--space-2xl);
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  color: var(--warm-orange);
+  text-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+.stat-label {
+  font-size: var(--font-sm);
+  opacity: 0.8;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--gradient-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: var(--font-lg);
+  transition: all var(--duration-normal) ease;
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+  color: white;
+}
+
+.cta-button i {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  60% { transform: translateY(-3px); }
+}
+
+/* Skills Section */
+.skills-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.9), 
+    rgba(30, 41, 59, 0.7)
+  );
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  font-size: var(--font-3xl);
+  text-align: center;
+  margin-bottom: var(--space-md);
+  background: var(--gradient-secondary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: var(--font-lg);
+  opacity: 0.8;
+  margin-bottom: var(--space-3xl);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.skill-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: var(--space-xl);
+  transition: all var(--duration-normal) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.skill-card.level-2::before {
+  background: var(--gradient-secondary);
+}
+
+.skill-card.level-3::before {
+  background: var(--gradient-tertiary);
+}
+
+.skill-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.skill-icon {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--font-2xl);
+}
+
+.skill-level {
+  background: var(--gradient-primary);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 20px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+}
+
+.skill-title {
+  font-size: var(--font-xl);
+  margin-bottom: var(--space-md);
+  color: var(--secondary-pink);
+}
+
+.skill-description {
+  opacity: 0.9;
+  margin-bottom: var(--space-lg);
+  line-height: 1.6;
+}
+
+.skill-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.feature {
+  background: rgba(59, 130, 246, 0.2);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 15px;
+  font-size: var(--font-sm);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.skill-metrics {
+  display: flex;
+  justify-content: space-between;
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric-value {
+  display: block;
+  font-weight: 700;
+  font-size: var(--font-lg);
+  color: var(--warm-orange);
+}
+
+.metric-label {
+  font-size: var(--font-xs);
+  opacity: 0.7;
+}
+
+/* Demos Section */
+.demos-section {
+  padding: var(--space-3xl) 0;
+}
+
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+}
+
+.demo-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+  transition: all var(--duration-normal) ease;
+  position: relative;
+}
+
+.demo-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.demo-preview {
+  height: 200px;
+  background: linear-gradient(135deg, 
+    rgba(139, 92, 246, 0.3), 
+    rgba(236, 72, 153, 0.3)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Demo animations for visual engagement */
+.preview-animation {
+  position: relative;
+}
+
+.css-shape {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  animation: cssFloat 3s ease-in-out infinite;
+}
+
+.shape-1 {
+  background: var(--primary-purple);
+  top: -20px;
+  left: -20px;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  background: var(--secondary-pink);
+  top: 20px;
+  left: 20px;
+  animation-delay: 1s;
+}
+
+.shape-3 {
+  background: var(--accent-blue);
+  top: -10px;
+  left: 40px;
+  animation-delay: 2s;
+}
+
+@keyframes cssFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.2); }
+}
+
+.bootstrap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.grid-item {
+  background: var(--accent-blue);
+  height: 30px;
+  border-radius: 5px;
+  animation: gridPulse 2s ease-in-out infinite;
+}
+
+.grid-item:nth-child(2) { animation-delay: 0.5s; }
+.grid-item:nth-child(3) { animation-delay: 1s; }
+.grid-item:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.react-component {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: var(--space-md);
+  width: 120px;
+}
+
+.component-header {
+  background: var(--secondary-pink);
+  height: 20px;
+  border-radius: 5px;
+  margin-bottom: var(--space-sm);
+}
+
+.component-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.data-flow {
+  background: var(--primary-purple);
+  height: 15px;
+  border-radius: 3px;
+  animation: dataFlow 2s ease-in-out infinite;
+}
+
+.data-flow:nth-child(2) { animation-delay: 1s; }
+
+@keyframes dataFlow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.server-architecture {
+  position: relative;
+  width: 100px;
+  height: 80px;
+}
+
+.server-layer {
+  height: 20px;
+  border-radius: 5px;
+  margin-bottom: var(--space-xs);
+  animation: serverPulse 3s ease-in-out infinite;
+}
+
+.api {
+  background: var(--success-green);
+}
+
+.database {
+  background: var(--warm-orange);
+  animation-delay: 1.5s;
+}
+
+.server-connection {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: var(--accent-blue);
+  left: 50%;
+  top: 0;
+  animation: connectionFlow 2s linear infinite;
+}
+
+@keyframes serverPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes connectionFlow {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.demo-content {
+  padding: var(--space-xl);
+}
+
+.demo-title {
+  font-size: var(--font-xl);
+  margin-bottom: var(--space-md);
+  color: var(--secondary-pink);
+}
+
+.demo-description {
+  opacity: 0.9;
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+
+.demo-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.tech-badge {
+  background: rgba(139, 92, 246, 0.2);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 12px;
+  font-size: var(--font-xs);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.demo-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--warm-orange);
+}
+
+/* About Section */
+.about-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, 
+    rgba(30, 41, 59, 0.9), 
+    rgba(76, 29, 149, 0.3)
+  );
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.about-text h2 {
+  font-size: var(--font-3xl);
+  margin-bottom: var(--space-lg);
+  background: var(--gradient-tertiary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-text p {
+  font-size: var(--font-lg);
+  opacity: 0.9;
+  margin-bottom: var(--space-xl);
+  line-height: 1.6;
+}
+
+.philosophy-points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--font-lg);
+}
+
+.point i {
+  color: var(--warm-orange);
+  font-size: var(--font-xl);
+}
+
+.psychology-diagram {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.brain-section {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--font-sm);
+  animation: brainPulse 4s ease-in-out infinite;
+}
+
+.visual {
+  background: var(--primary-purple);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cognitive {
+  background: var(--secondary-pink);
+  bottom: 0;
+  left: 0;
+  animation-delay: 1.5s;
+}
+
+.emotional {
+  background: var(--accent-blue);
+  bottom: 0;
+  right: 0;
+  animation-delay: 3s;
+}
+
+@keyframes brainPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.neural-connection {
+  position: absolute;
+  height: 2px;
+  background: var(--warm-orange);
+  animation: neuralFlow 3s ease-in-out infinite;
+}
+
+.neural-connection:nth-child(4) {
+  top: 60px;
+  left: 40px;
+  width: 120px;
+  transform: rotate(30deg);
+}
+
+.neural-connection:nth-child(5) {
+  top: 180px;
+  left: 40px;
+  width: 100px;
+}
+
+.neural-connection:nth-child(6) {
+  top: 60px;
+  right: 40px;
+  width: 120px;
+  transform: rotate(-30deg);
+}
+
+@keyframes neuralFlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Footer */
+.footer {
+  background: rgba(30, 41, 59, 0.95);
+  padding: var(--space-3xl) 0 var(--space-lg);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-section h4 {
+  color: var(--secondary-pink);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-xl);
+}
+
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+  margin-bottom: var(--space-sm);
+  opacity: 0.8;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: white;
+  text-decoration: none;
+  transition: all var(--duration-normal) ease;
+}
+
+.social-link:hover {
+  color: var(--secondary-pink);
+  transform: translateX(5px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--glass-border);
+  opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+  }
+  
+  .hero-stats {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .demos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .psychology-diagram {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .container {
+    padding: 0 var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: var(--font-3xl);
+  }
+  
+  .section-title {
+    font-size: var(--font-2xl);
+  }
+  
+  .skill-card,
+  .demo-card {
+    padding: var(--space-lg);
+  }
+  
+  .neural-particle {
+    display: none;
+  }
+}
+
+/* Focus states for accessibility */
+.nav-link:focus,
+.cta-button:focus,
+.demo-card:focus {
+  outline: 2px solid var(--warm-orange);
+  outline-offset: 2px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .neural-particle,
+  .css-shape,
+  .grid-item,
+  .data-flow {
+    animation: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .neural-particle,
+  .hero-background {
+    display: none;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .hero {
+    min-height: auto;
+    padding: var(--space-lg) 0;
+  }
+}

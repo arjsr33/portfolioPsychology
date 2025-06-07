@@ -1,0 +1,325 @@
+/* css/animations.css - Pure CSS Animations for Psychology */
+
+/* Hypnotic spiral animation for attention capture */
+@keyframes hypnoticSpin {
+  0% { 
+    transform: rotate(0deg) scale(1); 
+    filter: hue-rotate(0deg);
+  }
+  25% { 
+    transform: rotate(90deg) scale(1.1); 
+    filter: hue-rotate(90deg);
+  }
+  50% { 
+    transform: rotate(180deg) scale(1.2); 
+    filter: hue-rotate(180deg);
+  }
+  75% { 
+    transform: rotate(270deg) scale(1.1); 
+    filter: hue-rotate(270deg);
+  }
+  100% { 
+    transform: rotate(360deg) scale(1); 
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Breathing animation for calming effect */
+@keyframes breathe {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 1; 
+  }
+}
+
+/* Neural network pulse simulation */
+@keyframes neuralPulse {
+  0% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+  70% { 
+    transform: scale(1.1); 
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+/* Morphing shape for transformation concepts */
+@keyframes morphShape {
+  0%, 100% { 
+    border-radius: 50%; 
+    transform: rotate(0deg);
+    background: var(--primary-purple);
+  }
+  25% { 
+    border-radius: 0%; 
+    transform: rotate(90deg);
+    background: var(--secondary-pink);
+  }
+  50% { 
+    border-radius: 50% 0; 
+    transform: rotate(180deg);
+    background: var(--accent-blue);
+  }
+  75% { 
+    border-radius: 0 50%; 
+    transform: rotate(270deg);
+    background: var(--warm-orange);
+  }
+}
+
+/* Floating elements for organic feel */
+@keyframes floatUpDown {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  25% { 
+    transform: translateY(-15px) translateX(5px); 
+  }
+  50% { 
+    transform: translateY(-30px) translateX(0px); 
+  }
+  75% { 
+    transform: translateY(-15px) translateX(-5px); 
+  }
+}
+
+/* Attention-grabbing glow effect */
+@keyframes attentionGlow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.8);
+    transform: scale(1.02);
+  }
+}
+
+/* Text shimmer for cognitive engagement */
+@keyframes textShimmer {
+  0% { 
+    background-position: -200% center; 
+  }
+  100% { 
+    background-position: 200% center; 
+  }
+}
+
+/* Cognitive load indicator */
+@keyframes cognitiveLoad {
+  0% { width: 0%; }
+  25% { width: 25%; }
+  50% { width: 50%; }
+  75% { width: 75%; }
+  100% { width: 100%; }
+}
+
+/* Memory formation simulation */
+@keyframes memoryForm {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.5) rotate(0deg); 
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.2) rotate(180deg); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) rotate(360deg); 
+  }
+}
+
+/* Emotional response wave */
+@keyframes emotionalWave {
+  0%, 100% { 
+    transform: translateY(0px); 
+    background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
+  }
+  25% { 
+    transform: translateY(-10px); 
+    background: linear-gradient(45deg, var(--secondary-pink), var(--warm-orange));
+  }
+  50% { 
+    transform: translateY(-20px); 
+    background: linear-gradient(45deg, var(--warm-orange), var(--accent-blue));
+  }
+  75% { 
+    transform: translateY(-10px); 
+    background: linear-gradient(45deg, var(--accent-blue), var(--primary-purple));
+  }
+}
+
+/* Synaptic firing simulation */
+@keyframes synapticFire {
+  0% { 
+    opacity: 0.3; 
+    transform: scale(1); 
+  }
+  10% { 
+    opacity: 1; 
+    transform: scale(1.3); 
+  }
+  90% { 
+    opacity: 1; 
+    transform: scale(1.3); 
+  }
+  100% { 
+    opacity: 0.3; 
+    transform: scale(1); 
+  }
+}
+
+/* Focus state animation for interactive elements */
+@keyframes focusRing {
+  0% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); 
+  }
+  100% { 
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0); 
+  }
+}
+
+/* Applied animation classes */
+.hypnotic-element {
+  animation: hypnoticSpin 8s linear infinite;
+}
+
+.breathing-element {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.neural-node {
+  animation: neuralPulse 2s ease-in-out infinite;
+}
+
+.morphing-shape {
+  width: 60px;
+  height: 60px;
+  animation: morphShape 6s ease-in-out infinite;
+}
+
+.floating-element {
+  animation: floatUpDown 5s ease-in-out infinite;
+}
+
+.attention-grabber {
+  animation: attentionGlow 3s ease-in-out infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: textShimmer 2s ease-in-out infinite;
+}
+
+.cognitive-indicator {
+  height: 4px;
+  background: var(--gradient-primary);
+  animation: cognitiveLoad 3s ease-in-out infinite;
+}
+
+.memory-particle {
+  animation: memoryForm 2s ease-out;
+}
+
+.emotional-wave {
+  animation: emotionalWave 4s ease-in-out infinite;
+}
+
+.synapse {
+  animation: synapticFire 1.5s ease-in-out infinite;
+}
+
+.focus-element:focus {
+  animation: focusRing 0.3s ease-out;
+}
+
+/* Delayed animation classes for staggered effects */
+.anim-delay-1 { animation-delay: 0.2s; }
+.anim-delay-2 { animation-delay: 0.4s; }
+.anim-delay-3 { animation-delay: 0.6s; }
+.anim-delay-4 { animation-delay: 0.8s; }
+.anim-delay-5 { animation-delay: 1.0s; }
+
+/* Hover-triggered animations for psychological engagement */
+.hover-grow:hover {
+  animation: none;
+  transform: scale(1.05);
+  transition: transform var(--duration-normal) ease;
+}
+
+.hover-pulse:hover {
+  animation: neuralPulse 0.6s ease-out;
+}
+
+.hover-shimmer:hover {
+  animation: textShimmer 1s ease-in-out;
+}
+
+/* Psychology-specific animation combinations */
+.consciousness-flow {
+  animation: 
+    floatUpDown 5s ease-in-out infinite,
+    attentionGlow 3s ease-in-out infinite;
+}
+
+.neural-activity {
+  animation: 
+    neuralPulse 2s ease-in-out infinite,
+    synapticFire 1.5s ease-in-out infinite;
+}
+
+.emotional-response {
+  animation: 
+    emotionalWave 4s ease-in-out infinite,
+    breathe 3s ease-in-out infinite;
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hypnotic-element,
+  .breathing-element,
+  .neural-node,
+  .morphing-shape,
+  .floating-element,
+  .attention-grabber,
+  .shimmer-text,
+  .cognitive-indicator,
+  .memory-particle,
+  .emotional-wave,
+  .synapse,
+  .consciousness-flow,
+  .neural-activity,
+  .emotional-response {
+    animation: none;
+  }
+  
+  .hover-grow:hover,
+  .hover-pulse:hover,
+  .hover-shimmer:hover {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Performance optimization: Use transform and opacity for smooth animations */
+.optimized-animation {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
