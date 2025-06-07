@@ -1,25 +1,19 @@
-/* responsive-psychology/css/responsive.css - Enhanced Bootstrap Psychology Theme */
+/* responsive-psychology/css/responsive.css - Balanced Psychology Theme */
 
 :root {
-    /* Refined Psychology Color Scheme - Less overwhelming */
-    --primary-mind: #6366F1;        /* Indigo - focused thinking */
-    --secondary-flow: #06B6D4;      /* Cyan - adaptive flow */
-    --accent-energy: #F59E0B;       /* Amber - attention & energy */
-    --success-growth: #10B981;      /* Emerald - positive growth */
-    --warning-alert: #F97316;       /* Orange - awareness signals */
-    --danger-stress: #EF4444;       /* Red - stress indicators */
+    /* Balanced Psychology Color Scheme - Reduced overwhelming violet */
+    --primary-blue: #3B82F6;           /* Blue - trust, focus, stability */
+    --secondary-cyan: #06B6D4;         /* Cyan - flow, adaptability */
+    --accent-orange: #F97316;          /* Orange - attention, energy */
+    --success-green: #10B981;          /* Green - growth, achievement */
+    --creative-purple: #8B5CF6;        /* Purple - creativity (reduced presence) */
+    --warning-amber: #F59E0B;          /* Amber - caution, awareness */
+    --danger-red: #EF4444;             /* Red - stress, alerts */
     
-    /* Psychological State Colors */
-    --state-calm: #3B82F6;          /* Blue - peaceful focus */
-    --state-creative: #8B5CF6;      /* Purple - creative thinking */
-    --state-energetic: #EC4899;     /* Pink - high energy */
-    --state-balanced: #10B981;      /* Green - optimal state */
-    --state-alert: #F59E0B;         /* Amber - heightened awareness */
-    
-    /* Background System */
-    --bg-primary: #0F172A;          /* Deep slate */
-    --bg-secondary: #1E293B;        /* Medium slate */
-    --bg-tertiary: #334155;         /* Light slate */
+    /* Neutral Foundation */
+    --bg-primary: #0F172A;             /* Deep slate */
+    --bg-secondary: #1E293B;           /* Medium slate */
+    --bg-tertiary: #334155;            /* Light slate */
     --bg-surface: rgba(59, 130, 246, 0.08);  /* Subtle blue tint */
     --bg-surface-hover: rgba(59, 130, 246, 0.12);
     
@@ -28,19 +22,30 @@
     --glass-medium: rgba(255, 255, 255, 0.12);
     --glass-border: rgba(255, 255, 255, 0.15);
     
-    /* Gradients */
-    --gradient-flow: linear-gradient(135deg, var(--primary-mind), var(--secondary-flow));
-    --gradient-energy: linear-gradient(135deg, var(--accent-energy), var(--warning-alert));
-    --gradient-calm: linear-gradient(135deg, var(--state-calm), var(--primary-mind));
-    --gradient-growth: linear-gradient(135deg, var(--success-growth), var(--secondary-flow));
+    /* Gradients - Balanced without overwhelming purple */
+    --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+    --gradient-accent: linear-gradient(135deg, var(--accent-orange), var(--warning-amber));
+    --gradient-success: linear-gradient(135deg, var(--success-green), var(--secondary-cyan));
+    --gradient-creative: linear-gradient(135deg, var(--creative-purple), var(--primary-blue));
     
-    /* Override Bootstrap Variables */
-    --bs-primary: var(--primary-mind);
-    --bs-secondary: var(--secondary-flow);
-    --bs-success: var(--success-growth);
-    --bs-info: var(--state-calm);
-    --bs-warning: var(--accent-energy);
-    --bs-danger: var(--danger-stress);
+    /* Text Colors */
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-inverse: #1E293B;
+    
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.6s ease;
 }
 
 /* Global Body Styling */
@@ -50,29 +55,31 @@ body {
         var(--bg-secondary) 50%, 
         var(--bg-primary) 100%);
     background-attachment: fixed;
-    color: #F8FAFC;
+    color: var(--text-primary);
     font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* Enhanced Navigation */
+/* Enhanced Navigation - Consistent with index.html */
 .navbar-custom {
     background: var(--glass-light) !important;
     backdrop-filter: blur(20px);
-    border-bottom: 2px solid var(--secondary-flow);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all var(--transition-normal);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
     font-weight: 700;
     font-size: 1.25rem;
-    background: var(--gradient-flow);
+    background: var(--gradient-primary);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
+    text-decoration: none;
 }
 
 .navbar-brand:hover {
@@ -80,11 +87,11 @@ body {
 }
 
 .nav-link {
-    color: #F8FAFC !important;
+    color: var(--text-primary) !important;
     font-weight: 500;
     padding: 0.75rem 1.25rem !important;
     border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
 }
@@ -96,7 +103,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--gradient-flow);
+    background: var(--gradient-primary);
     transition: left 0.4s ease;
     z-index: -1;
     opacity: 0.2;
@@ -111,71 +118,7 @@ body {
 .nav-link.active {
     color: #FFFFFF !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-}
-
-/* Psychology Button System */
-.btn-psychology {
-    background: var(--gradient-flow);
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 0.75rem 2rem;
-    border-radius: 12px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-}
-
-.btn-psychology::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.btn-psychology:hover::before {
-    left: 100%;
-}
-
-.btn-psychology:hover {
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-}
-
-/* Card System */
-.card-psychology {
-    background: var(--glass-light);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-}
-
-.card-psychology:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
-    border-color: var(--secondary-flow);
-}
-
-.card-psychology .card-header {
-    background: var(--glass-medium);
-    border-bottom: 1px solid var(--glass-border);
-    border-radius: 16px 16px 0 0 !important;
-    padding: 1.5rem;
-}
-
-.card-psychology .card-body {
-    color: #F8FAFC;
-    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 /* Hero Section */
@@ -198,13 +141,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(59,130,246,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
     opacity: 0.3;
 }
 
-.display-responsive {
+.hero-title {
     font-size: clamp(2rem, 5vw, 4rem);
-    background: var(--gradient-flow);
+    background: var(--gradient-primary);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -214,38 +157,80 @@ body {
     position: relative;
 }
 
-/* Statistics Cards */
-.stat-card {
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+/* Enhanced Button System */
+.btn-enhanced {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-enhanced:hover::before {
+    left: 100%;
+}
+
+.btn-enhanced:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Metric Cards */
+.metric-card {
     background: var(--glass-light);
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
     padding: 2rem;
     text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
 }
 
-.stat-card::before {
+.metric-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-flow);
+    background: var(--gradient-primary);
 }
 
-.stat-card:hover {
+.metric-card:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
 }
 
-.stat-number {
+.metric-number {
     font-size: 2.5rem;
     font-weight: 800;
-    background: var(--gradient-energy);
+    background: var(--gradient-accent);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -253,49 +238,107 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.stat-label {
-    color: rgba(248, 250, 252, 0.8);
+.metric-label {
+    color: var(--text-secondary);
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-/* Mental State Controls */
-.mental-state-controller {
+/* Enhanced Card System */
+.card-enhanced {
     background: var(--glass-light);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+.card-enhanced:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+    border-color: var(--secondary-cyan);
+}
+
+.card-enhanced .card-header {
+    background: var(--glass-medium);
+    border-bottom: 1px solid var(--glass-border);
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.5rem;
+    color: var(--text-primary);
+}
+
+.card-enhanced .card-body {
+    color: var(--text-primary);
+    padding: 1.5rem;
+}
+
+/* Background Utilities */
+.bg-surface {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 2.5rem;
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* Grid Items */
+.grid-item {
+    background: var(--gradient-primary);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    transition: all var(--transition-normal);
+    cursor: pointer;
     border: 1px solid var(--glass-border);
 }
 
+.grid-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* Form Controls */
 .form-range {
     background: transparent;
     height: 8px;
 }
 
 .form-range::-webkit-slider-track {
-    background: var(--gradient-calm);
+    background: var(--gradient-primary);
     border-radius: 10px;
     height: 8px;
 }
 
 .form-range::-webkit-slider-thumb {
     background: white;
-    border: 3px solid var(--primary-mind);
+    border: 3px solid var(--primary-blue);
     width: 24px;
     height: 24px;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+    transition: all var(--transition-fast);
 }
 
 .form-range::-webkit-slider-thumb:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
 }
 
 .form-range::-moz-range-track {
-    background: var(--gradient-calm);
+    background: var(--gradient-primary);
     border-radius: 10px;
     height: 8px;
     border: none;
@@ -303,16 +346,16 @@ body {
 
 .form-range::-moz-range-thumb {
     background: white;
-    border: 3px solid var(--primary-mind);
+    border: 3px solid var(--primary-blue);
     width: 24px;
     height: 24px;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
 }
 
-/* Progress System */
-.progress-psychology {
+/* Enhanced Progress System */
+.progress-enhanced {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     height: 12px;
@@ -320,43 +363,54 @@ body {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.progress-bar-psychology {
+.progress-bar-focus {
+    background: var(--gradient-primary);
     border-radius: 10px;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
 
-.progress-bar-psychology.flow {
-    background: var(--gradient-flow);
+.progress-bar-creativity {
+    background: var(--gradient-creative);
+    border-radius: 10px;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.progress-bar-psychology.energy {
-    background: var(--gradient-energy);
+.progress-bar-stress {
+    background: linear-gradient(135deg, var(--danger-red), var(--warning-amber));
+    border-radius: 10px;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.progress-bar-psychology.calm {
-    background: var(--gradient-calm);
+.progress-bar-primary {
+    background: var(--gradient-primary);
 }
 
-.progress-bar-psychology.growth {
-    background: var(--gradient-growth);
+.progress-bar-success {
+    background: var(--gradient-success);
 }
 
-.progress-bar-psychology::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: progressShimmer 2s ease-in-out infinite;
+.progress-bar-info {
+    background: var(--gradient-primary);
 }
 
-@keyframes progressShimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+.progress-bar-warning {
+    background: var(--gradient-accent);
+}
+
+/* Enhanced Badge System */
+.badge-enhanced {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.875rem;
 }
 
 /* Psychology Monitor */
@@ -380,25 +434,25 @@ body {
 
 .brainwave.alpha {
     top: 20%;
-    background: var(--state-calm);
+    background: var(--primary-blue);
     animation-delay: 0s;
 }
 
 .brainwave.beta {
     top: 40%;
-    background: var(--primary-mind);
+    background: var(--secondary-cyan);
     animation-delay: 0.5s;
 }
 
 .brainwave.theta {
     top: 60%;
-    background: var(--secondary-flow);
+    background: var(--success-green);
     animation-delay: 1s;
 }
 
 .brainwave.gamma {
     top: 80%;
-    background: var(--accent-energy);
+    background: var(--accent-orange);
     animation-delay: 1.5s;
 }
 
@@ -429,7 +483,7 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 10px;
     border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
 }
 
 .activity-item:hover {
@@ -439,64 +493,46 @@ body {
 
 .activity-type {
     font-weight: 600;
-    color: var(--secondary-flow);
+    color: var(--secondary-cyan);
 }
 
 .activity-value {
     font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
-    color: var(--accent-energy);
+    color: var(--accent-orange);
     font-weight: 500;
 }
 
-/* Grid Demo */
-.grid-item {
-    background: var(--gradient-flow);
-    padding: 1.5rem;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    border: 1px solid var(--glass-border);
-}
-
-.grid-item:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-}
-
-/* Tabs System */
-.nav-tabs {
-    border-bottom: 2px solid var(--secondary-flow);
+/* Enhanced Tab System */
+.nav-enhanced {
+    border-bottom: 2px solid var(--secondary-cyan);
     margin-bottom: 0;
 }
 
-.nav-tabs .nav-link {
+.nav-enhanced .nav-link {
     background: var(--glass-light);
     border: 1px solid var(--glass-border);
-    color: rgba(248, 250, 252, 0.8);
+    color: var(--text-secondary);
     border-radius: 12px 12px 0 0;
     margin-right: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
     font-weight: 500;
 }
 
-.nav-tabs .nav-link:hover {
-    border-color: var(--secondary-flow);
+.nav-enhanced .nav-link:hover {
+    border-color: var(--secondary-cyan);
     background: var(--glass-medium);
-    color: #F8FAFC;
+    color: var(--text-primary);
 }
 
-.nav-tabs .nav-link.active {
-    background: var(--gradient-flow) !important;
-    border-color: var(--secondary-flow);
+.nav-enhanced .nav-link.active {
+    background: var(--gradient-primary) !important;
+    border-color: var(--secondary-cyan);
     color: white !important;
 }
 
-.tab-content {
+.tab-content-enhanced {
     background: var(--glass-light);
-    border: 2px solid var(--secondary-flow);
+    border: 2px solid var(--secondary-cyan);
     border-top: none;
     border-radius: 0 0 16px 16px;
     backdrop-filter: blur(15px);
@@ -517,7 +553,7 @@ body {
     height: 60px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transition-normal);
     border: 3px solid white;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -528,29 +564,28 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.color-swatch::after {
-    content: attr(data-psychology);
-    position: absolute;
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+.color-swatch.primary {
+    background: var(--primary-blue);
 }
 
-.color-swatch:hover::after {
-    opacity: 1;
+.color-swatch.secondary {
+    background: var(--secondary-cyan);
 }
 
-/* Accordion System */
-.accordion-item {
+.color-swatch.accent {
+    background: var(--accent-orange);
+}
+
+.color-swatch.success {
+    background: var(--success-green);
+}
+
+.color-swatch.creative {
+    background: var(--creative-purple);
+}
+
+/* Enhanced Accordion System */
+.accordion-enhanced {
     background: transparent !important;
     border: 1px solid var(--glass-border);
     margin-bottom: 0.5rem;
@@ -558,27 +593,27 @@ body {
     overflow: hidden;
 }
 
-.accordion-button {
+.accordion-enhanced .accordion-button {
     background: var(--glass-light) !important;
-    color: #F8FAFC !important;
+    color: var(--text-primary) !important;
     border: none !important;
     font-weight: 600;
     padding: 1.25rem 1.5rem;
 }
 
-.accordion-button:not(.collapsed) {
-    background: var(--gradient-flow) !important;
+.accordion-enhanced .accordion-button:not(.collapsed) {
+    background: var(--gradient-primary) !important;
     color: white !important;
     box-shadow: none !important;
 }
 
-.accordion-button:focus {
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3) !important;
+.accordion-enhanced .accordion-button:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
 }
 
-.accordion-body {
+.accordion-enhanced .accordion-body {
     background: var(--glass-light);
-    color: #F8FAFC;
+    color: var(--text-primary);
     border-top: 1px solid var(--glass-border);
     padding: 1.5rem;
 }
@@ -592,13 +627,13 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px dashed var(--glass-border);
-    transition: all 0.3s ease;
+    transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
 }
 
 .simulation-area.active {
-    border-color: var(--secondary-flow);
+    border-color: var(--secondary-cyan);
     background: rgba(6, 182, 212, 0.1);
     border-style: solid;
 }
@@ -610,7 +645,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent 49%, rgba(99, 102, 241, 0.05) 50%, transparent 51%);
+    background: linear-gradient(45deg, transparent 49%, rgba(59, 130, 246, 0.05) 50%, transparent 51%);
     background-size: 20px 20px;
     animation: patternMove 10s linear infinite;
 }
@@ -620,8 +655,33 @@ body {
     100% { transform: translateX(0) translateY(0); }
 }
 
-/* Modal System */
-.modal-content {
+/* Behavior Metrics */
+.behavior-metric {
+    background: var(--glass-light);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.behavior-metric h6 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.result-item {
+    background: var(--glass-light);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+.result-item h6 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Enhanced Modal System */
+.modal-enhanced .modal-content {
     background: var(--glass-light);
     backdrop-filter: blur(20px);
     border: 2px solid var(--glass-border);
@@ -629,19 +689,24 @@ body {
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+.modal-enhanced .modal-header {
     border-bottom: 1px solid var(--glass-border);
     background: var(--glass-medium);
     border-radius: 20px 20px 0 0;
+    color: var(--text-primary);
 }
 
-.modal-footer {
+.modal-enhanced .modal-body {
+    color: var(--text-primary);
+}
+
+.modal-enhanced .modal-footer {
     border-top: 1px solid var(--glass-border);
     background: var(--glass-medium);
     border-radius: 0 0 20px 20px;
 }
 
-.btn-close {
+.btn-close-white {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
@@ -651,32 +716,12 @@ body {
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
-    color: #F8FAFC;
-}
-
-/* Background Utilities */
-.bg-dark-glass {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(10px);
-}
-
-.section-title {
-    font-size: 2.5rem;
-    background: var(--gradient-flow);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-    margin-bottom: 2rem;
+    color: var(--text-primary);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .psychology-container {
-        padding: 0 1rem;
-    }
-    
-    .display-responsive {
+    .hero-title {
         font-size: 2.5rem;
     }
     
@@ -684,7 +729,7 @@ body {
         font-size: 2rem;
     }
     
-    .stat-card {
+    .metric-card {
         margin-bottom: 1rem;
     }
     
@@ -711,7 +756,7 @@ body {
         min-height: 250px;
     }
     
-    .nav-tabs .nav-link {
+    .nav-enhanced .nav-link {
         font-size: 0.9rem;
         padding: 0.75rem 1rem;
     }
@@ -722,43 +767,42 @@ body {
         padding: 2rem 0;
     }
     
-    .nav-tabs .nav-link {
+    .nav-enhanced .nav-link {
         margin-right: 0.25rem;
         margin-bottom: 0.5rem;
     }
     
-    .card-psychology {
+    .card-enhanced {
         margin-bottom: 1rem;
     }
     
-    .tab-content {
+    .tab-content-enhanced {
         padding: 1.5rem;
     }
     
-    .accordion-button {
+    .accordion-enhanced .accordion-button {
         padding: 1rem;
         font-size: 0.9rem;
     }
     
-    .accordion-body {
+    .accordion-enhanced .accordion-body {
         padding: 1rem;
     }
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-    .card-psychology,
-    .stat-card,
+    .card-enhanced,
+    .metric-card,
     .grid-item,
     .color-swatch,
-    .brainwave,
-    .progress-bar-psychology::after {
+    .brainwave {
         animation: none !important;
         transition: none !important;
     }
     
-    .card-psychology:hover,
-    .stat-card:hover,
+    .card-enhanced:hover,
+    .metric-card:hover,
     .grid-item:hover,
     .color-swatch:hover {
         transform: none;
@@ -766,29 +810,25 @@ body {
 }
 
 /* Focus Management */
-.btn-psychology:focus,
+.btn-enhanced:focus,
 .form-range:focus,
 .nav-link:focus,
-.accordion-button:focus,
+.accordion-enhanced .accordion-button:focus,
 .color-swatch:focus {
-    outline: 3px solid var(--accent-energy);
+    outline: 3px solid var(--accent-orange);
     outline-offset: 2px;
 }
 
 /* High Contrast Support */
 @media (prefers-contrast: high) {
-    .card-psychology,
-    .stat-card,
+    .card-enhanced,
+    .metric-card,
     .grid-item {
         border: 2px solid white;
     }
     
     .nav-link {
         border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-    
-    .progress-bar-psychology::after {
-        display: none;
     }
 }
 
@@ -800,15 +840,15 @@ body {
         display: none;
     }
     
-    .card-psychology,
-    .stat-card {
+    .card-enhanced,
+    .metric-card {
         background: white !important;
         color: black !important;
         border: 1px solid #ccc !important;
     }
     
     .section-title,
-    .display-responsive {
+    .hero-title {
         background: none !important;
         -webkit-text-fill-color: initial !important;
         color: #333 !important;

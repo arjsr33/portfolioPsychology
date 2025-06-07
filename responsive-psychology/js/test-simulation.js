@@ -1,4 +1,48 @@
-const runSingleTest = () => {
+// responsive-psychology/js/test-simulations.js - Complete Interactive Psychology Test Suite
+
+class PsychologyTestSuite {
+    constructor() {
+        this.testResults = {
+            reactionTime: null,
+            memoryScore: null,
+            colorPerception: null
+        };
+        this.currentTest = null;
+        this.testData = new Map();
+        this.isRunning = false;
+    }
+    
+    // Initialize test suite
+    initialize() {
+        this.setupGlobalFunctions();
+        console.log('🧪 Psychology test suite initialized');
+    }
+    
+    // Setup global functions for HTML onclick handlers
+    setupGlobalFunctions() {
+        // Make functions globally available
+        window.startReactionTest = () => this.startReactionTest();
+        window.startMemoryTest = () => this.startMemoryTest();
+        window.startColorTest = () => this.startColorTest();
+        window.resetSimulations = () => this.resetSimulations();
+        window.animateGrid = () => this.animateGrid();
+        window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
+    }
+    
+    // Reaction Time Test
+    startReactionTest() {
+        if (this.isRunning) return;
+        
+        const simulationArea = document.getElementById('simulationArea');
+        simulationArea.classList.add('active');
+        this.currentTest = 'reaction';
+        this.isRunning = true;
+        
+        let reactionTimes = [];
+        let testCount = 0;
+        const maxTests = 3;
+        
+        const runSingleTest = () => {
             if (testCount >= maxTests) {
                 this.completeReactionTest(reactionTimes);
                 return;
@@ -22,18 +66,17 @@ const runSingleTest = () => {
                 simulationArea.innerHTML = `
                     <div class="text-center">
                         <div class="reaction-target" 
-                             style="width: 100px; height: 100px; background: linear-gradient(45deg, #6366F1, #06B6D4); 
+                             style="width: 100px; height: 100px; background: linear-gradient(45deg, #3B82F6, #06B6D4); 
                                     border-radius: 50%; margin: 0 auto; cursor: pointer; 
                                     transition: all 0.2s ease; border: 3px solid white;
-                                    box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);" 
-                             onclick="this.recordReaction(${startTime})"></div>
+                                    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);" 
+                             onclick="window.recordReaction(${startTime})"></div>
                         <h5 class="mt-3 text-white">CLICK NOW!</h5>
                     </div>
                 `;
                 
-                // Add the recording method to the target
-                const target = simulationArea.querySelector('.reaction-target');
-                target.recordReaction = (startTime) => {
+                // Add the recording method globally
+                window.recordReaction = (startTime) => {
                     const reactionTime = Date.now() - startTime;
                     reactionTimes.push(reactionTime);
                     testCount++;
@@ -59,7 +102,7 @@ const runSingleTest = () => {
                                 <small class="text-muted">Test ${testCount} of ${maxTests} complete</small>
                             </div>
                             ${testCount < maxTests ? 
-                                '<button class="btn btn-primary" onclick="this.continueTest()">Next Test</button>' :
+                                '<button class="btn btn-primary" onclick="window.continueReactionTest()">Next Test</button>' :
                                 '<div class="spinner-border text-success mt-2"></div><p class="text-light mt-2">Calculating results...</p>'
                             }
                         </div>
@@ -67,7 +110,7 @@ const runSingleTest = () => {
                     
                     // Add continue method if needed
                     if (testCount < maxTests) {
-                        simulationArea.querySelector('button').continueTest = () => {
+                        window.continueReactionTest = () => {
                             setTimeout(runSingleTest, 1000);
                         };
                     } else {
@@ -137,6 +180,7 @@ const runSingleTest = () => {
         
         this.updateOverallProfile();
         this.currentTest = null;
+        this.isRunning = false;
     }
     
     getReactionAnalysis(average) {
@@ -155,16 +199,18 @@ const runSingleTest = () => {
     
     // Memory Test
     startMemoryTest() {
+        if (this.isRunning) return;
+        
         const simulationArea = document.getElementById('simulationArea');
         simulationArea.classList.add('active');
         this.currentTest = 'memory';
+        this.isRunning = true;
         
-        const colors = ['#6366F1', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
+        const colors = ['#3B82F6', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
         const sequence = [];
         let userSequence = [];
         let round = 1;
         const maxRounds = 5;
-        let mistakes = 0;
         
         const addToSequence = () => {
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
@@ -175,7 +221,7 @@ const runSingleTest = () => {
             simulationArea.innerHTML = `
                 <div class="text-center">
                     <h5 class="text-white">Round ${round} - Watch the sequence</h5>
-                    <p class="text-light">Memorize the order of colors</p>
+                    <p class="text-light">Memorize the order of ${sequence.length} colors</p>
                     <div id="memoryGrid" style="display: grid; grid-template-columns: repeat(3, 1fr); 
                                                 gap: 15px; width: 240px; margin: 20px auto;"></div>
                     <div class="progress mt-3" style="height: 8px;">
@@ -230,12 +276,9 @@ const runSingleTest = () => {
             setTimeout(showNextColor, 1000);
         };
         
-        const startTest = () => {
-            addToSequence();
-            showSequence();
-        };
-        
-        startTest();
+        // Initialize first round
+        addToSequence();
+        showSequence();
     }
     
     startUserInput(round) {
@@ -297,7 +340,7 @@ const runSingleTest = () => {
     
     continueMemoryTest(sequence, round, maxRounds) {
         // Add new color to sequence
-        const colors = ['#6366F1', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
+        const colors = ['#3B82F6', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         sequence.push(randomColor);
         
@@ -306,7 +349,7 @@ const runSingleTest = () => {
     }
     
     showMemorySequence(sequence, userSequence, round, maxRounds) {
-        const colors = ['#6366F1', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
+        const colors = ['#3B82F6', '#06B6D4', '#F59E0B', '#10B981', '#F97316', '#EF4444'];
         const simulationArea = document.getElementById('simulationArea');
         
         simulationArea.innerHTML = `
@@ -411,6 +454,7 @@ const runSingleTest = () => {
         
         this.updateOverallProfile();
         this.currentTest = null;
+        this.isRunning = false;
     }
     
     getMemoryAnalysis(percentage) {
@@ -429,9 +473,12 @@ const runSingleTest = () => {
     
     // Color Perception Test
     startColorTest() {
+        if (this.isRunning) return;
+        
         const simulationArea = document.getElementById('simulationArea');
         simulationArea.classList.add('active');
         this.currentTest = 'color';
+        this.isRunning = true;
         
         let correct = 0;
         let total = 0;
@@ -476,12 +523,12 @@ const runSingleTest = () => {
                              style="width: 120px; height: 120px; background: ${colors[0]}; 
                                     border-radius: 15px; cursor: pointer; border: 3px solid white;
                                     transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"
-                             onclick="this.checkChoice(${differentIndex === 0})"></div>
+                             onclick="window.checkColorChoice(${differentIndex === 0})"></div>
                         <div class="color-test-option"
                              style="width: 120px; height: 120px; background: ${colors[1]}; 
                                     border-radius: 15px; cursor: pointer; border: 3px solid white;
                                     transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"
-                             onclick="this.checkChoice(${differentIndex === 1})"></div>
+                             onclick="window.checkColorChoice(${differentIndex === 1})"></div>
                     </div>
                     <div class="progress mt-3" style="height: 8px;">
                         <div class="progress-bar bg-info" style="width: ${(total / maxTests) * 100}%"></div>
@@ -490,31 +537,31 @@ const runSingleTest = () => {
                 </div>
             `;
             
-            // Add choice checking method
-            const options = simulationArea.querySelectorAll('.color-test-option');
-            options.forEach(option => {
-                option.checkChoice = (isCorrect) => {
-                    total++;
-                    
-                    // Visual feedback
+            // Add choice checking method globally
+            window.checkColorChoice = (isCorrect) => {
+                total++;
+                
+                // Visual feedback
+                const options = simulationArea.querySelectorAll('.color-test-option');
+                options.forEach(option => {
                     option.style.transform = 'scale(0.95)';
-                    option.style.borderColor = isCorrect ? '#10B981' : '#EF4444';
-                    
-                    if (isCorrect) {
-                        correct++;
+                    if (isCorrect && option.getAttribute('onclick').includes('true')) {
+                        option.style.borderColor = '#10B981';
                         option.style.boxShadow = '0 0 20px #10B981';
-                    } else {
+                        correct++;
+                    } else if (!isCorrect && option.getAttribute('onclick').includes('true')) {
+                        option.style.borderColor = '#EF4444';
                         option.style.boxShadow = '0 0 20px #EF4444';
                     }
-                    
-                    // Increase difficulty
-                    if (total % 2 === 0) difficulty++;
-                    
-                    setTimeout(() => {
-                        showColorTest();
-                    }, 1000);
-                };
-            });
+                });
+                
+                // Increase difficulty
+                if (total % 2 === 0) difficulty++;
+                
+                setTimeout(() => {
+                    showColorTest();
+                }, 1000);
+            };
         };
         
         showColorTest();
@@ -565,6 +612,7 @@ const runSingleTest = () => {
         
         this.updateOverallProfile();
         this.currentTest = null;
+        this.isRunning = false;
     }
     
     getColorAnalysis(percentage) {
@@ -583,6 +631,8 @@ const runSingleTest = () => {
     
     // Reset all simulations
     resetSimulations() {
+        if (this.isRunning) return;
+        
         const simulationArea = document.getElementById('simulationArea');
         simulationArea.classList.remove('active');
         simulationArea.innerHTML = `
@@ -594,16 +644,31 @@ const runSingleTest = () => {
         `;
         
         // Reset all scores
-        document.getElementById('avgReaction').textContent = '--ms';
-        document.getElementById('memoryScore').textContent = '--%';
-        document.getElementById('colorScore').textContent = '--';
+        const elements = [
+            { id: 'avgReaction', value: '--ms' },
+            { id: 'memoryScore', value: '--%' },
+            { id: 'colorScore', value: '--' }
+        ];
         
-        document.getElementById('reactionProgress').style.width = '0%';
-        document.getElementById('memoryProgress').style.width = '0%';
-        document.getElementById('colorProgress').style.width = '0%';
+        elements.forEach(({ id, value }) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        });
         
-        document.getElementById('profileBadge').textContent = 'Baseline';
-        document.getElementById('profileBadge').className = 'badge bg-primary';
+        const progressBars = [
+            'reactionProgress', 'memoryProgress', 'colorProgress'
+        ];
+        
+        progressBars.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.style.width = '0%';
+        });
+        
+        const profileBadge = document.getElementById('profileBadge');
+        if (profileBadge) {
+            profileBadge.textContent = 'Baseline';
+            profileBadge.className = 'badge badge-enhanced';
+        }
         
         // Clear stored results
         this.testResults = {
@@ -613,6 +678,7 @@ const runSingleTest = () => {
         };
         this.testData.clear();
         this.currentTest = null;
+        this.isRunning = false;
         
         this.showToast('All simulations reset', 'info');
     }
@@ -626,7 +692,7 @@ const runSingleTest = () => {
         const hasColor = colorPerception !== null;
         
         let profile = 'Baseline';
-        let badgeClass = 'bg-primary';
+        let badgeClass = 'badge-enhanced';
         
         if (hasReaction && hasMemory && hasColor) {
             // Calculate composite score
@@ -635,28 +701,30 @@ const runSingleTest = () => {
             
             if (overallScore >= 85) {
                 profile = 'Cognitive Elite';
-                badgeClass = 'bg-success';
+                badgeClass = 'badge bg-success';
             } else if (overallScore >= 70) {
                 profile = 'Sharp Mind';
-                badgeClass = 'bg-info';
+                badgeClass = 'badge bg-info';
             } else if (overallScore >= 55) {
                 profile = 'Balanced Cognition';
-                badgeClass = 'bg-warning';
+                badgeClass = 'badge bg-warning';
             } else if (overallScore >= 40) {
                 profile = 'Developing Skills';
-                badgeClass = 'bg-secondary';
+                badgeClass = 'badge bg-secondary';
             } else {
                 profile = 'Needs Practice';
-                badgeClass = 'bg-danger';
+                badgeClass = 'badge bg-danger';
             }
         } else if (hasReaction || hasMemory || hasColor) {
             profile = 'Partial Assessment';
-            badgeClass = 'bg-info';
+            badgeClass = 'badge bg-info';
         }
         
         const profileBadge = document.getElementById('profileBadge');
-        profileBadge.textContent = profile;
-        profileBadge.className = `badge ${badgeClass}`;
+        if (profileBadge) {
+            profileBadge.textContent = profile;
+            profileBadge.className = badgeClass;
+        }
     }
     
     // Grid animation
@@ -670,7 +738,7 @@ const runSingleTest = () => {
                 
                 setTimeout(() => {
                     item.style.transform = 'scale(1) rotate(0deg)';
-                    item.style.background = 'linear-gradient(135deg, #6366F1, #06B6D4)';
+                    item.style.background = 'linear-gradient(135deg, #3B82F6, #06B6D4)';
                 }, 300);
             }, index * 100);
         });
@@ -715,37 +783,46 @@ const runSingleTest = () => {
         const toastHTML = `
             <div class="toast align-items-center text-white border-0 ${bgClass}" role="alert" id="${toastId}">
                 <div class="d-flex">
-                // responsive-psychology/js/test-simulations.js - Interactive Psychology Test Suite
-
-class PsychologyTestSuite {
-    constructor() {
-        this.testResults = {
-            reactionTime: null,
-            memoryScore: null,
-            colorPerception: null
-        };
-        this.currentTest = null;
-        this.testData = new Map();
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        
+        toastContainer.innerHTML = toastHTML;
+        
+        const toast = new bootstrap.Toast(document.getElementById(toastId));
+        toast.show();
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            const toastElement = document.getElementById(toastId);
+            if (toastElement) {
+                toastElement.remove();
+            }
+        }, 3000);
     }
     
-    // Reaction Time Test
-    startReactionTest() {
-        const simulationArea = document.getElementById('simulationArea');
-        simulationArea.classList.add('active');
-        this.currentTest = 'reaction';
-        
-        let reactionTimes = [];
-        let testCount = 0;
-        const maxTests = 3;
-        
-        const runSingleTest = () => {
-            if (testCount >= maxTests) {
-                this.completeReactionTest(reactionTimes);
-                return;
-            }
-            
-            const delay = 2000 + Math.random() * 3000; // 2-5 second delay
-            
-            simulationArea.innerHTML = `
-                <div class="text-center">
-                    <h5
+    // Get comprehensive test results
+    getTestResults() {
+        return {
+            results: this.testResults,
+            rawData: Object.fromEntries(this.testData),
+            currentTest: this.currentTest,
+            isRunning: this.isRunning
+        };
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    window.psychologyTestSuite = new PsychologyTestSuite();
+    window.psychologyTestSuite.initialize();
+});
+
+// Export for potential use by other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PsychologyTestSuite;
+}
