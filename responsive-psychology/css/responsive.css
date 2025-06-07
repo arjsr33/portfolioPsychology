@@ -1,85 +1,134 @@
-/* responsive-psychology/css/responsive.css - Bootstrap Customizations */
+/* responsive-psychology/css/responsive.css - Enhanced Bootstrap Psychology Theme */
 
 :root {
-    /* Psychology-driven color scheme for Bootstrap */
-    --bs-primary: #8B5CF6;
-    --bs-secondary: #EC4899;
-    --bs-success: #10B981;
-    --bs-info: #3B82F6;
-    --bs-warning: #F97316;
-    --bs-danger: #EF4444;
-    --bs-light: #F8FAFC;
-    --bs-dark: #1E293B;
-
-    /* Custom psychology variables */
-    --hypno-purple: #8B5CF6;
-    --hypno-pink: #EC4899;
-    --hypno-blue: #3B82F6;
-    --hypno-orange: #F97316;
-    --glass-bg: rgba(30, 41, 59, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    /* Refined Psychology Color Scheme - Less overwhelming */
+    --primary-mind: #6366F1;        /* Indigo - focused thinking */
+    --secondary-flow: #06B6D4;      /* Cyan - adaptive flow */
+    --accent-energy: #F59E0B;       /* Amber - attention & energy */
+    --success-growth: #10B981;      /* Emerald - positive growth */
+    --warning-alert: #F97316;       /* Orange - awareness signals */
+    --danger-stress: #EF4444;       /* Red - stress indicators */
+    
+    /* Psychological State Colors */
+    --state-calm: #3B82F6;          /* Blue - peaceful focus */
+    --state-creative: #8B5CF6;      /* Purple - creative thinking */
+    --state-energetic: #EC4899;     /* Pink - high energy */
+    --state-balanced: #10B981;      /* Green - optimal state */
+    --state-alert: #F59E0B;         /* Amber - heightened awareness */
+    
+    /* Background System */
+    --bg-primary: #0F172A;          /* Deep slate */
+    --bg-secondary: #1E293B;        /* Medium slate */
+    --bg-tertiary: #334155;         /* Light slate */
+    --bg-surface: rgba(59, 130, 246, 0.08);  /* Subtle blue tint */
+    --bg-surface-hover: rgba(59, 130, 246, 0.12);
+    
+    /* Glass Morphism */
+    --glass-light: rgba(255, 255, 255, 0.08);
+    --glass-medium: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    
+    /* Gradients */
+    --gradient-flow: linear-gradient(135deg, var(--primary-mind), var(--secondary-flow));
+    --gradient-energy: linear-gradient(135deg, var(--accent-energy), var(--warning-alert));
+    --gradient-calm: linear-gradient(135deg, var(--state-calm), var(--primary-mind));
+    --gradient-growth: linear-gradient(135deg, var(--success-growth), var(--secondary-flow));
+    
+    /* Override Bootstrap Variables */
+    --bs-primary: var(--primary-mind);
+    --bs-secondary: var(--secondary-flow);
+    --bs-success: var(--success-growth);
+    --bs-info: var(--state-calm);
+    --bs-warning: var(--accent-energy);
+    --bs-danger: var(--danger-stress);
 }
 
-/* Global body styling */
+/* Global Body Styling */
 body {
-    background: linear-gradient(135deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
-    min-height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    background: linear-gradient(135deg, 
+        var(--bg-primary) 0%, 
+        var(--bg-secondary) 50%, 
+        var(--bg-primary) 100%);
+    background-attachment: fixed;
+    color: #F8FAFC;
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Bootstrap Navigation Customizations */
+/* Enhanced Navigation */
 .navbar-custom {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(15px);
-    border-bottom: 2px solid var(--hypno-pink);
-    transition: all 0.3s ease;
+    background: var(--glass-light) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid var(--secondary-flow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
     font-weight: 700;
-    background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue), var(--hypno-orange));
+    font-size: 1.25rem;
+    background: var(--gradient-flow);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
 }
 
 .nav-link {
-    color: white !important;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin: 0 0.5rem;
-    padding: 0.8rem 1.2rem !important;
-    border-radius: 25px;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--hypno-pink) !important;
-    background: rgba(236, 72, 153, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Custom Button Styles */
-.btn-hypno {
-    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
-    border: none;
-    color: white;
-    font-weight: 600;
-    padding: 0.75rem 2rem;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    color: #F8FAFC !important;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
 
-.btn-hypno:hover {
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-flow);
+    transition: left 0.4s ease;
+    z-index: -1;
+    opacity: 0.2;
 }
 
-.btn-hypno::before {
+.nav-link:hover::before,
+.nav-link.active::before {
+    left: 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+/* Psychology Button System */
+.btn-psychology {
+    background: var(--gradient-flow);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-psychology::before {
     content: '';
     position: absolute;
     top: 0;
@@ -90,33 +139,43 @@ body {
     transition: left 0.5s ease;
 }
 
-.btn-hypno:hover::before {
+.btn-psychology:hover::before {
     left: 100%;
 }
 
-/* Glass Morphism Cards */
-.card-glass {
-    background: var(--glass-bg);
+.btn-psychology:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* Card System */
+.card-psychology {
+    background: var(--glass-light);
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
 }
 
-.card-glass:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(236, 72, 153, 0.3);
+.card-psychology:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    border-color: var(--secondary-flow);
 }
 
-.card-glass .card-header {
-    background: rgba(255, 255, 255, 0.1);
+.card-psychology .card-header {
+    background: var(--glass-medium);
     border-bottom: 1px solid var(--glass-border);
-    border-radius: 20px 20px 0 0 !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.5rem;
 }
 
-.card-glass .card-body {
-    color: white;
+.card-psychology .card-body {
+    color: #F8FAFC;
+    padding: 1.5rem;
 }
 
 /* Hero Section */
@@ -124,48 +183,69 @@ body {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    background: linear-gradient(135deg, 
+        rgba(15, 23, 42, 0.9) 0%,
+        rgba(30, 41, 59, 0.9) 50%,
+        rgba(15, 23, 42, 0.9) 100%);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, 
-        rgba(139, 92, 246, 0.9), 
-        rgba(236, 72, 153, 0.9), 
-        rgba(59, 130, 246, 0.9)
-    );
 }
 
-.hero-title {
-    background: linear-gradient(45deg, var(--hypno-pink), var(--hypno-blue), var(--hypno-orange));
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.display-responsive {
+    font-size: clamp(2rem, 5vw, 4rem);
+    background: var(--gradient-flow);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textGlow 4s ease-in-out infinite;
-}
-
-@keyframes textGlow {
-    0%, 100% { filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5)); }
-    50% { filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.8)); }
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    position: relative;
 }
 
 /* Statistics Cards */
 .stat-card {
-    background: var(--glass-bg);
+    background: var(--glass-light);
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: 16px;
+    padding: 2rem;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-flow);
 }
 
 .stat-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.2);
 }
 
 .stat-number {
     font-size: 2.5rem;
-    font-weight: bold;
-    background: linear-gradient(45deg, var(--hypno-orange), var(--hypno-pink));
+    font-weight: 800;
+    background: var(--gradient-energy);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -174,65 +254,48 @@ body {
 }
 
 .stat-label {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(248, 250, 252, 0.8);
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
-/* Background Sections */
-.bg-dark-glass {
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(10px);
+/* Mental State Controls */
+.mental-state-controller {
+    background: var(--glass-light);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
 }
 
-/* Section Titles */
-.section-title {
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-}
-
-/* Grid Demonstration */
-.grid-item {
-    background: linear-gradient(45deg, var(--hypno-blue), var(--hypno-purple));
-    padding: 1rem;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: 600;
-    color: white;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.grid-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-}
-
-/* Custom Range Inputs */
 .form-range {
     background: transparent;
+    height: 8px;
 }
 
 .form-range::-webkit-slider-track {
-    background: linear-gradient(90deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+    background: var(--gradient-calm);
     border-radius: 10px;
     height: 8px;
 }
 
 .form-range::-webkit-slider-thumb {
     background: white;
-    border: 2px solid var(--hypno-pink);
-    width: 20px;
-    height: 20px;
+    border: 3px solid var(--primary-mind);
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+    transition: all 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
 }
 
 .form-range::-moz-range-track {
-    background: linear-gradient(90deg, var(--hypno-purple), var(--hypno-pink), var(--hypno-blue));
+    background: var(--gradient-calm);
     border-radius: 10px;
     height: 8px;
     border: none;
@@ -240,35 +303,54 @@ body {
 
 .form-range::-moz-range-thumb {
     background: white;
-    border: 2px solid var(--hypno-pink);
-    width: 20px;
-    height: 20px;
+    border: 3px solid var(--primary-mind);
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
 }
 
-/* Progress Bar Customizations */
-.progress {
+/* Progress System */
+.progress-psychology {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     height: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.progress-bar {
+.progress-bar-psychology {
     border-radius: 10px;
-    transition: all 0.8s ease;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
 }
 
-.progress-bar::after {
+.progress-bar-psychology.flow {
+    background: var(--gradient-flow);
+}
+
+.progress-bar-psychology.energy {
+    background: var(--gradient-energy);
+}
+
+.progress-bar-psychology.calm {
+    background: var(--gradient-calm);
+}
+
+.progress-bar-psychology.growth {
+    background: var(--gradient-growth);
+}
+
+.progress-bar-psychology::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
     animation: progressShimmer 2s ease-in-out infinite;
 }
 
@@ -279,86 +361,146 @@ body {
 
 /* Psychology Monitor */
 .psychology-monitor {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
     padding: 2rem;
     position: relative;
     overflow: hidden;
-    height: 200px;
+    height: 250px;
+    border: 1px solid var(--glass-border);
 }
 
 .brainwave {
     position: absolute;
     width: 100%;
-    height: 2px;
-    background: var(--hypno-blue);
+    height: 3px;
+    border-radius: 2px;
     animation: brainwaveActivity 3s ease-in-out infinite;
 }
 
 .brainwave.alpha {
     top: 20%;
-    background: var(--hypno-purple);
+    background: var(--state-calm);
     animation-delay: 0s;
 }
 
 .brainwave.beta {
     top: 40%;
-    background: var(--hypno-pink);
+    background: var(--primary-mind);
     animation-delay: 0.5s;
 }
 
 .brainwave.theta {
     top: 60%;
-    background: var(--hypno-blue);
+    background: var(--secondary-flow);
     animation-delay: 1s;
 }
 
 .brainwave.gamma {
     top: 80%;
-    background: var(--hypno-orange);
+    background: var(--accent-energy);
     animation-delay: 1.5s;
 }
 
 @keyframes brainwaveActivity {
     0%, 100% { 
-        transform: scaleX(1) scaleY(1);
+        transform: scaleX(0.8) scaleY(1);
         opacity: 0.6;
     }
     50% { 
-        transform: scaleX(1.5) scaleY(3);
+        transform: scaleX(1.2) scaleY(2);
         opacity: 1;
     }
 }
 
-/* Activity List */
+/* Activity Display */
 .activity-list {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
 .activity-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
+    background: var(--glass-light);
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
     transition: all 0.3s ease;
 }
 
 .activity-item:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-medium);
+    transform: translateX(5px);
 }
 
 .activity-type {
     font-weight: 600;
-    color: var(--hypno-pink);
+    color: var(--secondary-flow);
 }
 
 .activity-value {
-    font-family: 'Courier New', monospace;
-    color: var(--hypno-blue);
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    color: var(--accent-energy);
+    font-weight: 500;
+}
+
+/* Grid Demo */
+.grid-item {
+    background: var(--gradient-flow);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+}
+
+.grid-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+/* Tabs System */
+.nav-tabs {
+    border-bottom: 2px solid var(--secondary-flow);
+    margin-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+    background: var(--glass-light);
+    border: 1px solid var(--glass-border);
+    color: rgba(248, 250, 252, 0.8);
+    border-radius: 12px 12px 0 0;
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: var(--secondary-flow);
+    background: var(--glass-medium);
+    color: #F8FAFC;
+}
+
+.nav-tabs .nav-link.active {
+    background: var(--gradient-flow) !important;
+    border-color: var(--secondary-flow);
+    color: white !important;
+}
+
+.tab-content {
+    background: var(--glass-light);
+    border: 2px solid var(--secondary-flow);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    backdrop-filter: blur(15px);
+    padding: 2rem;
 }
 
 /* Color Palette */
@@ -367,6 +509,7 @@ body {
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 1.5rem 0;
 }
 
 .color-swatch {
@@ -374,139 +517,166 @@ body {
     height: 60px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 3px solid white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 .color-swatch:hover {
-    transform: scale(1.2);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    transform: scale(1.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Accordion Customizations */
+.color-swatch::after {
+    content: attr(data-psychology);
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.color-swatch:hover::after {
+    opacity: 1;
+}
+
+/* Accordion System */
 .accordion-item {
     background: transparent !important;
     border: 1px solid var(--glass-border);
     margin-bottom: 0.5rem;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
+    overflow: hidden;
 }
 
 .accordion-button {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
+    background: var(--glass-light) !important;
+    color: #F8FAFC !important;
     border: none !important;
-    border-radius: 10px !important;
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
 }
 
 .accordion-button:not(.collapsed) {
-    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink)) !important;
+    background: var(--gradient-flow) !important;
     color: white !important;
     box-shadow: none !important;
 }
 
+.accordion-button:focus {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3) !important;
+}
+
 .accordion-body {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
-    border-radius: 0 0 10px 10px;
-}
-
-/* Tab Customizations */
-.nav-tabs {
-    border-bottom: 2px solid var(--hypno-pink);
-}
-
-.nav-tabs .nav-link {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--glass-border);
-    color: white;
-    margin-right: 0.5rem;
-    border-radius: 10px 10px 0 0;
-    transition: all 0.3s ease;
-}
-
-.nav-tabs .nav-link:hover {
-    border-color: var(--hypno-pink);
-    background: rgba(236, 72, 153, 0.2);
-}
-
-.nav-tabs .nav-link.active {
-    background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink)) !important;
-    border-color: var(--hypno-pink);
-    color: white !important;
-}
-
-.tab-content {
-    background: var(--glass-bg);
-    border: 2px solid var(--hypno-pink);
-    border-top: none;
-    border-radius: 0 0 15px 15px;
-    backdrop-filter: blur(15px);
-}
-
-/* Behavior Metrics */
-.behavior-metric h6 {
-    color: var(--hypno-pink);
-    margin-bottom: 0.5rem;
-}
-
-/* Modal Customizations */
-.modal-glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    border: 2px solid var(--glass-border);
-    border-radius: 20px;
-}
-
-.modal-glass .modal-header {
-    border-bottom: 1px solid var(--glass-border);
-}
-
-.modal-glass .modal-footer {
+    background: var(--glass-light);
+    color: #F8FAFC;
     border-top: 1px solid var(--glass-border);
-}
-
-.btn-close-white {
-    filter: invert(1) grayscale(100%) brightness(200%);
+    padding: 1.5rem;
 }
 
 /* Simulation Area */
 .simulation-area {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    min-height: 300px;
+    background: var(--glass-light);
+    border-radius: 16px;
+    min-height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px dashed var(--glass-border);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .simulation-area.active {
-    border-color: var(--hypno-pink);
-    background: rgba(236, 72, 153, 0.1);
+    border-color: var(--secondary-flow);
+    background: rgba(6, 182, 212, 0.1);
+    border-style: solid;
 }
 
-/* Result Items */
-.result-item {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 1rem;
+.simulation-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 49%, rgba(99, 102, 241, 0.05) 50%, transparent 51%);
+    background-size: 20px 20px;
+    animation: patternMove 10s linear infinite;
+}
+
+@keyframes patternMove {
+    0% { transform: translateX(-20px) translateY(-20px); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+/* Modal System */
+.modal-content {
+    background: var(--glass-light);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--glass-border);
+    background: var(--glass-medium);
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--glass-border);
+    background: var(--glass-medium);
+    border-radius: 0 0 20px 20px;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Toast System */
+.toast {
+    background: var(--glass-light);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: #F8FAFC;
 }
 
-.result-item h6 {
-    color: var(--hypno-orange);
-    margin-bottom: 0.5rem;
+/* Background Utilities */
+.bg-dark-glass {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    background: var(--gradient-flow);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    margin-bottom: 2rem;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero-section {
-        padding: 2rem 0;
+    .psychology-container {
+        padding: 0 1rem;
     }
     
-    .hero-title {
+    .display-responsive {
         font-size: 2.5rem;
     }
     
@@ -514,8 +684,8 @@ body {
         font-size: 2rem;
     }
     
-    .stat-number {
-        font-size: 2rem;
+    .stat-card {
+        margin-bottom: 1rem;
     }
     
     .color-palette {
@@ -523,66 +693,91 @@ body {
     }
     
     .color-swatch {
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
     }
     
     .psychology-monitor {
-        height: 150px;
-        padding: 1rem;
+        height: 200px;
+        padding: 1.5rem;
     }
     
     .activity-item {
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 0.75rem;
         font-size: 0.9rem;
+    }
+    
+    .simulation-area {
+        min-height: 250px;
+    }
+    
+    .nav-tabs .nav-link {
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
     }
 }
 
 @media (max-width: 576px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
     .nav-tabs .nav-link {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
+        margin-right: 0.25rem;
+        margin-bottom: 0.5rem;
     }
     
-    .demo-button {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        margin: 0.25rem;
-    }
-    
-    .simulation-area {
-        min-height: 200px;
-        padding: 1rem;
-    }
-    
-    .card-glass {
+    .card-psychology {
         margin-bottom: 1rem;
     }
+    
+    .tab-content {
+        padding: 1.5rem;
+    }
+    
+    .accordion-button {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .accordion-body {
+        padding: 1rem;
+    }
 }
 
-/* Animation Performance Optimization */
-.card-glass,
-.stat-card,
-.grid-item,
-.color-swatch,
-.activity-item {
-    will-change: transform;
-    backface-visibility: hidden;
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .card-psychology,
+    .stat-card,
+    .grid-item,
+    .color-swatch,
+    .brainwave,
+    .progress-bar-psychology::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .card-psychology:hover,
+    .stat-card:hover,
+    .grid-item:hover,
+    .color-swatch:hover {
+        transform: none;
+    }
 }
 
-/* Focus States for Accessibility */
-.btn-hypno:focus,
+/* Focus Management */
+.btn-psychology:focus,
 .form-range:focus,
 .nav-link:focus,
 .accordion-button:focus,
 .color-swatch:focus {
-    outline: 2px solid var(--hypno-orange);
+    outline: 3px solid var(--accent-energy);
     outline-offset: 2px;
 }
 
-/* High Contrast Mode Support */
+/* High Contrast Support */
 @media (prefers-contrast: high) {
-    .card-glass,
+    .card-psychology,
     .stat-card,
     .grid-item {
         border: 2px solid white;
@@ -591,26 +786,31 @@ body {
     .nav-link {
         border: 1px solid rgba(255, 255, 255, 0.5);
     }
+    
+    .progress-bar-psychology::after {
+        display: none;
+    }
 }
 
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-    .hero-title,
+/* Print Styles */
+@media print {
+    .psychology-monitor,
     .brainwave,
-    .progress-bar::after,
-    .card-glass,
-    .stat-card,
-    .grid-item,
-    .color-swatch,
-    .btn-hypno {
-        animation: none !important;
-        transition: none !important;
+    .simulation-area::before {
+        display: none;
     }
     
-    .card-glass:hover,
-    .stat-card:hover,
-    .grid-item:hover,
-    .color-swatch:hover {
-        transform: none;
+    .card-psychology,
+    .stat-card {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .section-title,
+    .display-responsive {
+        background: none !important;
+        -webkit-text-fill-color: initial !important;
+        color: #333 !important;
     }
 }

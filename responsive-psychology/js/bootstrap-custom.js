@@ -1,246 +1,469 @@
 // responsive-psychology/js/bootstrap-custom.js - Bootstrap Component Enhancements
 
-class BootstrapPsychologyEnhancements {
-    constructor() {
-        this.componentInteractions = new Map();
-        this.modalInstances = new Map();
-        this.tabSwitchTimes = new Map();
-        this.accordionStates = new Map();
+class BootstrapPsychologyEnhancer {
+    constructor(psychologyCore) {
+        this.psychologyCore = psychologyCore;
+        this.componentInstances = new Map();
+        this.enhancementState = new Map();
+        this.performanceMetrics = {
+            modalLoadTimes: [],
+            tabSwitchTimes: [],
+            tooltipShowTimes: []
+        };
         
-        this.initializeEnhancements();
+        // Bind methods
+        this.handleModalShow = this.handleModalShow.bind(this);
+        this.handleModalShown = this.handleModalShown.bind(this);
+        this.handleTabShow = this.handleTabShow.bind(this);
+        this.handleTabShown = this.handleTabShown.bind(this);
     }
     
-    initializeEnhancements() {
+    // Initialize all Bootstrap enhancements
+    initialize() {
         this.enhanceModals();
         this.enhanceTabs();
         this.enhanceAccordions();
-        this.enhanceProgressBars();
         this.enhanceTooltips();
-        this.enhanceCarousels();
+        this.enhanceProgressBars();
+        this.enhanceCards();
         this.enhanceOffcanvas();
-        this.enhanceDropdowns();
+        this.setupAccessibilityEnhancements();
         
         console.log('🔧 Bootstrap psychology enhancements initialized');
+        return this;
     }
     
+    // Enhanced Modal Psychology
     enhanceModals() {
-        // Track modal interactions for psychology analysis
-        document.addEventListener('show.bs.modal', (event) => {
-            const modalId = event.target.id;
-            const showTime = Date.now();
-            
-            this.componentInteractions.set(modalId, {
-                type: 'modal',
-                showTime: showTime,
-                focusTime: 0,
-                interactionCount: 0
-            });
-            
-            // Add psychological fade-in effect
-            event.target.style.animationDuration = '0.5s';
-            event.target.style.animationName = 'modalPsychologyFadeIn';
-            
-            console.log(`🪟 Modal opened: ${modalId} - Psychology tracking started`);
-        });
+        // Modal show event
+        document.addEventListener('show.bs.modal', this.handleModalShow);
         
-        document.addEventListener('shown.bs.modal', (event) => {
-            const modal = event.target;
-            const modalId = modal.id;
-            
-            // Focus management for accessibility and psychology
-            const firstInput = modal.querySelector('input, button, textarea, select');
-            if (firstInput) {
-                setTimeout(() => firstInput.focus(), 300);
-            }
-            
-            // Track attention on modal content
-            this.trackModalAttention(modal);
-        });
+        // Modal shown event
+        document.addEventListener('shown.bs.modal', this.handleModalShown);
         
+        // Modal hide event
         document.addEventListener('hide.bs.modal', (event) => {
-            const modalId = event.target.id;
-            const interaction = this.componentInteractions.get(modalId);
-            
-            if (interaction) {
-                const duration = Date.now() - interaction.showTime;
-                console.log(`🪟 Modal closed: ${modalId} - Duration: ${duration}ms, Interactions: ${interaction.interactionCount}`);
-                
-                // Analyze modal engagement
-                this.analyzeModalEngagement(modalId, duration, interaction);
-            }
+            this.handleModalHide(event);
         });
         
-        // Add custom CSS for modal psychology
-        this.addModalPsychologyCSS();
+        // Modal hidden event
+        document.addEventListener('hidden.bs.modal', (event) => {
+            this.handleModalHidden(event);
+        });
     }
     
-    trackModalAttention(modal) {
+    handleModalShow(event) {
+        const modal = event.target;
         const modalId = modal.id;
-        let focusTime = 0;
-        let lastFocusTime = Date.now();
+        const showStartTime = performance.now();
         
-        modal.addEventListener('click', (e) => {
-            const interaction = this.componentInteractions.get(modalId);
-            if (interaction) {
-                interaction.interactionCount++;
-            }
+        // Store performance timing
+        this.enhancementState.set(modalId, {
+            showStartTime,
+            type: 'modal',
+            interactions: 0
         });
         
-        modal.addEventListener('focusin', () => {
-            lastFocusTime = Date.now();
-        });
+        // Add psychology-enhanced entrance animation
+        modal.style.setProperty('--modal-entrance-duration', '0.4s');
+        modal.classList.add('modal-psychology-entrance');
         
-        modal.addEventListener('focusout', () => {
-            focusTime += Date.now() - lastFocusTime;
-            const interaction = this.componentInteractions.get(modalId);
-            if (interaction) {
-                interaction.focusTime = focusTime;
-            }
-        });
+        // Update user's stress level slightly (modal attention focus)
+        if (this.psychologyCore) {
+            const currentStress = this.psychologyCore.mentalState.stress;
+            this.psychologyCore.updateMentalState('stress', Math.min(100, currentStress + 5));
+        }
+        
+        console.log(`🪟 Enhanced modal opening: ${modalId}`);
     }
     
-    analyzeModalEngagement(modalId, duration, interaction) {
-        const engagementScore = (interaction.focusTime / duration) * 100;
-        const interactionRate = interaction.interactionCount / (duration / 1000);
+    handleModalShown(event) {
+        const modal = event.target;
+        const modalId = modal.id;
+        const state = this.enhancementState.get(modalId);
+        
+        if (state) {
+            const loadTime = performance.now() - state.showStartTime;
+            this.performanceMetrics.modalLoadTimes.push(loadTime);
+            
+            // Performance feedback
+            if (loadTime > 500) {
+                console.warn(`⚠️ Slow modal load: ${modalId} took ${Math.round(loadTime)}ms`);
+            }
+        }
+        
+        // Enhanced focus management
+        this.enhanceModalFocus(modal);
+        
+        // Setup modal interaction tracking
+        this.setupModalInteractionTracking(modal);
+    }
+    
+    handleModalHide(event) {
+        const modal = event.target;
+        const modalId = modal.id;
+        
+        // Reduce stress level when modal closes (attention relief)
+        if (this.psychologyCore) {
+            const currentStress = this.psychologyCore.mentalState.stress;
+            this.psychologyCore.updateMentalState('stress', Math.max(0, currentStress - 3));
+        }
+        
+        // Analyze modal engagement
+        this.analyzeModalEngagement(modalId);
+    }
+    
+    handleModalHidden(event) {
+        const modal = event.target;
+        const modalId = modal.id;
+        
+        // Clean up state
+        this.enhancementState.delete(modalId);
+        modal.classList.remove('modal-psychology-entrance');
+        
+        console.log(`🪟 Modal closed and cleaned: ${modalId}`);
+    }
+    
+    // Enhanced focus management for modals
+    enhanceModalFocus(modal) {
+        // Find first focusable element
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        
+        if (focusableElements.length > 0) {
+            // Focus with delay for better user experience
+            setTimeout(() => {
+                focusableElements[0].focus();
+            }, 300);
+        }
+        
+        // Setup focus trap
+        this.setupFocusTrap(modal, focusableElements);
+    }
+    
+    // Setup focus trap for modal accessibility
+    setupFocusTrap(modal, focusableElements) {
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        const handleKeyDown = (e) => {
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            } else if (e.key === 'Escape') {
+                bootstrap.Modal.getInstance(modal)?.hide();
+            }
+        };
+        
+        modal.addEventListener('keydown', handleKeyDown);
+        
+        // Store for cleanup
+        modal._psychologyFocusTrap = handleKeyDown;
+    }
+    
+    // Setup modal interaction tracking
+    setupModalInteractionTracking(modal) {
+        const modalId = modal.id;
+        let interactionCount = 0;
+        
+        const trackInteraction = (e) => {
+            interactionCount++;
+            const state = this.enhancementState.get(modalId);
+            if (state) {
+                state.interactions = interactionCount;
+            }
+        };
+        
+        modal.addEventListener('click', trackInteraction);
+        modal.addEventListener('input', trackInteraction);
+        modal.addEventListener('change', trackInteraction);
+        
+        // Store for cleanup
+        modal._psychologyInteractionTracker = trackInteraction;
+    }
+    
+    // Analyze modal engagement patterns
+    analyzeModalEngagement(modalId) {
+        const state = this.enhancementState.get(modalId);
+        if (!state) return;
+        
+        const duration = performance.now() - state.showStartTime;
+        const interactionRate = state.interactions / (duration / 1000);
         
         let engagement = 'low';
-        if (engagementScore > 70 && interactionRate > 0.5) {
+        if (interactionRate > 2) {
             engagement = 'high';
-        } else if (engagementScore > 40 || interactionRate > 0.2) {
+        } else if (interactionRate > 0.5) {
             engagement = 'medium';
         }
         
-        // Provide feedback based on engagement
-        if (engagement === 'high') {
-            this.showPsychologyFeedback('Excellent modal engagement!', 'success');
-        } else if (engagement === 'low' && duration > 5000) {
-            this.showPsychologyFeedback('Consider simplifying modal content', 'info');
+        console.log(`📊 Modal ${modalId} engagement: ${engagement} (${state.interactions} interactions in ${Math.round(duration)}ms)`);
+        
+        // Provide feedback to psychology core
+        if (this.psychologyCore && engagement === 'high') {
+            this.psychologyCore.behaviorData.interactionHistory.push({
+                type: 'high_modal_engagement',
+                modalId,
+                duration,
+                interactions: state.interactions,
+                timestamp: Date.now()
+            });
         }
     }
     
+    // Enhanced Tab Psychology
     enhanceTabs() {
-        document.addEventListener('show.bs.tab', (event) => {
-            const tabId = event.target.getAttribute('data-bs-target');
-            this.tabSwitchTimes.set(tabId, Date.now());
+        document.addEventListener('show.bs.tab', this.handleTabShow);
+        document.addEventListener('shown.bs.tab', this.handleTabShown);
+        document.addEventListener('hide.bs.tab', (event) => {
+            this.handleTabHide(event);
+        });
+    }
+    
+    handleTabShow(event) {
+        const tab = event.target;
+        const targetPane = event.target.getAttribute('data-bs-target');
+        const showStartTime = performance.now();
+        
+        this.enhancementState.set(targetPane, {
+            showStartTime,
+            type: 'tab',
+            tabElement: tab
         });
         
-        document.addEventListener('shown.bs.tab', (event) => {
-            const tabId = event.target.getAttribute('data-bs-target');
-            const tabPane = document.querySelector(tabId);
+        // Slight creativity boost when exploring new tabs
+        if (this.psychologyCore) {
+            const currentCreativity = this.psychologyCore.mentalState.creativity;
+            this.psychologyCore.updateMentalState('creativity', Math.min(100, currentCreativity + 2));
+        }
+    }
+    
+    handleTabShown(event) {
+        const targetPane = event.target.getAttribute('data-bs-target');
+        const paneElement = document.querySelector(targetPane);
+        const state = this.enhancementState.get(targetPane);
+        
+        if (state && paneElement) {
+            const switchTime = performance.now() - state.showStartTime;
+            this.performanceMetrics.tabSwitchTimes.push(switchTime);
             
-            if (tabPane) {
-                // Add entrance animation for psychological appeal
-                tabPane.style.animation = 'tabContentSlideIn 0.4s ease-out';
-                
-                // Track time spent on each tab
-                this.trackTabEngagement(tabId);
-            }
-        });
+            // Add entrance animation
+            paneElement.style.animation = 'fadeInUp 0.4s ease-out';
+            
+            // Auto-scroll to show content if needed
+            setTimeout(() => {
+                this.ensureTabContentVisible(paneElement);
+            }, 100);
+            
+            // Track tab preference
+            this.trackTabPreference(targetPane);
+        }
         
-        // Add custom CSS for tab psychology
-        this.addTabPsychologyCSS();
+        console.log(`📋 Enhanced tab shown: ${targetPane}`);
     }
     
-    trackTabEngagement(tabId) {
-        const startTime = this.tabSwitchTimes.get(tabId) || Date.now();
-        let engagementScore = 0;
+    handleTabHide(event) {
+        const targetPane = event.target.getAttribute('data-bs-target');
         
-        const tabPane = document.querySelector(tabId);
-        if (!tabPane) return;
-        
-        // Track scroll behavior within tab
-        tabPane.addEventListener('scroll', () => {
-            engagementScore += 1;
-        });
-        
-        // Track clicks within tab
-        tabPane.addEventListener('click', () => {
-            engagementScore += 2;
-        });
-        
-        // Analyze engagement when leaving tab
-        document.addEventListener('show.bs.tab', (event) => {
-            const newTabId = event.target.getAttribute('data-bs-target');
-            if (newTabId !== tabId && this.tabSwitchTimes.has(tabId)) {
-                const timeSpent = Date.now() - startTime;
-                console.log(`📋 Tab engagement: ${tabId} - Time: ${timeSpent}ms, Score: ${engagementScore}`);
-            }
-        });
+        // Clean up state
+        this.enhancementState.delete(targetPane);
     }
     
+    // Ensure tab content is visible
+    ensureTabContentVisible(paneElement) {
+        const rect = paneElement.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        if (rect.top < 100 || rect.bottom > windowHeight) {
+            paneElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+    
+    // Track tab preferences for personalization
+    trackTabPreference(tabId) {
+        if (!this.psychologyCore) return;
+        
+        const preferences = this.psychologyCore.behaviorData.tabPreferences || {};
+        preferences[tabId] = (preferences[tabId] || 0) + 1;
+        this.psychologyCore.behaviorData.tabPreferences = preferences;
+        
+        // Analyze preferred content type
+        if (preferences[tabId] > 3) {
+            console.log(`🎯 User shows strong preference for: ${tabId}`);
+        }
+    }
+    
+    // Enhanced Accordion Psychology
     enhanceAccordions() {
         document.addEventListener('show.bs.collapse', (event) => {
-            const accordion = event.target.closest('.accordion');
-            if (accordion) {
-                const accordionId = accordion.id || 'unknown';
-                const itemId = event.target.id;
-                
-                this.accordionStates.set(itemId, {
-                    openTime: Date.now(),
-                    scrolled: false,
-                    interacted: false
-                });
-                
-                // Add smooth expand animation
-                event.target.style.transition = 'all 0.3s ease-out';
-            }
+            this.handleAccordionShow(event);
         });
         
         document.addEventListener('shown.bs.collapse', (event) => {
-            const accordionBody = event.target.querySelector('.accordion-body');
-            if (accordionBody) {
-                // Track interactions within accordion body
-                this.trackAccordionInteraction(event.target.id, accordionBody);
-                
-                // Smooth scroll to show full content if needed
-                setTimeout(() => {
-                    event.target.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest' 
-                    });
-                }, 100);
-            }
+            this.handleAccordionShown(event);
         });
         
         document.addEventListener('hide.bs.collapse', (event) => {
-            const itemId = event.target.id;
-            const state = this.accordionStates.get(itemId);
+            this.handleAccordionHide(event);
+        });
+    }
+    
+    handleAccordionShow(event) {
+        const accordion = event.target.closest('.accordion');
+        if (!accordion) return;
+        
+        // Slight focus boost when exploring accordion content
+        if (this.psychologyCore) {
+            const currentFocus = this.psychologyCore.mentalState.focus;
+            this.psychologyCore.updateMentalState('focus', Math.min(100, currentFocus + 1));
+        }
+    }
+    
+    handleAccordionShown(event) {
+        const collapseElement = event.target;
+        
+        // Smooth scroll to show full content
+        setTimeout(() => {
+            collapseElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }, 100);
+        
+        // Track content exploration
+        this.trackAccordionEngagement(collapseElement);
+    }
+    
+    handleAccordionHide(event) {
+        // No specific action needed, but could track closing patterns
+        console.log('📰 Accordion section closed');
+    }
+    
+    // Track accordion engagement patterns
+    trackAccordionEngagement(element) {
+        const accordionBody = element.querySelector('.accordion-body');
+        if (!accordionBody) return;
+        
+        let scrolled = false;
+        let timeOpened = Date.now();
+        
+        const scrollHandler = () => {
+            scrolled = true;
+            accordionBody.removeEventListener('scroll', scrollHandler);
+        };
+        
+        accordionBody.addEventListener('scroll', scrollHandler);
+        
+        // Track how long accordion stays open
+        const trackClosure = () => {
+            const timeSpent = Date.now() - timeOpened;
+            console.log(`📰 Accordion engagement: ${Math.round(timeSpent / 1000)}s, scrolled: ${scrolled}`);
             
-            if (state) {
-                const duration = Date.now() - state.openTime;
-                console.log(`📰 Accordion closed: ${itemId} - Duration: ${duration}ms, Engaged: ${state.interacted}`);
+            if (this.psychologyCore && timeSpent > 5000) {
+                this.psychologyCore.behaviorData.interactionHistory.push({
+                    type: 'deep_accordion_engagement',
+                    timeSpent,
+                    scrolled,
+                    timestamp: Date.now()
+                });
             }
+        };
+        
+        element.addEventListener('hide.bs.collapse', trackClosure, { once: true });
+    }
+    
+    // Enhanced Tooltip Psychology
+    enhanceTooltips() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        
+        tooltipTriggerList.forEach((tooltipTriggerEl) => {
+            const tooltip = new bootstrap.Tooltip(tooltipTriggerEl, {
+                trigger: 'hover focus',
+                delay: { show: 300, hide: 100 },
+                animation: true,
+                customClass: 'psychology-tooltip',
+                placement: 'auto'
+            });
+            
+            // Store instance
+            this.componentInstances.set(tooltipTriggerEl, tooltip);
+            
+            // Track tooltip interactions
+            tooltipTriggerEl.addEventListener('shown.bs.tooltip', () => {
+                this.handleTooltipShown(tooltipTriggerEl);
+            });
+            
+            tooltipTriggerEl.addEventListener('hidden.bs.tooltip', () => {
+                this.handleTooltipHidden(tooltipTriggerEl);
+            });
         });
     }
     
-    trackAccordionInteraction(itemId, accordionBody) {
-        const state = this.accordionStates.get(itemId);
-        if (!state) return;
+    handleTooltipShown(element) {
+        const showTime = performance.now();
+        element._tooltipShowTime = showTime;
         
-        accordionBody.addEventListener('scroll', () => {
-            state.scrolled = true;
-        }, { once: true });
+        console.log('💬 Enhanced tooltip shown - user seeking information');
         
-        accordionBody.addEventListener('click', () => {
-            state.interacted = true;
-        });
+        // Track information-seeking behavior
+        if (this.psychologyCore) {
+            this.psychologyCore.behaviorData.interactionHistory.push({
+                type: 'tooltip_info_seeking',
+                element: element.className,
+                timestamp: Date.now()
+            });
+        }
     }
     
+    handleTooltipHidden(element) {
+        if (element._tooltipShowTime) {
+            const showDuration = performance.now() - element._tooltipShowTime;
+            this.performanceMetrics.tooltipShowTimes.push(showDuration);
+            
+            if (showDuration > 2000) {
+                console.log('📚 User spent significant time reading tooltip');
+            }
+            
+            delete element._tooltipShowTime;
+        }
+    }
+    
+    // Enhanced Progress Bar Psychology
     enhanceProgressBars() {
         const progressBars = document.querySelectorAll('.progress-bar');
         
         progressBars.forEach((bar) => {
-            // Add smooth animation and psychology effects
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        this.animateProgressBar(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            observer.observe(bar);
+            this.enhanceProgressBar(bar);
         });
+        
+        // Observe for dynamically added progress bars
+        this.setupProgressBarObserver();
+    }
+    
+    enhanceProgressBar(progressBar) {
+        // Add intersection observer for entrance animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    this.animateProgressBar(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(progressBar);
+        
+        // Add psychological completion effects
+        this.addProgressCompletionEffects(progressBar);
     }
     
     animateProgressBar(progressBar) {
@@ -248,287 +471,433 @@ class BootstrapPsychologyEnhancements {
         
         // Start from 0 and animate to target
         progressBar.style.width = '0%';
-        progressBar.style.transition = 'width 1.5s ease-out';
+        progressBar.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // Add loading shimmer effect
+        progressBar.style.position = 'relative';
+        progressBar.style.overflow = 'hidden';
         
         setTimeout(() => {
             progressBar.style.width = targetWidth;
             
-            // Add pulse effect when complete
+            // Add completion pulse
             setTimeout(() => {
-                progressBar.style.animation = 'progressPulse 0.6s ease-out';
-            }, 1500);
+                if (parseInt(targetWidth) >= 90) {
+                    progressBar.style.animation = 'progressCompletePulse 0.6s ease-out';
+                }
+            }, 1200);
         }, 100);
     }
     
-    enhanceTooltips() {
-        // Custom tooltip behavior for psychology
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        
-        tooltipTriggerList.forEach((tooltipTriggerEl) => {
-            const tooltip = new bootstrap.Tooltip(tooltipTriggerEl, {
-                trigger: 'hover focus',
-                delay: { show: 300, hide: 100 },
-                animation: true,
-                customClass: 'psychology-tooltip'
-            });
-            
-            // Track tooltip interactions
-            tooltipTriggerEl.addEventListener('shown.bs.tooltip', () => {
-                console.log('💬 Tooltip shown - User seeking additional information');
+    addProgressCompletionEffects(progressBar) {
+        // Monitor progress value changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'aria-valuenow') {
+                    const value = parseInt(progressBar.getAttribute('aria-valuenow'));
+                    this.handleProgressChange(progressBar, value);
+                }
             });
         });
         
-        this.addTooltipPsychologyCSS();
+        observer.observe(progressBar, { attributes: true });
+        progressBar._progressObserver = observer;
     }
     
-    enhanceCarousels() {
-        const carousels = document.querySelectorAll('.carousel');
+    handleProgressChange(progressBar, value) {
+        // Psychological feedback for progress milestones
+        if (value >= 100) {
+            this.triggerCompletionFeedback(progressBar);
+            
+            // Slight focus boost for task completion
+            if (this.psychologyCore) {
+                const currentFocus = this.psychologyCore.mentalState.focus;
+                this.psychologyCore.updateMentalState('focus', Math.min(100, currentFocus + 3));
+            }
+        } else if (value >= 75) {
+            progressBar.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.5)';
+        } else if (value >= 50) {
+            progressBar.style.boxShadow = '0 0 8px rgba(245, 158, 11, 0.4)';
+        }
+    }
+    
+    triggerCompletionFeedback(progressBar) {
+        // Visual completion feedback
+        progressBar.style.animation = 'progressComplete 0.8s ease-out';
+        progressBar.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.8)';
         
-        carousels.forEach((carousel) => {
-            const carouselInstance = new bootstrap.Carousel(carousel, {
-                interval: 5000,
-                touch: true,
-                pause: 'hover'
+        // Haptic-like feedback through brief transform
+        setTimeout(() => {
+            progressBar.style.transform = 'scaleY(1.1)';
+            setTimeout(() => {
+                progressBar.style.transform = 'scaleY(1)';
+            }, 200);
+        }, 300);
+        
+        console.log('✅ Progress completion feedback triggered');
+    }
+    
+    setupProgressBarObserver() {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        const progressBars = node.querySelectorAll('.progress-bar');
+                        progressBars.forEach(bar => this.enhanceProgressBar(bar));
+                    }
+                });
             });
-            
-            // Track carousel engagement
-            carousel.addEventListener('slide.bs.carousel', (event) => {
-                console.log(`🎠 Carousel slide: ${event.direction} - Slide ${event.to}`);
-            });
-            
-            // Pause on hover for better UX
-            carousel.addEventListener('mouseenter', () => {
-                carouselInstance.pause();
-            });
-            
-            carousel.addEventListener('mouseleave', () => {
-                carouselInstance.cycle();
-            });
+        });
+        
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+    
+    // Enhanced Card Psychology
+    enhanceCards() {
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach((card) => {
+            this.enhanceCard(card);
         });
     }
     
+    enhanceCard(card) {
+        // Add hover psychology
+        card.addEventListener('mouseenter', () => {
+            this.handleCardHover(card, true);
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            this.handleCardHover(card, false);
+        });
+        
+        // Add click psychology
+        card.addEventListener('click', (e) => {
+            this.handleCardClick(card, e);
+        });
+        
+        // Add intersection observer for entrance animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    this.animateCardEntrance(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(card);
+    }
+    
+    handleCardHover(card, isEntering) {
+        if (isEntering) {
+            card.style.transform = 'translateY(-5px) scale(1.02)';
+            card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            // Slight curiosity boost
+            if (this.psychologyCore) {
+                const currentCreativity = this.psychologyCore.mentalState.creativity;
+                this.psychologyCore.updateMentalState('creativity', Math.min(100, currentCreativity + 1));
+            }
+        } else {
+            card.style.transform = 'translateY(0) scale(1)';
+        }
+    }
+    
+    handleCardClick(card, event) {
+        // Add click ripple effect
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            animation: ripple 0.6s ease-out;
+        `;
+        
+        const rect = card.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+        
+        card.style.position = 'relative';
+        card.style.overflow = 'hidden';
+        card.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+        
+        console.log('🃏 Enhanced card interaction');
+    }
+    
+    animateCardEntrance(card) {
+        card.style.animation = 'cardEntranceSlide 0.6s ease-out';
+    }
+    
+    // Enhanced Offcanvas Psychology
     enhanceOffcanvas() {
         document.addEventListener('show.bs.offcanvas', (event) => {
-            const offcanvas = event.target;
-            
-            // Add slide-in animation psychology
-            offcanvas.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            
-            console.log('📱 Offcanvas opened - Mobile-friendly navigation');
+            this.handleOffcanvasShow(event);
         });
         
         document.addEventListener('shown.bs.offcanvas', (event) => {
-            // Focus management for accessibility
-            const firstFocusable = event.target.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-            if (firstFocusable) {
-                firstFocusable.focus();
-            }
+            this.handleOffcanvasShown(event);
         });
     }
     
-    enhanceDropdowns() {
-        document.addEventListener('show.bs.dropdown', (event) => {
-            const dropdown = event.target.nextElementSibling;
-            if (dropdown) {
-                // Add smooth dropdown animation
-                dropdown.style.animation = 'dropdownSlideDown 0.3s ease-out';
+    handleOffcanvasShow(event) {
+        const offcanvas = event.target;
+        
+        // Mobile-friendly navigation feedback
+        console.log('📱 Enhanced offcanvas opening - mobile-optimized navigation');
+        
+        // Add slide-in psychology
+        offcanvas.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    }
+    
+    handleOffcanvasShown(event) {
+        const offcanvas = event.target;
+        
+        // Enhanced focus management
+        const firstFocusable = offcanvas.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) {
+            setTimeout(() => firstFocusable.focus(), 200);
+        }
+        
+        // Track mobile navigation patterns
+        if (this.psychologyCore) {
+            this.psychologyCore.behaviorData.interactionHistory.push({
+                type: 'mobile_navigation',
+                timestamp: Date.now()
+            });
+        }
+    }
+    
+    // Setup accessibility enhancements
+    setupAccessibilityEnhancements() {
+        // Enhanced focus indicators
+        document.addEventListener('focus', (event) => {
+            if (event.target.matches('button, input, select, textarea, [tabindex]')) {
+                this.enhanceFocusIndicator(event.target);
             }
+        }, true);
+        
+        // Keyboard navigation enhancements
+        document.addEventListener('keydown', (event) => {
+            this.handleAccessibilityKeyboard(event);
         });
         
-        document.addEventListener('shown.bs.dropdown', (event) => {
-            // Track dropdown usage patterns
-            const trigger = event.target;
-            console.log(`📋 Dropdown opened: ${trigger.textContent.trim()}`);
-        });
+        // Screen reader announcements
+        this.setupScreenReaderAnnouncements();
     }
     
-    // CSS Injection Methods
-    addModalPsychologyCSS() {
-        const css = `
-            @keyframes modalPsychologyFadeIn {
-                from { opacity: 0; transform: scale(0.9) translateY(-20px); }
-                to { opacity: 1; transform: scale(1) translateY(0); }
+    enhanceFocusIndicator(element) {
+        element.style.outline = '3px solid #F59E0B';
+        element.style.outlineOffset = '2px';
+        element.style.transition = 'outline 0.2s ease';
+        
+        element.addEventListener('blur', () => {
+            element.style.outline = '';
+            element.style.outlineOffset = '';
+        }, { once: true });
+    }
+    
+    handleAccessibilityKeyboard(event) {
+        // Enhanced keyboard shortcuts
+        if (event.ctrlKey || event.metaKey) {
+            switch (event.key) {
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                    event.preventDefault();
+                    this.navigateToTab(parseInt(event.key) - 1);
+                    break;
+                case 'm':
+                    event.preventDefault();
+                    this.openFirstModal();
+                    break;
             }
-            
-            .modal.fade .modal-dialog {
-                transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-            
-            .modal.show .modal-dialog {
-                animation: modalPsychologyFadeIn 0.5s ease-out;
-            }
+        }
+        
+        // Escape key handling
+        if (event.key === 'Escape') {
+            this.closeTopModal();
+        }
+    }
+    
+    navigateToTab(index) {
+        const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+        if (tabs[index]) {
+            tabs[index].click();
+            tabs[index].focus();
+        }
+    }
+    
+    openFirstModal() {
+        const firstModalTrigger = document.querySelector('[data-bs-toggle="modal"]');
+        if (firstModalTrigger) {
+            firstModalTrigger.click();
+        }
+    }
+    
+    closeTopModal() {
+        const openModal = document.querySelector('.modal.show');
+        if (openModal) {
+            bootstrap.Modal.getInstance(openModal)?.hide();
+        }
+    }
+    
+    setupScreenReaderAnnouncements() {
+        // Create announcement region
+        const announcer = document.createElement('div');
+        announcer.setAttribute('aria-live', 'polite');
+        announcer.setAttribute('aria-atomic', 'true');
+        announcer.style.cssText = `
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         `;
-        this.injectCSS(css, 'modal-psychology');
+        document.body.appendChild(announcer);
+        
+        this.screenReaderAnnouncer = announcer;
     }
     
-    addTabPsychologyCSS() {
-        const css = `
-            @keyframes tabContentSlideIn {
-                from { opacity: 0; transform: translateX(20px); }
-                to { opacity: 1; transform: translateX(0); }
-            }
-            
-            .tab-pane.active {
-                animation: tabContentSlideIn 0.4s ease-out;
-            }
-        `;
-        this.injectCSS(css, 'tab-psychology');
+    announceToScreenReader(message) {
+        if (this.screenReaderAnnouncer) {
+            this.screenReaderAnnouncer.textContent = message;
+            setTimeout(() => {
+                this.screenReaderAnnouncer.textContent = '';
+            }, 1000);
+        }
     }
     
-    addTooltipPsychologyCSS() {
-        const css = `
-            .psychology-tooltip .tooltip-inner {
-                background: linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink));
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-                border-radius: 8px;
-                font-weight: 500;
+    // Performance monitoring and optimization
+    getPerformanceMetrics() {
+        const avgModalLoad = this.performanceMetrics.modalLoadTimes.length > 0 ?
+            this.performanceMetrics.modalLoadTimes.reduce((a, b) => a + b, 0) / this.performanceMetrics.modalLoadTimes.length : 0;
+            
+        const avgTabSwitch = this.performanceMetrics.tabSwitchTimes.length > 0 ?
+            this.performanceMetrics.tabSwitchTimes.reduce((a, b) => a + b, 0) / this.performanceMetrics.tabSwitchTimes.length : 0;
+            
+        const avgTooltipShow = this.performanceMetrics.tooltipShowTimes.length > 0 ?
+            this.performanceMetrics.tooltipShowTimes.reduce((a, b) => a + b, 0) / this.performanceMetrics.tooltipShowTimes.length : 0;
+        
+        return {
+            averageModalLoadTime: Math.round(avgModalLoad),
+            averageTabSwitchTime: Math.round(avgTabSwitch),
+            averageTooltipShowTime: Math.round(avgTooltipShow),
+            totalComponentInstances: this.componentInstances.size,
+            activeEnhancements: this.enhancementState.size
+        };
+    }
+    
+    // Inject enhanced styles
+    injectEnhancedStyles() {
+        const style = document.createElement('style');
+        style.id = 'bootstrap-psychology-enhancements';
+        style.textContent = `
+            @keyframes ripple {
+                to { transform: scale(4); opacity: 0; }
             }
             
-            .psychology-tooltip .tooltip-arrow::before {
-                border-top-color: var(--hypno-purple);
-            }
-            
-            @keyframes progressPulse {
+            @keyframes progressCompletePulse {
                 0%, 100% { transform: scaleY(1); }
                 50% { transform: scaleY(1.1); }
             }
             
-            @keyframes dropdownSlideDown {
-                from { opacity: 0; transform: translateY(-10px); }
+            @keyframes progressComplete {
+                0% { transform: scaleX(1); }
+                50% { transform: scaleX(1.02); }
+                100% { transform: scaleX(1); }
+            }
+            
+            @keyframes cardEntranceSlide {
+                from { opacity: 0; transform: translateY(30px); }
                 to { opacity: 1; transform: translateY(0); }
             }
+            
+            .modal-psychology-entrance .modal-dialog {
+                animation: modalEnhancedEntrance var(--modal-entrance-duration, 0.4s) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
+            
+            @keyframes modalEnhancedEntrance {
+                from { opacity: 0; transform: scale(0.9) translateY(-30px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+            
+            .psychology-tooltip .tooltip-inner {
+                background: linear-gradient(45deg, #6366F1, #06B6D4);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+                font-weight: 500;
+                padding: 8px 12px;
+            }
+            
+            .psychology-tooltip .tooltip-arrow::before {
+                border-top-color: #6366F1;
+            }
+            
+            /* Enhanced focus indicators */
+            .bootstrap-psychology-focus {
+                outline: 3px solid #F59E0B !important;
+                outline-offset: 2px !important;
+                transition: outline 0.2s ease !important;
+            }
+            
+            /* Card hover enhancements */
+            .card-psychology-hover {
+                transform: translateY(-5px) scale(1.02);
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            }
         `;
-        this.injectCSS(css, 'tooltip-psychology');
-    }
-    
-    injectCSS(css, id) {
-        if (document.getElementById(id)) return;
         
-        const style = document.createElement('style');
-        style.id = id;
-        style.textContent = css;
         document.head.appendChild(style);
     }
     
-    showPsychologyFeedback(message, type = 'info') {
-        // Reuse the toast system from psychology-sim.js
-        if (window.PsychologyFunctions && window.PsychologyFunctions.showToast) {
-            window.PsychologyFunctions.showToast(message, type);
-        } else {
-            console.log(`📢 Psychology Feedback: ${message}`);
+    // Clean up all enhancements
+    destroy() {
+        // Remove event listeners
+        document.removeEventListener('show.bs.modal', this.handleModalShow);
+        document.removeEventListener('shown.bs.modal', this.handleModalShown);
+        document.removeEventListener('show.bs.tab', this.handleTabShow);
+        document.removeEventListener('shown.bs.tab', this.handleTabShown);
+        
+        // Clean up component instances
+        this.componentInstances.forEach((instance, element) => {
+            if (instance.dispose) {
+                instance.dispose();
+            }
+        });
+        
+        // Clean up observers
+        document.querySelectorAll('[data-progress-observer]').forEach(element => {
+            if (element._progressObserver) {
+                element._progressObserver.disconnect();
+            }
+        });
+        
+        // Remove injected styles
+        const style = document.getElementById('bootstrap-psychology-enhancements');
+        if (style) {
+            style.remove();
         }
+        
+        // Clean up screen reader announcer
+        if (this.screenReaderAnnouncer) {
+            this.screenReaderAnnouncer.remove();
+        }
+        
+        console.log('🔧 Bootstrap psychology enhancements cleaned up');
     }
 }
 
-// Advanced Bootstrap Component Psychology
-class AdvancedBootstrapPsychology {
-    constructor() {
-        this.componentUsagePatterns = new Map();
-        this.userPreferences = this.loadUserPreferences();
-        this.adaptiveInterface = true;
-    }
-    
-    trackComponentUsage(componentType, action, metadata = {}) {
-        const key = `${componentType}-${action}`;
-        const current = this.componentUsagePatterns.get(key) || 0;
-        this.componentUsagePatterns.set(key, current + 1);
-        
-        // Store usage pattern
-        const usage = {
-            type: componentType,
-            action: action,
-            count: current + 1,
-            timestamp: Date.now(),
-            metadata: metadata
-        };
-        
-        this.updateUserPreferences(usage);
-        this.adaptInterface();
-    }
-    
-    updateUserPreferences(usage) {
-        // Learn from user behavior
-        if (usage.type === 'modal' && usage.count > 3) {
-            this.userPreferences.preferencesModal = true;
-        }
-        
-        if (usage.type === 'accordion' && usage.count > 5) {
-            this.userPreferences.preferencesAccordion = true;
-        }
-        
-        // Save preferences
-        this.saveUserPreferences();
-    }
-    
-    adaptInterface() {
-        if (!this.adaptiveInterface) return;
-        
-        // Adapt interface based on usage patterns
-        if (this.userPreferences.preferencesModal) {
-            // Make modals more prominent
-            document.querySelectorAll('[data-bs-toggle="modal"]').forEach(btn => {
-                btn.classList.add('btn-outline-primary');
-            });
-        }
-        
-        if (this.userPreferences.preferencesAccordion) {
-            // Auto-expand frequently used accordions
-            document.querySelectorAll('.accordion-button').forEach(btn => {
-                if (!btn.classList.contains('collapsed')) {
-                    btn.style.background = 'linear-gradient(45deg, var(--hypno-purple), var(--hypno-pink))';
-                }
-            });
-        }
-    }
-    
-    loadUserPreferences() {
-        const saved = localStorage.getItem('bootstrapPsychologyPreferences');
-        if (saved) {
-            try {
-                return JSON.parse(saved);
-            } catch (e) {
-                console.warn('Failed to load psychology preferences');
-            }
-        }
-        
-        return {
-            preferencesModal: false,
-            preferencesAccordion: false,
-            animationSpeed: 'normal',
-            colorScheme: 'default'
-        };
-    }
-    
-    saveUserPreferences() {
-        try {
-            localStorage.setItem('bootstrapPsychologyPreferences', JSON.stringify(this.userPreferences));
-        } catch (e) {
-            console.warn('Failed to save psychology preferences');
-        }
-    }
-    
-    generateUsageReport() {
-        const report = {
-            totalInteractions: Array.from(this.componentUsagePatterns.values()).reduce((a, b) => a + b, 0),
-            mostUsedComponent: this.getMostUsedComponent(),
-            preferences: this.userPreferences,
-            recommendations: this.generateRecommendations()
-        };
-        
-        console.log('📊 Bootstrap Psychology Usage Report:', report);
-        return report;
-    }
-    
-    getMostUsedComponent() {
-        let maxUsage = 0;
-        let mostUsed = 'none';
-        
-        for (const [component, count] of this.componentUsagePatterns) {
-            if (count > maxUsage) {
-                maxUsage = count;
-                mostUsed = component;
-            }
-        }
-        
-        return { component: mostUsed, usage: maxUsage };
-    }
+// Export for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = BootstrapPsychologyEnhancer;
+} else {
+    window.BootstrapPsychologyEnhancer = BootstrapPsychologyEnhancer;
+}
