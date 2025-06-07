@@ -1,4 +1,5 @@
-// responsive-psychology/js/test-simulations.js - Complete Interactive Psychology Test Suite
+// responsive-psychology/js/test-simulation.js - Complete Psychology Test Suite
+// Integrated cleanly with psychology-sim.js
 
 class PsychologyTestSuite {
     constructor() {
@@ -10,30 +11,44 @@ class PsychologyTestSuite {
         this.currentTest = null;
         this.testData = new Map();
         this.isRunning = false;
+        this.isInitialized = false;
     }
     
     // Initialize test suite
     initialize() {
+        if (this.isInitialized) {
+            console.warn('Test suite already initialized');
+            return this;
+        }
+        
         this.setupGlobalFunctions();
+        this.isInitialized = true;
         console.log('🧪 Psychology test suite initialized');
+        return this;
     }
     
     // Setup global functions for HTML onclick handlers
     setupGlobalFunctions() {
-        // Make functions globally available
+        // Global test functions
         window.startReactionTest = () => this.startReactionTest();
         window.startMemoryTest = () => this.startMemoryTest();
         window.startColorTest = () => this.startColorTest();
         window.resetSimulations = () => this.resetSimulations();
-        window.animateGrid = () => this.animateGrid();
-        window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
     }
     
     // Reaction Time Test
     startReactionTest() {
-        if (this.isRunning) return;
+        if (this.isRunning) {
+            console.warn('Test already running');
+            return;
+        }
         
         const simulationArea = document.getElementById('simulationArea');
+        if (!simulationArea) {
+            console.error('Simulation area not found');
+            return;
+        }
+        
         simulationArea.classList.add('active');
         this.currentTest = 'reaction';
         this.isRunning = true;
@@ -70,13 +85,14 @@ class PsychologyTestSuite {
                                     border-radius: 50%; margin: 0 auto; cursor: pointer; 
                                     transition: all 0.2s ease; border: 3px solid white;
                                     box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);" 
-                             onclick="window.recordReaction(${startTime})"></div>
+                             data-start-time="${startTime}"></div>
                         <h5 class="mt-3 text-white">CLICK NOW!</h5>
                     </div>
                 `;
                 
-                // Add the recording method globally
-                window.recordReaction = (startTime) => {
+                // Add click handler to the target
+                const target = simulationArea.querySelector('.reaction-target');
+                target.addEventListener('click', () => {
                     const reactionTime = Date.now() - startTime;
                     reactionTimes.push(reactionTime);
                     testCount++;
@@ -116,7 +132,7 @@ class PsychologyTestSuite {
                     } else {
                         setTimeout(() => this.completeReactionTest(reactionTimes), 2000);
                     }
-                };
+                }, { once: true });
             }, delay);
         };
         
@@ -199,9 +215,17 @@ class PsychologyTestSuite {
     
     // Memory Test
     startMemoryTest() {
-        if (this.isRunning) return;
+        if (this.isRunning) {
+            console.warn('Test already running');
+            return;
+        }
         
         const simulationArea = document.getElementById('simulationArea');
+        if (!simulationArea) {
+            console.error('Simulation area not found');
+            return;
+        }
+        
         simulationArea.classList.add('active');
         this.currentTest = 'memory';
         this.isRunning = true;
@@ -240,7 +264,9 @@ class PsychologyTestSuite {
                     font-weight: bold; color: #888;
                 `;
                 cell.textContent = index + 1;
-                cell.onclick = () => this.handleMemoryClick(color, colors, userSequence, sequence, round, maxRounds);
+                cell.addEventListener('click', () => {
+                    this.handleMemoryClick(color, colors, userSequence, sequence, round, maxRounds);
+                });
                 grid.appendChild(cell);
             });
             
@@ -374,7 +400,9 @@ class PsychologyTestSuite {
                 font-weight: bold; color: #888;
             `;
             cell.textContent = index + 1;
-            cell.onclick = () => this.handleMemoryClick(color, colors, userSequence, sequence, round, maxRounds);
+            cell.addEventListener('click', () => {
+                this.handleMemoryClick(color, colors, userSequence, sequence, round, maxRounds);
+            });
             grid.appendChild(cell);
         });
         
@@ -473,9 +501,17 @@ class PsychologyTestSuite {
     
     // Color Perception Test
     startColorTest() {
-        if (this.isRunning) return;
+        if (this.isRunning) {
+            console.warn('Test already running');
+            return;
+        }
         
         const simulationArea = document.getElementById('simulationArea');
+        if (!simulationArea) {
+            console.error('Simulation area not found');
+            return;
+        }
+        
         simulationArea.classList.add('active');
         this.currentTest = 'color';
         this.isRunning = true;
@@ -522,13 +558,11 @@ class PsychologyTestSuite {
                         <div class="color-test-option" 
                              style="width: 120px; height: 120px; background: ${colors[0]}; 
                                     border-radius: 15px; cursor: pointer; border: 3px solid white;
-                                    transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"
-                             onclick="window.checkColorChoice(${differentIndex === 0})"></div>
+                                    transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"></div>
                         <div class="color-test-option"
                              style="width: 120px; height: 120px; background: ${colors[1]}; 
                                     border-radius: 15px; cursor: pointer; border: 3px solid white;
-                                    transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"
-                             onclick="window.checkColorChoice(${differentIndex === 1})"></div>
+                                    transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"></div>
                     </div>
                     <div class="progress mt-3" style="height: 8px;">
                         <div class="progress-bar bg-info" style="width: ${(total / maxTests) * 100}%"></div>
@@ -537,31 +571,34 @@ class PsychologyTestSuite {
                 </div>
             `;
             
-            // Add choice checking method globally
-            window.checkColorChoice = (isCorrect) => {
-                total++;
-                
-                // Visual feedback
-                const options = simulationArea.querySelectorAll('.color-test-option');
-                options.forEach(option => {
-                    option.style.transform = 'scale(0.95)';
-                    if (isCorrect && option.getAttribute('onclick').includes('true')) {
-                        option.style.borderColor = '#10B981';
-                        option.style.boxShadow = '0 0 20px #10B981';
-                        correct++;
-                    } else if (!isCorrect && option.getAttribute('onclick').includes('true')) {
-                        option.style.borderColor = '#EF4444';
-                        option.style.boxShadow = '0 0 20px #EF4444';
-                    }
-                });
-                
-                // Increase difficulty
-                if (total % 2 === 0) difficulty++;
-                
-                setTimeout(() => {
-                    showColorTest();
-                }, 1000);
-            };
+            // Add choice checking method
+            const options = simulationArea.querySelectorAll('.color-test-option');
+            options.forEach((option, index) => {
+                option.addEventListener('click', () => {
+                    const isCorrect = (index === differentIndex);
+                    total++;
+                    
+                    // Visual feedback
+                    options.forEach(opt => {
+                        opt.style.transform = 'scale(0.95)';
+                        if (isCorrect && opt === option) {
+                            opt.style.borderColor = '#10B981';
+                            opt.style.boxShadow = '0 0 20px #10B981';
+                            correct++;
+                        } else if (!isCorrect && opt === option) {
+                            opt.style.borderColor = '#EF4444';
+                            opt.style.boxShadow = '0 0 20px #EF4444';
+                        }
+                    });
+                    
+                    // Increase difficulty
+                    if (total % 2 === 0) difficulty++;
+                    
+                    setTimeout(() => {
+                        showColorTest();
+                    }, 1000);
+                }, { once: true });
+            });
         };
         
         showColorTest();
@@ -631,17 +668,22 @@ class PsychologyTestSuite {
     
     // Reset all simulations
     resetSimulations() {
-        if (this.isRunning) return;
+        if (this.isRunning) {
+            console.warn('Cannot reset while test is running');
+            return;
+        }
         
         const simulationArea = document.getElementById('simulationArea');
-        simulationArea.classList.remove('active');
-        simulationArea.innerHTML = `
-            <div class="text-center p-5">
-                <i class="fas fa-play-circle fa-3x text-muted mb-3"></i>
-                <h5 class="text-white">Select a psychology simulation to begin</h5>
-                <p class="text-muted">Each test demonstrates different aspects of human cognition and perception</p>
-            </div>
-        `;
+        if (simulationArea) {
+            simulationArea.classList.remove('active');
+            simulationArea.innerHTML = `
+                <div class="text-center p-5">
+                    <i class="fas fa-play-circle fa-3x text-muted mb-3"></i>
+                    <h5 class="text-white">Select a psychology simulation to begin</h5>
+                    <p class="text-muted">Each test demonstrates different aspects of human cognition and perception</p>
+                </div>
+            `;
+        }
         
         // Reset all scores
         const elements = [
@@ -692,7 +734,7 @@ class PsychologyTestSuite {
         const hasColor = colorPerception !== null;
         
         let profile = 'Baseline';
-        let badgeClass = 'badge-enhanced';
+        let badgeClass = 'badge badge-enhanced';
         
         if (hasReaction && hasMemory && hasColor) {
             // Calculate composite score
@@ -727,48 +769,15 @@ class PsychologyTestSuite {
         }
     }
     
-    // Grid animation
-    animateGrid() {
-        const gridItems = document.querySelectorAll('.grid-item');
-        
-        gridItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.style.transform = 'scale(1.1) rotate(5deg)';
-                item.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                
-                setTimeout(() => {
-                    item.style.transform = 'scale(1) rotate(0deg)';
-                    item.style.background = 'linear-gradient(135deg, #3B82F6, #06B6D4)';
-                }, 300);
-            }, index * 100);
-        });
-        
-        this.showToast('Neural pathways reorganized!', 'success');
-    }
-    
-    // Color psychology demonstration
-    demonstrateColorPsychology() {
-        const colorSwatches = document.querySelectorAll('.color-swatch');
-        
-        colorSwatches.forEach((swatch, index) => {
-            setTimeout(() => {
-                swatch.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.8)';
-                swatch.style.transform = 'scale(1.3)';
-                
-                setTimeout(() => {
-                    swatch.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
-                    swatch.style.transform = 'scale(1)';
-                }, 800);
-            }, index * 200);
-        });
-        
-        setTimeout(() => {
-            this.showToast('Color psychology demonstration complete!', 'info');
-        }, colorSwatches.length * 200);
-    }
-    
     // Toast notification helper
     showToast(message, type = 'info') {
+        // Use psychology core's toast if available
+        if (window.psychologyCore && typeof window.psychologyCore.showToast === 'function') {
+            window.psychologyCore.showToast(message, type);
+            return;
+        }
+        
+        // Fallback implementation
         const toastContainer = document.getElementById('toastContainer');
         if (!toastContainer) return;
         
@@ -793,8 +802,10 @@ class PsychologyTestSuite {
         
         toastContainer.innerHTML = toastHTML;
         
-        const toast = new bootstrap.Toast(document.getElementById(toastId));
-        toast.show();
+        if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+            const toast = new bootstrap.Toast(document.getElementById(toastId));
+            toast.show();
+        }
         
         // Auto-remove after 3 seconds
         setTimeout(() => {
@@ -814,15 +825,18 @@ class PsychologyTestSuite {
             isRunning: this.isRunning
         };
     }
+    
+    // Clean up
+    destroy() {
+        this.isInitialized = false;
+        this.isRunning = false;
+        console.log('🧪 Psychology test suite destroyed');
+    }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    window.psychologyTestSuite = new PsychologyTestSuite();
-    window.psychologyTestSuite.initialize();
-});
-
-// Export for potential use by other modules
+// Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PsychologyTestSuite;
+} else {
+    window.PsychologyTestSuite = PsychologyTestSuite;
 }

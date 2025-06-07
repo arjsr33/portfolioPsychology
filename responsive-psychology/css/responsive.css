@@ -1,203 +1,9 @@
-/* responsive-psychology/css/responsive.css - Updated with consistent styling */
+/* responsive-psychology/css/responsive.css - Bootstrap-specific enhancements only */
+/* Main styles inherited from ../css/main.css, ../css/animations.css, ../css/color-psychology.css */
 
-:root {
-    /* Consistent color palette with index.html */
-    --primary-purple: #8B5CF6;
-    --secondary-pink: #EC4899;
-    --accent-blue: #3B82F6;
-    --warm-orange: #F97316;
-    --success-green: #10B981;
-    --neutral-gray: #6B7280;
-    --dark-slate: #1E293B;
-    --light-slate: #334155;
-    
-    /* Background system */
-    --bg-primary: #0F172A;
-    --bg-secondary: #1E293B;
-    --bg-tertiary: #334155;
-    --bg-surface: rgba(255, 255, 255, 0.05);
-    --bg-surface-hover: rgba(255, 255, 255, 0.08);
-    
-    /* Glass morphism effects */
-    --glass-light: rgba(255, 255, 255, 0.1);
-    --glass-medium: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    
-    /* Typography */
-    --font-xs: 0.75rem;
-    --font-sm: 0.875rem;
-    --font-base: 1rem;
-    --font-lg: 1.125rem;
-    --font-xl: 1.25rem;
-    --font-2xl: 1.5rem;
-    --font-3xl: 2rem;
-    --font-4xl: 2.5rem;
-    --font-5xl: 3rem;
-    
-    /* Spacing */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
-    
-    /* Transitions */
-    --duration-fast: 0.15s;
-    --duration-normal: 0.3s;
-    --duration-slow: 0.6s;
-    
-    /* Border radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    
-    /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-    --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.25);
-    
-    /* Text colors */
-    --text-primary: #F8FAFC;
-    --text-secondary: #CBD5E1;
-    --text-muted: #94A3B8;
-    --text-inverse: #1E293B;
-}
+/* Bootstrap-specific component enhancements */
 
-/* Reset and base styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
-    background-attachment: fixed;
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
-    min-height: 100vh;
-}
-
-/* Navigation - Exact match with index.html */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: var(--glass-light);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-    transition: all var(--duration-normal) ease;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-md) var(--space-lg);
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.nav-brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: var(--font-xl);
-    font-weight: 700;
-    background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-decoration: none;
-}
-
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: var(--space-md);
-}
-
-.nav-link {
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 500;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-lg);
-    transition: all var(--duration-normal) ease;
-    position: relative;
-}
-
-.nav-link:hover {
-    background: var(--bg-surface-hover);
-    transform: translateY(-2px);
-    color: var(--text-primary);
-    text-decoration: none;
-}
-
-.nav-link.active {
-    background: var(--glass-medium);
-    color: var(--secondary-pink);
-}
-
-/* Main container */
-.psychology-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-    margin-top: 80px;
-}
-
-/* Hero section */
-.psychology-hero {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-3xl);
-    align-items: center;
-    padding: var(--space-3xl) 0;
-    margin-bottom: var(--space-3xl);
-    position: relative;
-}
-
-.hero-content {
-    max-width: 600px;
-}
-
-.hero-title {
-    font-size: var(--font-5xl);
-    font-weight: 800;
-    background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue), var(--warm-orange));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: var(--space-md);
-    line-height: 1.1;
-}
-
-.hero-subtitle {
-    font-size: var(--font-xl);
-    color: var(--text-secondary);
-    margin-bottom: var(--space-md);
-    font-weight: 500;
-}
-
-.hero-description {
-    color: var(--text-muted);
-    margin-bottom: var(--space-xl);
-    font-size: var(--font-lg);
-}
-
+/* Hero metrics - Bootstrap specific addition */
 .hero-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -241,6 +47,7 @@ body {
     -webkit-text-fill-color: transparent;
     display: block;
     margin-bottom: var(--space-sm);
+    transition: all var(--duration-normal) ease;
 }
 
 .metric-label {
@@ -249,194 +56,7 @@ body {
     font-weight: 500;
 }
 
-.hero-cta {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-}
-
-.btn-primary,
-.btn-secondary {
-    padding: var(--space-md) var(--space-xl);
-    border-radius: var(--radius-lg);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: var(--font-base);
-    transition: all var(--duration-normal) ease;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-sm);
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
-    color: white;
-    box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-    color: white;
-    text-decoration: none;
-}
-
-.btn-secondary {
-    background: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--glass-border);
-}
-
-.btn-secondary:hover {
-    background: var(--bg-surface-hover);
-    transform: translateY(-2px);
-    color: var(--text-primary);
-    text-decoration: none;
-}
-
-/* Hero visual */
-.hero-visual {
-    position: relative;
-    width: 200px;
-    height: 200px;
-}
-
-.neural-network {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.neural-node {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--accent-blue);
-}
-
-.neural-node.node-1 {
-    top: 20%;
-    left: 20%;
-    background: var(--primary-purple);
-    animation: neuralPulse 2s ease-in-out infinite;
-}
-
-.neural-node.node-2 {
-    top: 20%;
-    right: 20%;
-    background: var(--secondary-pink);
-    animation: neuralPulse 2s ease-in-out infinite 0.5s;
-}
-
-.neural-node.node-3 {
-    bottom: 20%;
-    left: 20%;
-    background: var(--accent-blue);
-    animation: neuralPulse 2s ease-in-out infinite 1s;
-}
-
-.neural-node.node-4 {
-    bottom: 20%;
-    right: 20%;
-    background: var(--warm-orange);
-    animation: neuralPulse 2s ease-in-out infinite 1.5s;
-}
-
-@keyframes neuralPulse {
-    0% { 
-        transform: scale(1); 
-        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4);
-    }
-    70% { 
-        transform: scale(1.05); 
-        box-shadow: 0 0 0 8px rgba(139, 92, 246, 0);
-    }
-    100% { 
-        transform: scale(1); 
-        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
-    }
-}
-
-/* Content sections */
-.content-section {
-    background: var(--bg-surface);
-    backdrop-filter: blur(10px);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--glass-border);
-    padding: var(--space-3xl);
-    margin-bottom: var(--space-3xl);
-}
-
-.section-header {
-    margin-bottom: var(--space-xl);
-}
-
-.section-title {
-    font-size: var(--font-3xl);
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--space-md);
-}
-
-.section-divider {
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--secondary-pink), var(--accent-blue));
-    border-radius: 2px;
-}
-
-.section-intro {
-    font-size: var(--font-lg);
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: var(--space-xl);
-}
-
-/* Insight cards */
-.insight-card {
-    background: var(--glass-light);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    border: 1px solid var(--glass-border);
-    margin: var(--space-xl) 0;
-}
-
-.insight-title {
-    color: var(--accent-blue);
-    font-size: var(--font-xl);
-    font-weight: 600;
-    margin-bottom: var(--space-lg);
-}
-
-/* Grid demo */
-.grid-demo {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-lg);
-    margin: var(--space-lg) 0;
-}
-
-.grid-item {
-    background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
-    padding: var(--space-lg);
-    border-radius: var(--radius-md);
-    text-align: center;
-    font-weight: 600;
-    color: white;
-    transition: all var(--duration-normal) ease;
-    cursor: pointer;
-    border: 1px solid var(--glass-border);
-}
-
-.grid-item:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: var(--shadow-md);
-}
-
-/* Demo showcase */
+/* Demo showcase - Bootstrap specific */
 .demo-showcase {
     margin: var(--space-xl) 0;
 }
@@ -460,6 +80,12 @@ body {
     border-radius: var(--radius-lg);
     padding: var(--space-xl);
     border: 1px solid var(--glass-border);
+    transition: all var(--duration-normal) ease;
+}
+
+.control-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
 }
 
 .control-panel h4 {
@@ -467,12 +93,17 @@ body {
     font-size: var(--font-lg);
     margin-bottom: var(--space-lg);
     text-align: center;
+    background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .control-group {
     margin-bottom: var(--space-lg);
 }
 
+/* Form controls - Bootstrap overrides */
 .form-label {
     color: var(--text-secondary);
     font-weight: 500;
@@ -484,6 +115,7 @@ body {
     background: transparent;
     height: 8px;
     margin-bottom: var(--space-sm);
+    cursor: pointer;
 }
 
 .form-range::-webkit-slider-track {
@@ -501,6 +133,7 @@ body {
     cursor: pointer;
     box-shadow: var(--shadow-sm);
     transition: all var(--duration-fast);
+    -webkit-appearance: none;
 }
 
 .form-range::-webkit-slider-thumb:hover {
@@ -523,9 +156,10 @@ body {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: var(--shadow-sm);
+    border: none;
 }
 
-/* Progress bars */
+/* Progress bars - Bootstrap enhanced */
 .progress-enhanced {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -533,6 +167,23 @@ body {
     overflow: hidden;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: var(--space-sm);
+    position: relative;
+}
+
+.progress-enhanced::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 .progress-bar-focus {
@@ -581,9 +232,27 @@ body {
     border-radius: 20px;
     font-weight: 600;
     font-size: var(--font-sm);
+    transition: all var(--duration-normal) ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Psychology monitor */
+.badge-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.badge-enhanced:hover::before {
+    left: 100%;
+}
+
+/* Psychology monitor - Unique component */
 .psychology-monitor {
     background: rgba(0, 0, 0, 0.2);
     border-radius: var(--radius-lg);
@@ -601,6 +270,7 @@ body {
     height: 3px;
     border-radius: 2px;
     animation: brainwaveActivity 3s ease-in-out infinite;
+    box-shadow: 0 0 10px currentColor;
 }
 
 .brainwave.alpha {
@@ -671,7 +341,7 @@ body {
     font-weight: 500;
 }
 
-/* Tab system */
+/* Bootstrap Tab system enhancements */
 .tab-system {
     margin: var(--space-xl) 0;
 }
@@ -690,6 +360,20 @@ body {
     transition: all var(--duration-normal) ease;
     font-weight: 500;
     padding: var(--space-md) var(--space-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-enhanced .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--secondary-pink), var(--accent-blue));
+    transition: all var(--duration-normal) ease;
+    transform: translateX(-50%);
 }
 
 .nav-enhanced .nav-link:hover {
@@ -698,10 +382,18 @@ body {
     color: var(--text-primary);
 }
 
+.nav-enhanced .nav-link:hover::after {
+    width: 80%;
+}
+
 .nav-enhanced .nav-link.active {
     background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink)) !important;
     border-color: var(--accent-blue);
     color: white !important;
+}
+
+.nav-enhanced .nav-link.active::after {
+    width: 100%;
 }
 
 .tab-content-enhanced {
@@ -711,6 +403,7 @@ body {
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     backdrop-filter: blur(15px);
     padding: var(--space-xl);
+    animation: fadeInUp 0.4s ease-out;
 }
 
 .tab-content-enhanced h5 {
@@ -723,7 +416,7 @@ body {
     margin-bottom: var(--space-lg);
 }
 
-/* Color palette */
+/* Color palette - Enhanced from main */
 .color-palette {
     display: flex;
     gap: var(--space-md);
@@ -741,11 +434,30 @@ body {
     border: 3px solid white;
     box-shadow: var(--shadow-sm);
     position: relative;
+    overflow: hidden;
+}
+
+.color-swatch::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all var(--duration-normal) ease;
 }
 
 .color-swatch:hover {
     transform: scale(1.15);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+}
+
+.color-swatch:hover::before {
+    width: 100%;
+    height: 100%;
 }
 
 .color-swatch.primary {
@@ -768,7 +480,7 @@ body {
     background: var(--primary-purple);
 }
 
-/* Accordion */
+/* Bootstrap Accordion enhancements */
 .accordion-enhanced {
     background: transparent !important;
     border: 1px solid var(--glass-border);
@@ -783,6 +495,7 @@ body {
     border: none !important;
     font-weight: 600;
     padding: var(--space-lg);
+    transition: all var(--duration-normal) ease;
 }
 
 .accordion-enhanced .accordion-button:not(.collapsed) {
@@ -802,7 +515,7 @@ body {
     padding: var(--space-lg);
 }
 
-/* Behavior metrics */
+/* Behavior metrics - Bootstrap specific */
 .behavior-metrics {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -821,7 +534,7 @@ body {
     margin-bottom: var(--space-sm);
 }
 
-/* Simulation container */
+/* Simulation container - Bootstrap specific */
 .simulation-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -916,7 +629,7 @@ body {
     margin-bottom: var(--space-sm);
 }
 
-/* Modal */
+/* Bootstrap Modal enhancements */
 .modal-enhanced .modal-content {
     background: var(--glass-light);
     backdrop-filter: blur(20px);
@@ -987,7 +700,7 @@ body {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-/* Toast system */
+/* Bootstrap Toast enhancements */
 .toast {
     background: var(--glass-light);
     backdrop-filter: blur(15px);
@@ -996,14 +709,8 @@ body {
     color: var(--text-primary);
 }
 
-/* Responsive design */
+/* Responsive design - Bootstrap specific adjustments */
 @media (max-width: 1024px) {
-    .psychology-hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: var(--space-xl);
-    }
-    
     .controls-grid {
         grid-template-columns: 1fr;
     }
@@ -1014,30 +721,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .psychology-container {
-        padding: 0 var(--space-md);
-    }
-    
-    .psychology-hero {
-        padding: var(--space-xl) 0;
-    }
-    
-    .hero-title {
-        font-size: var(--font-4xl);
-    }
-    
-    .hero-cta {
-        justify-content: center;
-    }
-    
-    .nav-menu {
-        display: none;
-    }
-    
-    .content-section {
-        padding: var(--space-xl);
-    }
-    
     .hero-metrics {
         grid-template-columns: 1fr;
     }
@@ -1063,97 +746,24 @@ body {
 }
 
 @media (max-width: 480px) {
-    .psychology-container {
-        padding: 0 var(--space-sm);
-    }
-    
-    .hero-title {
-        font-size: var(--font-3xl);
-    }
-    
-    .section-title {
-        font-size: var(--font-2xl);
-    }
-    
-    .content-section {
-        padding: var(--space-lg);
-    }
-    
-    .hero-cta {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        justify-content: center;
-    }
-    
     .nav-enhanced .nav-link {
         margin-right: var(--space-xs);
         margin-bottom: var(--space-sm);
     }
 }
 
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .metric-card:hover,
-    .grid-item:hover,
-    .color-swatch:hover {
-        transform: none;
-    }
-}
-
-/* Focus states */
-.nav-link:focus,
-.btn-primary:focus,
-.btn-secondary:focus,
+/* Focus states for Bootstrap components */
 .form-range:focus,
 .color-swatch:focus {
     outline: 2px solid var(--warm-orange);
     outline-offset: 2px;
 }
 
-/* High contrast support */
+/* High contrast support for Bootstrap components */
 @media (prefers-contrast: high) {
-    .metric-card,
-    .grid-item,
-    .control-panel {
-        border: 2px solid white;
-    }
-    
-    .nav-link {
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-}
-
-/* Print styles */
-@media print {
-    .psychology-monitor,
-    .brainwave,
-    .neural-network {
-        display: none;
-    }
-    
     .metric-card,
     .control-panel,
     .result-item {
-        background: white !important;
-        color: black !important;
-        border: 1px solid #ccc !important;
-    }
-    
-    .section-title,
-    .hero-title {
-        background: none !important;
-        -webkit-text-fill-color: initial !important;
-        color: #333 !important;
+        border: 2px solid white;
     }
 }

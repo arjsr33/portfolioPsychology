@@ -1,4 +1,5 @@
 // responsive-psychology/js/psychology-sim.js - Core Psychology Simulation Engine
+// Clean integration without conflicts
 
 class ResponsivePsychologyCore {
     constructor() {
@@ -31,55 +32,42 @@ class ResponsivePsychologyCore {
         };
         
         // Store interval references for proper cleanup
-        this.brainwaveInterval = null;
-        this.componentInterval = null;
-        this.driftInterval = null;
+        this.intervals = {
+            brainwave: null,
+            component: null,
+            drift: null
+        };
         this.lastScrollY = 0;
-        
-        // Bind methods to preserve context
-        this.handleRangeInput = this.handleRangeInput.bind(this);
-        this.handleInteraction = this.handleInteraction.bind(this);
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.updateMentalState = this.updateMentalState.bind(this);
+        this.isInitialized = false;
     }
     
     // Initialize the psychology simulator
     initialize() {
+        if (this.isInitialized) {
+            console.warn('Psychology core already initialized');
+            return this;
+        }
+        
         this.setupEventListeners();
         this.startRealTimeMonitoring();
         this.initializeMentalStateControls();
         this.trackUserBehavior();
-        this.setupGlobalFunctions(); // NEW: Add this line
+        this.setupGlobalFunctions();
         
+        this.isInitialized = true;
         console.log('🧠 Core psychology simulation engine initialized');
         return this;
     }
     
-    // NEW: Setup global functions for HTML onclick handlers
+    // Setup global functions for HTML onclick handlers
     setupGlobalFunctions() {
-        // Make functions globally available for onclick handlers
-        window.animateGrid = () => this.animateGrid();
-        window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
-        window.startReactionTest = () => {
-            if (window.psychologyTestSuite) {
-                window.psychologyTestSuite.startReactionTest();
-            }
-        };
-        window.startMemoryTest = () => {
-            if (window.psychologyTestSuite) {
-                window.psychologyTestSuite.startMemoryTest();
-            }
-        };
-        window.startColorTest = () => {
-            if (window.psychologyTestSuite) {
-                window.psychologyTestSuite.startColorTest();
-            }
-        };
-        window.resetSimulations = () => {
-            if (window.psychologyTestSuite) {
-                window.psychologyTestSuite.resetSimulations();
-            }
-        };
+        // Only assign if not already assigned by test suite
+        if (!window.animateGrid) {
+            window.animateGrid = () => this.animateGrid();
+        }
+        if (!window.demonstrateColorPsychology) {
+            window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
+        }
     }
     
     // Setup all event listeners for psychology tracking
@@ -92,23 +80,20 @@ class ResponsivePsychologyCore {
             }
         });
         
-        // Global interaction tracking
-        document.addEventListener('click', this.handleInteraction);
+        // Global interaction tracking (avoiding conflicts)
+        document.addEventListener('click', (e) => {
+            this.handleInteraction(e);
+        }, { passive: true });
         
         // Tab change tracking with Bootstrap event delegation
-        document.addEventListener('shown.bs.tab', this.handleTabChange);
+        document.addEventListener('shown.bs.tab', (e) => {
+            this.handleTabChange(e);
+        });
         
         // Keyboard interaction tracking
         document.addEventListener('keydown', (e) => {
             this.trackKeyboardInteraction(e.key, e.ctrlKey, e.altKey);
-        });
-    }
-    
-    // Handle range input changes
-    handleRangeInput(event) {
-        const aspect = event.target.id.replace('Range', '');
-        const value = parseInt(event.target.value);
-        this.updateMentalState(aspect, value);
+        }, { passive: true });
     }
     
     // Handle all click interactions
@@ -166,7 +151,7 @@ class ResponsivePsychologyCore {
             progressBar.style.width = value + '%';
             progressBar.setAttribute('aria-valuenow', value);
             
-            // Add visual feedback with updated color scheme
+            // Add visual feedback
             progressBar.style.transition = 'width 0.3s ease, box-shadow 0.3s ease';
             progressBar.style.boxShadow = `0 0 ${value / 10}px rgba(59, 130, 246, 0.5)`;
         }
@@ -218,7 +203,7 @@ class ResponsivePsychologyCore {
         if (loadMeter) {
             loadMeter.textContent = Math.round(load) + '%';
             
-            // Update color based on load with new color scheme
+            // Update color based on load
             loadMeter.className = 'metric-number';
             if (load < 30) {
                 loadMeter.style.background = 'linear-gradient(135deg, #10B981, #06B6D4)';
@@ -337,7 +322,7 @@ class ResponsivePsychologyCore {
         
         clickPattern.style.width = deliberateRatio + '%';
         
-        // Change color based on behavior - updated classes
+        // Change color based on behavior
         const colorClasses = {
             'high-energy': 'progress-bar bg-danger',
             'engaged': 'progress-bar bg-warning', 
@@ -391,7 +376,6 @@ class ResponsivePsychologyCore {
     
     // Analyze tab engagement for user preferences
     analyzeTabEngagement(engagement) {
-        // Track which tabs users prefer in different mental states
         const { focus, creativity, stress } = engagement.mentalState;
         
         if (focus > 70 && engagement.tab === '#cognition') {
@@ -423,6 +407,7 @@ class ResponsivePsychologyCore {
         
         // Animate the specific grid item
         element.style.transform = 'scale(1.1) rotate(2deg)';
+        element.style.transition = 'transform 0.2s ease';
         setTimeout(() => {
             element.style.transform = 'scale(1) rotate(0deg)';
         }, 200);
@@ -436,6 +421,7 @@ class ResponsivePsychologyCore {
         // Provide haptic-like feedback
         element.style.transform = 'scale(1.2)';
         element.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+        element.style.transition = 'all 0.3s ease';
         
         setTimeout(() => {
             element.style.transform = 'scale(1)';
@@ -463,6 +449,7 @@ class ResponsivePsychologyCore {
             
             // Add brief animation
             counter.style.transform = 'scale(1.1)';
+            counter.style.transition = 'transform 0.15s ease';
             setTimeout(() => {
                 counter.style.transform = 'scale(1)';
             }, 150);
@@ -472,17 +459,17 @@ class ResponsivePsychologyCore {
     // Start real-time monitoring systems
     startRealTimeMonitoring() {
         // Brainwave fluctuation simulation
-        this.brainwaveInterval = setInterval(() => {
+        this.intervals.brainwave = setInterval(() => {
             this.simulateBrainwaveFluctuation();
         }, 2000);
         
         // Component count animation
-        this.componentInterval = setInterval(() => {
+        this.intervals.component = setInterval(() => {
             this.updateComponentCount();
         }, 5000);
         
         // Mental state drift simulation
-        this.driftInterval = setInterval(() => {
+        this.intervals.drift = setInterval(() => {
             this.simulateNaturalMentalDrift();
         }, 10000);
     }
@@ -527,7 +514,6 @@ class ResponsivePsychologyCore {
     
     // Simulate natural mental state drift
     simulateNaturalMentalDrift() {
-        // Subtle changes that simulate natural mental state fluctuations
         const driftFactors = {
             focus: (Math.random() - 0.5) * 2,
             creativity: (Math.random() - 0.5) * 1.5,
@@ -542,7 +528,7 @@ class ResponsivePsychologyCore {
             if (Math.abs(newValue - currentValue) > 0.5) {
                 this.mentalState[aspect] = newValue;
                 
-                // Update the corresponding range input to reflect drift
+                // Update the corresponding range input
                 const rangeInput = document.getElementById(`${aspect}Range`);
                 if (rangeInput) {
                     rangeInput.value = newValue;
@@ -575,20 +561,6 @@ class ResponsivePsychologyCore {
     
     // Track comprehensive user behavior
     trackUserBehavior() {
-        // Mouse movement patterns (simplified to avoid performance issues)
-        let mouseMovements = [];
-        document.addEventListener('mousemove', (e) => {
-            mouseMovements.push({
-                x: e.clientX,
-                y: e.clientY,
-                timestamp: Date.now()
-            });
-            
-            if (mouseMovements.length > 20) {
-                mouseMovements.shift();
-            }
-        });
-        
         // Scroll behavior analysis
         let lastScrollTime = Date.now();
         window.addEventListener('scroll', (e) => {
@@ -601,16 +573,16 @@ class ResponsivePsychologyCore {
                 lastScrollTime = now;
                 this.lastScrollY = window.scrollY;
             }
-        });
+        }, { passive: true });
         
         // Focus and blur tracking
         document.addEventListener('focusin', (e) => {
             this.trackFocusEvent('focus', e.target);
-        });
+        }, { passive: true });
         
         document.addEventListener('focusout', (e) => {
             this.trackFocusEvent('blur', e.target);
-        });
+        }, { passive: true });
     }
     
     // Analyze scroll behavior for attention patterns
@@ -651,7 +623,7 @@ class ResponsivePsychologyCore {
         }
     }
     
-    // NEW: Grid animation
+    // Grid animation
     animateGrid() {
         const gridItems = document.querySelectorAll('.grid-item');
         
@@ -659,6 +631,7 @@ class ResponsivePsychologyCore {
             setTimeout(() => {
                 item.style.transform = 'scale(1.1) rotate(5deg)';
                 item.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                item.style.transition = 'all 0.3s ease';
                 
                 setTimeout(() => {
                     item.style.transform = 'scale(1) rotate(0deg)';
@@ -670,7 +643,7 @@ class ResponsivePsychologyCore {
         this.showToast('Neural pathways reorganized!', 'success');
     }
     
-    // NEW: Color psychology demonstration
+    // Color psychology demonstration
     demonstrateColorPsychology() {
         const colorSwatches = document.querySelectorAll('.color-swatch');
         
@@ -678,6 +651,7 @@ class ResponsivePsychologyCore {
             setTimeout(() => {
                 swatch.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.8)';
                 swatch.style.transform = 'scale(1.3)';
+                swatch.style.transition = 'all 0.3s ease';
                 
                 setTimeout(() => {
                     swatch.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
@@ -691,7 +665,7 @@ class ResponsivePsychologyCore {
         }, colorSwatches.length * 200);
     }
     
-    // NEW: Toast notification helper
+    // Toast notification helper
     showToast(message, type = 'info') {
         const toastContainer = document.getElementById('toastContainer');
         if (!toastContainer) return;
@@ -717,8 +691,10 @@ class ResponsivePsychologyCore {
         
         toastContainer.innerHTML = toastHTML;
         
-        const toast = new bootstrap.Toast(document.getElementById(toastId));
-        toast.show();
+        if (typeof bootstrap !== 'undefined' && bootstrap.Toast) {
+            const toast = new bootstrap.Toast(document.getElementById(toastId));
+            toast.show();
+        }
         
         // Auto-remove after 3 seconds
         setTimeout(() => {
@@ -818,15 +794,12 @@ class ResponsivePsychologyCore {
     
     // Clean up and destroy instance
     destroy() {
-        document.removeEventListener('input', this.handleRangeInput);
-        document.removeEventListener('click', this.handleInteraction);
-        document.removeEventListener('shown.bs.tab', this.handleTabChange);
-        
         // Clear intervals properly
-        if (this.brainwaveInterval) clearInterval(this.brainwaveInterval);
-        if (this.componentInterval) clearInterval(this.componentInterval);
-        if (this.driftInterval) clearInterval(this.driftInterval);
+        Object.values(this.intervals).forEach(interval => {
+            if (interval) clearInterval(interval);
+        });
         
+        this.isInitialized = false;
         console.log('🧠 Psychology simulation engine destroyed');
     }
 }

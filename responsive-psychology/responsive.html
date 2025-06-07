@@ -6,10 +6,15 @@
     <title>Responsive Psychology - Bootstrap + JavaScript</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Import main CSS files for consistency -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/color-psychology.css">
+    <!-- Bootstrap-specific enhancements only -->
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Navigation - Matching index.html exactly -->
+    <!-- Navigation - Exact match with index.html -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -394,43 +399,105 @@
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
+    <!-- Custom JavaScript - Order matters for proper initialization -->
     <script src="js/psychology-sim.js"></script>
     <script src="js/test-simulation.js"></script>
     <script src="js/bootstrap-custom.js"></script>
     <script>
-        // Initialize the psychology system
+        // Initialize the psychology system in proper order with error handling
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize core psychology simulation
-            const psychologyCore = new ResponsivePsychologyCore();
-            psychologyCore.initialize();
+            console.log('🧠 Initializing responsive psychology framework...');
             
-            // Initialize test suite
-            const testSuite = new PsychologyTestSuite();
-            testSuite.initialize();
-            
-            // Initialize Bootstrap enhancements
-            const bootstrapEnhancer = new BootstrapPsychologyEnhancer(psychologyCore);
-            bootstrapEnhancer.initialize();
-            
-            // Initialize tooltips
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
-            
-            // Make framework demonstration available globally
-            window.demonstrateFramework = function() {
-                // Trigger multiple framework features
-                animateGrid();
-                setTimeout(() => demonstrateColorPsychology(), 1000);
-                setTimeout(() => {
-                    const firstTab = document.querySelector('[data-bs-toggle="tab"]:not(.active)');
-                    if (firstTab) firstTab.click();
-                }, 2000);
-            };
-            
-            console.log('🧠 Responsive psychology framework fully initialized');
+            try {
+                // Initialize core psychology simulation
+                if (typeof ResponsivePsychologyCore !== 'undefined') {
+                    window.psychologyCore = new ResponsivePsychologyCore();
+                    window.psychologyCore.initialize();
+                    console.log('✅ Psychology core initialized');
+                } else {
+                    console.error('❌ ResponsivePsychologyCore not found');
+                }
+                
+                // Initialize test suite
+                if (typeof PsychologyTestSuite !== 'undefined') {
+                    window.psychologyTestSuite = new PsychologyTestSuite();
+                    window.psychologyTestSuite.initialize();
+                    console.log('✅ Test suite initialized');
+                } else {
+                    console.error('❌ PsychologyTestSuite not found');
+                }
+                
+                // Initialize Bootstrap enhancements
+                if (typeof BootstrapPsychologyEnhancer !== 'undefined') {
+                    window.bootstrapEnhancer = new BootstrapPsychologyEnhancer(window.psychologyCore);
+                    window.bootstrapEnhancer.initialize();
+                    console.log('✅ Bootstrap enhancer initialized');
+                } else {
+                    console.error('❌ BootstrapPsychologyEnhancer not found');
+                }
+                
+                // Initialize tooltips if Bootstrap is available
+                if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+                    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                    tooltipTriggerList.map(function (tooltipTriggerEl) {
+                        return new bootstrap.Tooltip(tooltipTriggerEl);
+                    });
+                    console.log('✅ Tooltips initialized');
+                }
+                
+                // Global demonstration function - avoiding conflicts
+                if (!window.demonstrateFramework) {
+                    window.demonstrateFramework = function() {
+                        console.log('🎬 Starting framework demonstration...');
+                        
+                        // Use psychology core functions if available
+                        if (window.psychologyCore) {
+                            if (typeof window.animateGrid === 'function') {
+                                window.animateGrid();
+                            }
+                            
+                            setTimeout(() => {
+                                if (typeof window.demonstrateColorPsychology === 'function') {
+                                    window.demonstrateColorPsychology();
+                                }
+                            }, 1000);
+                            
+                            setTimeout(() => {
+                                const firstTab = document.querySelector('[data-bs-toggle="tab"]:not(.active)');
+                                if (firstTab) firstTab.click();
+                            }, 2000);
+                            
+                            setTimeout(() => {
+                                window.psychologyCore.showToast('Framework demonstration complete!', 'success');
+                            }, 3000);
+                        } else {
+                            console.warn('Psychology core not available for demonstration');
+                        }
+                    };
+                }
+                
+                console.log('✅ Responsive psychology framework fully initialized');
+                
+            } catch (error) {
+                console.error('❌ Error initializing psychology framework:', error);
+            }
+        });
+        
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            try {
+                if (window.psychologyCore && typeof window.psychologyCore.destroy === 'function') {
+                    window.psychologyCore.destroy();
+                }
+                if (window.psychologyTestSuite && typeof window.psychologyTestSuite.destroy === 'function') {
+                    window.psychologyTestSuite.destroy();
+                }
+                if (window.bootstrapEnhancer && typeof window.bootstrapEnhancer.destroy === 'function') {
+                    window.bootstrapEnhancer.destroy();
+                }
+            } catch (error) {
+                console.warn('Error during cleanup:', error);
+            }
         });
     </script>
 </body>
