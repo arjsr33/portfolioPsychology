@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Psychology - Bootstrap + JavaScript</title>
+    
+    <!-- Bootstrap CSS FIRST -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Import main CSS files for consistency -->
+    
+    <!-- Import main CSS files AFTER Bootstrap to override navbar -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/animations.css">
     <link rel="stylesheet" href="../css/color-psychology.css">
+    
     <!-- Bootstrap-specific enhancements only -->
     <link rel="stylesheet" href="css/responsive.css">
 </head>
@@ -208,7 +212,7 @@
                     <div class="tab-pane fade" id="cognition" role="tabpanel">
                         <h5>Cognitive Load Management</h5>
                         <p>Information processing capacity is limited. Progressive disclosure and logical grouping prevent cognitive overload.</p>
-                        <div class="accordion accordion-enhanced" id="cognitiveAccordion">
+                        <div class="accordion-enhanced id="cognitiveAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
@@ -423,8 +427,6 @@
                     window.psychologyTestSuite = new PsychologyTestSuite();
                     window.psychologyTestSuite.initialize();
                     console.log('✅ Test suite initialized');
-                } else {
-                    console.error('❌ PsychologyTestSuite not found');
                 }
                 
                 // Initialize Bootstrap enhancements
@@ -432,8 +434,6 @@
                     window.bootstrapEnhancer = new BootstrapPsychologyEnhancer(window.psychologyCore);
                     window.bootstrapEnhancer.initialize();
                     console.log('✅ Bootstrap enhancer initialized');
-                } else {
-                    console.error('❌ BootstrapPsychologyEnhancer not found');
                 }
                 
                 // Initialize tooltips if Bootstrap is available
@@ -445,12 +445,11 @@
                     console.log('✅ Tooltips initialized');
                 }
                 
-                // Global demonstration function - avoiding conflicts
+                // Global demonstration function
                 if (!window.demonstrateFramework) {
                     window.demonstrateFramework = function() {
                         console.log('🎬 Starting framework demonstration...');
                         
-                        // Use psychology core functions if available
                         if (window.psychologyCore) {
                             if (typeof window.animateGrid === 'function') {
                                 window.animateGrid();
@@ -470,8 +469,6 @@
                             setTimeout(() => {
                                 window.psychologyCore.showToast('Framework demonstration complete!', 'success');
                             }, 3000);
-                        } else {
-                            console.warn('Psychology core not available for demonstration');
                         }
                     };
                 }

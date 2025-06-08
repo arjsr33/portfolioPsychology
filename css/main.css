@@ -235,7 +235,7 @@ body {
 }
 
 .btn-secondary {
-  background: var(--bg-surface);
+  background: var(--bg-primary);
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
 }
