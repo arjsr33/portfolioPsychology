@@ -1,0 +1,96 @@
+{
+  "name": "interactive-psychology-backend",
+  "version": "1.0.0",
+  "description": "Interactive Psychology - Node.js Backend with MongoDB and Real-time APIs",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js --fix",
+    "format": "prettier --write \"**/*.js\"",
+    "seed": "node scripts/seed.js",
+    "migrate": "node scripts/migrate.js",
+    "demo": "node scripts/demo-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^7.1.5",
+    "joi": "^17.11.0",
+    "dotenv": "^16.3.1",
+    "winston": "^3.11.0",
+    "express-validator": "^7.0.1",
+    "express-async-errors": "^3.1.1",
+    "lodash": "^4.17.21",
+    "date-fns": "^2.30.0",
+    "mathjs": "^11.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.16",
+    "@types/morgan": "^1.9.8",
+    "@types/compression": "^1.7.5",
+    "@types/lodash": "^4.14.202",
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "mongodb-memory-server": "^9.1.1",
+    "eslint": "^8.53.0",
+    "eslint-config-node": "^4.1.0",
+    "prettier": "^3.1.0",
+    "@jest/globals": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/tests/**",
+      "!**/coverage/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"]
+  },
+  "nodemonConfig": {
+    "watch": ["*.js", "routes/**/*.js", "models/**/*.js", "services/**/*.js"],
+    "ext": "js,json",
+    "ignore": ["tests/**/*", "node_modules/**/*"],
+    "delay": "1000"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "psychology",
+    "consciousness",
+    "api",
+    "backend",
+    "real-time",
+    "cognition",
+    "brainwaves"
+  ],
+  "author": "Psychology-Driven Development Portfolio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psychology-portfolio/fullstack-psychology"
+  },
+  "bugs": {
+    "url": "https://github.com/psychology-portfolio/fullstack-psychology/issues"
+  },
+  "homepage": "https://github.com/psychology-portfolio/fullstack-psychology#readme"
+}
