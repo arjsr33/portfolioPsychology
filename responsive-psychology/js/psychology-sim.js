@@ -68,6 +68,9 @@ class ResponsivePsychologyCore {
         if (!window.demonstrateColorPsychology) {
             window.demonstrateColorPsychology = () => this.demonstrateColorPsychology();
         }
+        if (!window.demonstrateFramework) {
+            window.demonstrateFramework = () => this.demonstrateFramework();
+        }
     }
     
     // Setup all event listeners for psychology tracking
@@ -623,24 +626,64 @@ class ResponsivePsychologyCore {
         }
     }
     
-    // Grid animation
+    // Enhanced Grid animation with proper reordering
     animateGrid() {
         const gridItems = document.querySelectorAll('.grid-item');
         
+        if (gridItems.length === 0) {
+            console.warn('No grid items found');
+            return;
+        }
+        
+        console.log('🧠 Reorganizing neural pathways...');
+        
+        // Define color gradients for neural pathways
+        const neuralColors = [
+            'linear-gradient(45deg, #8B5CF6, #EC4899)', // Purple to Pink
+            'linear-gradient(45deg, #3B82F6, #06B6D4)', // Blue to Cyan
+            'linear-gradient(45deg, #F97316, #EF4444)', // Orange to Red
+            'linear-gradient(45deg, #10B981, #3B82F6)', // Green to Blue
+            'linear-gradient(45deg, #EC4899, #F97316)', // Pink to Orange
+            'linear-gradient(45deg, #06B6D4, #10B981)'  // Cyan to Green
+        ];
+        
+        // Store original text content
+        const originalTexts = Array.from(gridItems).map(item => item.textContent);
+        
+        // Shuffle the text content for reordering effect
+        const shuffledTexts = [...originalTexts].sort(() => Math.random() - 0.5);
+        
         gridItems.forEach((item, index) => {
             setTimeout(() => {
+                // Add reorganizing animation
                 item.style.transform = 'scale(1.1) rotate(5deg)';
-                item.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
                 item.style.transition = 'all 0.3s ease';
+                
+                // Change to random neural color
+                const randomColor = neuralColors[Math.floor(Math.random() * neuralColors.length)];
+                item.style.background = randomColor;
+                
+                // Change text content to shuffled version
+                item.textContent = shuffledTexts[index];
                 
                 setTimeout(() => {
                     item.style.transform = 'scale(1) rotate(0deg)';
-                    item.style.background = 'linear-gradient(45deg, #8B5CF6, #EC4899)';
                 }, 300);
             }, index * 100);
         });
         
-        this.showToast('Neural pathways reorganized!', 'success');
+        // Update mental state - boost creativity
+        if (this.mentalState) {
+            const currentCreativity = this.mentalState.creativity;
+            this.updateMentalState('creativity', Math.min(100, currentCreativity + 5));
+        }
+        
+        // Show success notification
+        setTimeout(() => {
+            this.showToast('Neural pathways reorganized! New cognitive connections formed.', 'success');
+        }, gridItems.length * 100 + 300);
+        
+        console.log('✨ Neural reorganization complete');
     }
     
     // Color psychology demonstration
@@ -665,10 +708,39 @@ class ResponsivePsychologyCore {
         }, colorSwatches.length * 200);
     }
     
+    // Framework demonstration
+    demonstrateFramework() {
+        console.log('🎬 Starting comprehensive framework demonstration...');
+        
+        // Step 1: Animate grid
+        this.animateGrid();
+        
+        // Step 2: Show color psychology
+        setTimeout(() => {
+            this.demonstrateColorPsychology();
+        }, 1000);
+        
+        // Step 3: Switch to different tab
+        setTimeout(() => {
+            const nextTab = document.querySelector('[data-bs-toggle="tab"]:not(.active)');
+            if (nextTab) {
+                nextTab.click();
+            }
+        }, 2000);
+        
+        // Step 4: Final notification
+        setTimeout(() => {
+            this.showToast('Framework demonstration complete! All systems active.', 'success');
+        }, 3000);
+    }
+    
     // Toast notification helper
     showToast(message, type = 'info') {
         const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) return;
+        if (!toastContainer) {
+            console.log(`Toast: ${message}`);
+            return;
+        }
         
         const toastId = 'toast-' + Date.now();
         const bgClass = {
@@ -682,7 +754,7 @@ class ResponsivePsychologyCore {
             <div class="toast align-items-center text-white border-0 ${bgClass}" role="alert" id="${toastId}">
                 <div class="d-flex">
                     <div class="toast-body">
-                        ${message}
+                        <i class="fas fa-brain me-2"></i>${message}
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
                 </div>

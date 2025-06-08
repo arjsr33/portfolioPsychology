@@ -98,7 +98,7 @@
                     <div class="grid-item">Decision Making</div>
                     <div class="grid-item">Motor Response</div>
                 </div>
-                <button class="btn-secondary" onclick="animateGrid()">
+                <button class="reorganize-btn" onclick="animateGrid()">
                     <i class="fas fa-sync-alt me-2"></i>Reorganize Neural Pathways
                 </button>
             </div>
@@ -212,7 +212,7 @@
                     <div class="tab-pane fade" id="cognition" role="tabpanel">
                         <h5>Cognitive Load Management</h5>
                         <p>Information processing capacity is limited. Progressive disclosure and logical grouping prevent cognitive overload.</p>
-                        <div class="accordion-enhanced id="cognitiveAccordion">
+                        <div class="accordion-enhanced" id="cognitiveAccordion">
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
@@ -408,7 +408,7 @@
     <script src="js/test-simulation.js"></script>
     <script src="js/bootstrap-custom.js"></script>
     <script>
-        // Initialize the psychology system in proper order with error handling
+        // Initialize the psychology system using external JS files
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🧠 Initializing responsive psychology framework...');
             
@@ -443,34 +443,6 @@
                         return new bootstrap.Tooltip(tooltipTriggerEl);
                     });
                     console.log('✅ Tooltips initialized');
-                }
-                
-                // Global demonstration function
-                if (!window.demonstrateFramework) {
-                    window.demonstrateFramework = function() {
-                        console.log('🎬 Starting framework demonstration...');
-                        
-                        if (window.psychologyCore) {
-                            if (typeof window.animateGrid === 'function') {
-                                window.animateGrid();
-                            }
-                            
-                            setTimeout(() => {
-                                if (typeof window.demonstrateColorPsychology === 'function') {
-                                    window.demonstrateColorPsychology();
-                                }
-                            }, 1000);
-                            
-                            setTimeout(() => {
-                                const firstTab = document.querySelector('[data-bs-toggle="tab"]:not(.active)');
-                                if (firstTab) firstTab.click();
-                            }, 2000);
-                            
-                            setTimeout(() => {
-                                window.psychologyCore.showToast('Framework demonstration complete!', 'success');
-                            }, 3000);
-                        }
-                    };
                 }
                 
                 console.log('✅ Responsive psychology framework fully initialized');
