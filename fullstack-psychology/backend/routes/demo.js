@@ -1,4 +1,4 @@
-// fullstack-psychology/backend/routes/demo.js - Demo Routes for Backend Showcase
+// fullstack-psychology/backend/routes/demo.js - Demo Routes with Psychology Colors
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename);
 
 const router = express.Router();
 
-// GET /demo - Main demo page
+// GET /demo - Main demo page with psychology color scheme
 router.get('/', (req, res) => {
     const demoHTML = `
 <!DOCTYPE html>
@@ -27,9 +27,10 @@ router.get('/', (req, res) => {
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+            background-attachment: fixed;
+            color: #F8FAFC;
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -41,29 +42,35 @@ router.get('/', (req, res) => {
         }
         
         .hero {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 40px;
             text-align: center;
             margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .hero h1 {
-            color: white;
             font-size: 2.5rem;
             margin-bottom: 20px;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #EC4899, #3B82F6, #F97316);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
         
         .hero p {
-            color: rgba(255, 255, 255, 0.9);
+            color: #CBD5E1;
             font-size: 1.2rem;
             margin-bottom: 30px;
+        }
+        
+        .hero p:last-of-type {
+            color: #94A3B8;
+            font-size: 1rem;
+            font-weight: 600;
         }
         
         .demo-grid {
@@ -74,46 +81,51 @@ router.get('/', (req, res) => {
         }
         
         .demo-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .demo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .demo-card h3 {
-            color: #333;
+            color: #F8FAFC;
             margin-bottom: 15px;
             font-size: 1.5rem;
+            font-weight: 600;
         }
         
         .demo-card p {
-            color: #666;
+            color: #CBD5E1;
             margin-bottom: 20px;
+            line-height: 1.5;
         }
         
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 12px;
             font-weight: 600;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             color: white;
             text-decoration: none;
         }
@@ -126,33 +138,50 @@ router.get('/', (req, res) => {
         }
         
         .status-item {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .status-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .status-item h4 {
-            color: #333;
+            color: #CBD5E1;
             margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 500;
         }
         
         .status-value {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #667eea;
+            background: linear-gradient(45deg, #3B82F6, #EC4899);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .endpoints {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             padding: 30px;
             margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .endpoints h3 {
             margin-bottom: 20px;
-            color: #333;
+            color: #F8FAFC;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
         
         .endpoint-list {
@@ -163,14 +192,19 @@ router.get('/', (req, res) => {
         .endpoint {
             display: flex;
             align-items: center;
-            padding: 10px;
-            background: #f8f9fa;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .endpoint:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-left-color: #EC4899;
         }
         
         .method {
-            background: #667eea;
             color: white;
             padding: 4px 8px;
             border-radius: 4px;
@@ -181,17 +215,19 @@ router.get('/', (req, res) => {
             text-align: center;
         }
         
-        .method.post { background: #28a745; }
-        .method.put { background: #ffc107; color: #333; }
-        .method.delete { background: #dc3545; }
+        .method.get { background: #10B981; }
+        .method.post { background: #3B82F6; }
+        .method.put { background: #F97316; }
+        .method.delete { background: #EF4444; }
         
         .path {
-            font-family: 'Courier New', monospace;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             flex-grow: 1;
+            color: #F8FAFC;
         }
         
         .description {
-            color: #666;
+            color: #94A3B8;
             font-size: 0.9rem;
             margin-left: 10px;
         }
@@ -199,13 +235,39 @@ router.get('/', (req, res) => {
         .footer {
             text-align: center;
             margin-top: 40px;
-            color: rgba(255, 255, 255, 0.8);
+            color: #94A3B8;
+            padding: 20px 0;
+        }
+        
+        .footer p {
+            margin-bottom: 8px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #94A3B8;
+            border-top: 2px solid #EC4899;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .demo-grid { grid-template-columns: 1fr; }
             .container { padding: 10px; }
+            .status-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 480px) {
+            .status-grid { grid-template-columns: 1fr; }
+            .hero { padding: 20px; }
         }
     </style>
 </head>
@@ -220,19 +282,19 @@ router.get('/', (req, res) => {
         <div id="status" class="status-grid">
             <div class="status-item">
                 <h4>Server Status</h4>
-                <div class="status-value" id="server-status">Loading...</div>
+                <div class="status-value" id="server-status"><span class="loading"></span></div>
             </div>
             <div class="status-item">
                 <h4>Database</h4>
-                <div class="status-value" id="db-status">Loading...</div>
+                <div class="status-value" id="db-status"><span class="loading"></span></div>
             </div>
             <div class="status-item">
                 <h4>Total Sessions</h4>
-                <div class="status-value" id="total-sessions">Loading...</div>
+                <div class="status-value" id="total-sessions"><span class="loading"></span></div>
             </div>
             <div class="status-item">
                 <h4>Total Tests</h4>
-                <div class="status-value" id="total-tests">Loading...</div>
+                <div class="status-value" id="total-tests"><span class="loading"></span></div>
             </div>
         </div>
         
@@ -266,7 +328,7 @@ router.get('/', (req, res) => {
             <h3>🚀 Available API Endpoints</h3>
             <div class="endpoint-list">
                 <div class="endpoint">
-                    <span class="method">GET</span>
+                    <span class="method get">GET</span>
                     <span class="path">/health</span>
                     <span class="description">Server health check</span>
                 </div>
@@ -276,7 +338,7 @@ router.get('/', (req, res) => {
                     <span class="description">Create new consciousness session</span>
                 </div>
                 <div class="endpoint">
-                    <span class="method">GET</span>
+                    <span class="method get">GET</span>
                     <span class="path">/api/consciousness/session/:id</span>
                     <span class="description">Get session details</span>
                 </div>
@@ -291,7 +353,7 @@ router.get('/', (req, res) => {
                     <span class="description">Submit reaction time test</span>
                 </div>
                 <div class="endpoint">
-                    <span class="method">GET</span>
+                    <span class="method get">GET</span>
                     <span class="path">/api/psychology/analytics</span>
                     <span class="description">Get psychology analytics</span>
                 </div>
@@ -328,6 +390,8 @@ router.get('/', (req, res) => {
                 console.error('Failed to load status:', error);
                 document.getElementById('server-status').textContent = 'Error';
                 document.getElementById('db-status').textContent = 'Error';
+                document.getElementById('total-sessions').textContent = '0';
+                document.getElementById('total-tests').textContent = '0';
             }
         }
         
@@ -342,7 +406,7 @@ router.get('/', (req, res) => {
     res.send(demoHTML);
 });
 
-// GET /demo/api - API documentation and testing
+// GET /demo/api - API documentation and testing with psychology colors
 router.get('/api', (req, res) => {
     const apiHTML = `
 <!DOCTYPE html>
@@ -353,98 +417,166 @@ router.get('/api', (req, res) => {
     <title>API Explorer - Psychology Backend</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
-            background: #f5f7fa;
-            color: #333;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+            background-attachment: fixed;
+            color: #F8FAFC;
+            line-height: 1.6;
         }
+        
         .header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            color: #F8FAFC;
+            padding: 30px 20px;
             text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        .header h1 {
+            background: linear-gradient(45deg, #EC4899, #3B82F6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            color: #CBD5E1;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .header a {
+            color: #EC4899;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        
+        .header a:hover {
+            color: #F472B6;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
+        
         .api-section {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             margin: 20px 0;
-            border-radius: 10px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
+        
         .api-header {
-            background: #667eea;
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
             color: white;
-            padding: 15px 20px;
-            font-weight: bold;
-        }
-        .api-content {
             padding: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
+        
+        .api-content {
+            padding: 25px;
+        }
+        
         .endpoint {
-            margin: 15px 0;
-            padding: 15px;
-            border: 1px solid #e1e5e9;
-            border-radius: 8px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
         }
+        
+        .endpoint:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+        
         .method {
             display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 12px;
+            border-radius: 6px;
             color: white;
             font-weight: bold;
-            font-size: 0.8rem;
-            margin-right: 10px;
+            font-size: 0.85rem;
+            margin-right: 12px;
         }
-        .method.get { background: #28a745; }
-        .method.post { background: #007bff; }
-        .method.put { background: #ffc107; color: #333; }
-        .method.delete { background: #dc3545; }
+        
+        .method.get { background: linear-gradient(45deg, #10B981, #059669); }
+        .method.post { background: linear-gradient(45deg, #3B82F6, #2563EB); }
+        .method.put { background: linear-gradient(45deg, #F97316, #EA580C); }
+        .method.delete { background: linear-gradient(45deg, #EF4444, #DC2626); }
+        
         .path {
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            color: #333;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-weight: 600;
+            color: #F8FAFC;
+            font-size: 1.1rem;
         }
+        
         .description {
-            margin: 10px 0;
-            color: #666;
+            margin: 12px 0;
+            color: #CBD5E1;
+            line-height: 1.5;
         }
+        
         .test-button {
-            background: #28a745;
+            background: linear-gradient(45deg, #10B981, #059669);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
+        
         .test-button:hover {
-            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
+        
         .response-area {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            padding: 15px;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-size: 0.9rem;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             display: none;
         }
-        .loading {
-            color: #007bff;
+        
+        .loading { color: #3B82F6; }
+        .success { color: #10B981; }
+        .error { color: #EF4444; }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #E2E8F0;
         }
-        .success {
-            color: #28a745;
-        }
-        .error {
-            color: #dc3545;
+        
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            .api-content { padding: 15px; }
+            .endpoint { padding: 15px; }
+            .header h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -452,7 +584,7 @@ router.get('/api', (req, res) => {
     <div class="header">
         <h1>🚀 API Explorer</h1>
         <p>Interactive testing of Psychology Backend APIs</p>
-        <a href="/demo" style="color: white;">← Back to Demo</a>
+        <a href="/demo">← Back to Demo</a>
     </div>
     
     <div class="container">
@@ -513,8 +645,6 @@ router.get('/api', (req, res) => {
     </div>
     
     <script>
-        // Fixed JavaScript functions
-        
         async function testEndpoint(method, path, responseId) {
             const responseArea = document.getElementById('response-' + responseId);
             
@@ -591,6 +721,7 @@ router.get('/api', (req, res) => {
     res.send(apiHTML);
 });
 
+// Keep all other routes unchanged
 // GET /demo/database - Database operations viewer
 router.get('/database', asyncHandler(async (req, res) => {
     const dbHealth = await checkDatabaseHealth();
