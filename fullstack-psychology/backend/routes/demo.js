@@ -540,13 +540,12 @@ router.get('/api', (req, res) => {
                 const response = await fetch(path, options);
                 const data = await response.json();
                 
-                responseArea.innerHTML = \`
-                    <div class="\${response.ok ? 'success' : 'error'}">
-                        Status: \${response.status} \${response.statusText}
-                    </div>
-                    <pre>\${JSON.stringify(data, null, 2)}</pre>
-                \`;
-            } catch (error) {
+                responseArea.innerHTML = 
+                '<div class="' + (response.ok ? 'success' : 'error') + '">' +
+                'Status: ' + response.status + ' ' + response.statusText +
+                '</div>' +
+                '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                } catch (error) {
                 responseArea.innerHTML = \`
                     <div class="error">Error: \${error.message}</div>
                 \`;
