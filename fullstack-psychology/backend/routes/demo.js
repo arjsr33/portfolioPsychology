@@ -463,8 +463,8 @@ router.get('/api', (req, res) => {
                     <span class="method get">GET</span>
                     <span class="path">/health</span>
                     <div class="description">Check server health and status</div>
-                    <button class="test-button" onclick="testEndpoint('GET', '/health')">Test</button>
-                    <div class="response-area" id="response-/health"></div>
+                    <button class="test-button" onclick="testEndpoint('GET', '/health', 'health')">Test</button>
+                    <div class="response-area" id="response-health"></div>
                 </div>
             </div>
         </div>
@@ -484,7 +484,7 @@ router.get('/api', (req, res) => {
                     <span class="method get">GET</span>
                     <span class="path">/api/consciousness/analytics</span>
                     <div class="description">Get consciousness analytics</div>
-                    <button class="test-button" onclick="testEndpoint('GET', '/api/consciousness/analytics')">Test</button>
+                    <button class="test-button" onclick="testEndpoint('GET', '/api/consciousness/analytics', 'consciousness-analytics')">Test</button>
                     <div class="response-area" id="response-consciousness-analytics"></div>
                 </div>
             </div>
@@ -497,7 +497,7 @@ router.get('/api', (req, res) => {
                     <span class="method get">GET</span>
                     <span class="path">/api/psychology/analytics</span>
                     <div class="description">Get psychology test analytics</div>
-                    <button class="test-button" onclick="testEndpoint('GET', '/api/psychology/analytics')">Test</button>
+                    <button class="test-button" onclick="testEndpoint('GET', '/api/psychology/analytics', 'psychology-analytics')">Test</button>
                     <div class="response-area" id="response-psychology-analytics"></div>
                 </div>
                 
@@ -505,7 +505,7 @@ router.get('/api', (req, res) => {
                     <span class="method get">GET</span>
                     <span class="path">/api/psychology/stats/overview</span>
                     <div class="description">Get comprehensive psychology overview</div>
-                    <button class="test-button" onclick="testEndpoint('GET', '/api/psychology/stats/overview')">Test</button>
+                    <button class="test-button" onclick="testEndpoint('GET', '/api/psychology/stats/overview', 'psychology-overview')">Test</button>
                     <div class="response-area" id="response-psychology-overview"></div>
                 </div>
             </div>
@@ -513,9 +513,10 @@ router.get('/api', (req, res) => {
     </div>
     
     <script>
-        async function testEndpoint(method, path, body = null) {
-            const responseId = 'response-' + path.replace(/\//g, '-').replace(/:/g, '');
-            const responseArea = document.getElementById(responseId);
+        // Fixed JavaScript functions
+        
+        async function testEndpoint(method, path, responseId) {
+            const responseArea = document.getElementById('response-' + responseId);
             
             if (!responseArea) {
                 console.error('Response area not found for:', responseId);
@@ -533,22 +534,15 @@ router.get('/api', (req, res) => {
                     }
                 };
                 
-                if (body) {
-                    options.body = JSON.stringify(body);
-                }
-                
                 const response = await fetch(path, options);
                 const data = await response.json();
                 
+                const statusClass = response.ok ? 'success' : 'error';
                 responseArea.innerHTML = 
-                '<div class="' + (response.ok ? 'success' : 'error') + '">' +
-                'Status: ' + response.status + ' ' + response.statusText +
-                '</div>' +
-                '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-                } catch (error) {
-                responseArea.innerHTML = \`
-                    <div class="error">Error: \${error.message}</div>
-                \`;
+                    '<div class="' + statusClass + '">Status: ' + response.status + ' ' + response.statusText + '</div>' +
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                responseArea.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
             }
         }
         
@@ -582,16 +576,12 @@ router.get('/api', (req, res) => {
                 
                 const data = await response.json();
                 
-                responseArea.innerHTML = \`
-                    <div class="\${response.ok ? 'success' : 'error'}">
-                        Status: \${response.status} \${response.statusText}
-                    </div>
-                    <pre>\${JSON.stringify(data, null, 2)}</pre>
-                \`;
+                const statusClass = response.ok ? 'success' : 'error';
+                responseArea.innerHTML = 
+                    '<div class="' + statusClass + '">Status: ' + response.status + ' ' + response.statusText + '</div>' +
+                    '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
             } catch (error) {
-                responseArea.innerHTML = \`
-                    <div class="error">Error: \${error.message}</div>
-                \`;
+                responseArea.innerHTML = '<div class="error">Error: ' + error.message + '</div>';
             }
         }
     </script>
