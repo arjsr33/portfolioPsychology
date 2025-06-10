@@ -1,0 +1,178 @@
+// fullstack-psychology/frontend/vite.config.js - Unified Development Server Configuration
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  
+  // Development server configuration
+  server: {
+    port: 5173,
+    host: true, // Allow external connections
+    open: true, // Open browser on start
+    cors: true,
+    proxy: {
+      // Proxy API requests to backend
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false,
+        timeout: 10000
+      }
+    },
+    // Custom middleware to handle routing
+    middlewareMode: false,
+    hmr: {
+      overlay: true // Show errors in browser overlay
+    }
+  },
+  
+  // Build configuration
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true,
+    minify: 'terser',
+    target: 'es2020',
+    rollupOptions: {
+      // Multiple entry points for different levels
+      input: {
+        // Level 1: Main landing page (served from public/)
+        main: path.resolve(__dirname, 'public/index.html'),
+        // Level 2: Responsive psychology (served from public/)
+        responsive: path.resolve(__dirname, 'public/responsive-psychology/responsive.html'),
+        // Level 3: React app (served from src/)
+        react: path.resolve(__dirname, 'src/index.html')
+      },
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          icons: ['lucide-react']
+        },
+        // Ensure proper asset organization
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `images/[name]-[hash][extname]`;
+          }
+          if (/css/i.test(ext)) {
+            return `css/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js'
+      }
+    },
+    // Optimize bundle size
+    chunkSizeWarningLimit: 1000
+  },
+  
+  // Path resolution
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@services': path.resolve(__dirname, './src/services'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@public': path.resolve(__dirname, './public')
+    }
+  },
+  
+  // Public directory configuration
+  publicDir: 'public',
+  
+  // CSS configuration
+  css: {
+    devSourcemap: true,
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/styles/variables.scss";`
+      }
+    },
+    modules: {
+      localsConvention: 'camelCaseOnly'
+    }
+  },
+  
+  // Environment variables
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0'),
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+    __DEV__: JSON.stringify(process.env.NODE_ENV === 'development')
+  },
+  
+  // Optimization
+  optimizeDeps: {
+    include: [
+      'react', 
+      'react-dom', 
+      'lucide-react'
+    ],
+    exclude: [
+      // Exclude any problematic dependencies
+    ],
+    esbuildOptions: {
+      // Handle JSX in .js files if needed
+      loader: {
+        '.js': 'jsx'
+      }
+    }
+  },
+  
+  // Preview server (for production build testing)
+  preview: {
+    port: 4173,
+    host: true,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
+  
+  // ESBuild configuration
+  esbuild: {
+    // Drop console logs in production
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : []
+  },
+  
+  // Advanced configuration
+  assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf'],
+  
+  // Worker configuration
+  worker: {
+    format: 'es'
+  },
+  
+  // Experimental features
+  experimental: {
+    renderBuiltUrl(filename, { hostType }) {
+      if (hostType === 'js') {
+        return { js: `/${filename}` };
+      }
+      return { relative: true };
+    }
+  },
+  
+  // Base URL configuration
+  base: '/',
+  
+  // Environment-specific configurations
+  ...(process.env.NODE_ENV === 'development' && {
+    // Development-only settings
+    clearScreen: false,
+    logLevel: 'info'
+  }),
+  
+  ...(process.env.NODE_ENV === 'production' && {
+    // Production-only settings
+    logLevel: 'warn'
+  })
+});

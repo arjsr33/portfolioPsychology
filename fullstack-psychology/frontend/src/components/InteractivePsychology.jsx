@@ -42,7 +42,7 @@ const InteractivePsychology = ({
     total: 0
   });
 
-  // Mental State Controller
+  // Mental State Controller Component
   const MentalStateController = () => {
     const stateConfig = [
       { key: 'focus', label: 'Focus', color: 'blue', icon: Eye },
@@ -53,10 +53,10 @@ const InteractivePsychology = ({
 
     const getColorClass = (color) => {
       const colors = {
-        blue: 'bg-blue-500',
-        purple: 'bg-purple-500',
-        red: 'bg-red-500',
-        orange: 'bg-orange-500'
+        blue: '#3B82F6',
+        purple: '#8B5CF6',
+        red: '#EF4444',
+        orange: '#F97316'
       };
       return colors[color];
     };
@@ -86,18 +86,20 @@ const InteractivePsychology = ({
                 </span>
               </div>
               
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={mentalState[key]}
-                onChange={(e) => handleSliderChange(key, e.target.value)}
-                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, ${getColorClass(color).replace('bg-', '#')} 0%, ${getColorClass(color).replace('bg-', '#')} ${mentalState[key]}%, #374151 ${mentalState[key]}%, #374151 100%)`
-                }}
-                disabled={!isConnected}
-              />
+              <div className="relative">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={mentalState[key]}
+                  onChange={(e) => handleSliderChange(key, e.target.value)}
+                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, ${getColorClass(color)} 0%, ${getColorClass(color)} ${mentalState[key]}%, #374151 ${mentalState[key]}%, #374151 100%)`
+                  }}
+                  disabled={!isConnected}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -105,7 +107,7 @@ const InteractivePsychology = ({
     );
   };
 
-  // Reaction Time Test
+  // Reaction Time Test Functions
   const startReactionTest = () => {
     setActiveTest('reaction');
     setIsRunningTest(true);
@@ -198,7 +200,7 @@ const InteractivePsychology = ({
     setIsRunningTest(false);
   };
 
-  // Memory Test
+  // Memory Test Functions
   const startMemoryTest = () => {
     setActiveTest('memory');
     setIsRunningTest(true);
@@ -272,7 +274,7 @@ const InteractivePsychology = ({
     setIsRunningTest(false);
   };
 
-  // Color Test
+  // Color Test Functions
   const startColorTest = () => {
     setActiveTest('color');
     setIsRunningTest(true);
@@ -381,6 +383,52 @@ const InteractivePsychology = ({
   };
 
   const renderTestInterface = () => {
+    if (!activeTest) {
+      return (
+        <div className="text-center py-8">
+          <Brain size={48} className="mx-auto mb-4 text-gray-400" />
+          <h3 className="text-xl font-semibold text-white mb-2">Psychology Test Suite</h3>
+          <p className="text-gray-400 mb-6">Select a cognitive test to begin</p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <button
+              onClick={startReactionTest}
+              disabled={!sessionId}
+              className="p-4 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 rounded-lg transition-colors"
+            >
+              <Timer className="mx-auto mb-2" size={24} />
+              <div className="text-white font-semibold">Reaction Time</div>
+              <div className="text-blue-200 text-sm">Test response speed</div>
+            </button>
+            
+            <button
+              onClick={startMemoryTest}
+              disabled={!sessionId}
+              className="p-4 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-700 rounded-lg transition-colors"
+            >
+              <Brain className="mx-auto mb-2" size={24} />
+              <div className="text-white font-semibold">Memory Sequence</div>
+              <div className="text-purple-200 text-sm">Test working memory</div>
+            </button>
+            
+            <button
+              onClick={startColorTest}
+              disabled={!sessionId}
+              className="p-4 bg-orange-600 hover:bg-orange-700 disabled:bg-gray-700 rounded-lg transition-colors"
+            >
+              <Palette className="mx-auto mb-2" size={24} />
+              <div className="text-white font-semibold">Color Perception</div>
+              <div className="text-orange-200 text-sm">Test color sensitivity</div>
+            </button>
+          </div>
+          
+          {!sessionId && (
+            <p className="text-gray-400 text-sm mt-4">Create a session first to enable testing</p>
+          )}
+        </div>
+      );
+    }
+
     if (activeTest === 'reaction') {
       return (
         <div className="text-center py-8">
@@ -435,4 +483,163 @@ const InteractivePsychology = ({
                     ? 'scale-110 brightness-150' 
                     : 'brightness-75 hover:brightness-100'
                 }`}
-                onClick={() => handleMem
+                onClick={() => handleMemoryClick(index)}
+              />
+            ))}
+          </div>
+          
+          <div>
+            {memoryTest.showing ? (
+              <p className="text-gray-400">Watch the sequence...</p>
+            ) : (
+              <p className="text-gray-400">
+                Repeat the sequence ({memoryTest.userSequence.length}/{memoryTest.sequence.length})
+              </p>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    if (activeTest === 'color') {
+      return (
+        <div className="text-center py-8">
+          <h4 className="text-lg font-semibold text-white mb-6">Color Perception Test</h4>
+          
+          <div className="mb-6">
+            <p className="text-gray-400 mb-4">Find the different color:</p>
+            <div className="grid grid-cols-2 gap-4 w-48 mx-auto">
+              {colorTest.options.map((color, index) => (
+                <div
+                  key={index}
+                  className="w-20 h-20 rounded-lg cursor-pointer hover:scale-105 transition-transform"
+                  style={{ backgroundColor: `rgb(${color.join(',')})` }}
+                  onClick={() => handleColorChoice(color)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
+  return (
+    <div className="glass-effect rounded-xl p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold text-white flex items-center">
+          <Brain className="mr-2 text-purple-400" size={20} />
+          Interactive Psychology
+        </h3>
+        <button
+          onClick={resetTests}
+          className="p-2 text-gray-400 hover:text-white transition-colors"
+          disabled={isRunningTest}
+        >
+          <RotateCcw size={20} />
+        </button>
+      </div>
+
+      {/* Mental State Controller */}
+      <MentalStateController />
+
+      {/* Test Interface */}
+      <div className="bg-gray-800 rounded-lg p-4 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-white font-semibold">Psychology Tests</h4>
+          {isRunningTest && (
+            <div className="flex items-center text-green-400">
+              <Activity className="mr-1 animate-pulse" size={16} />
+              <span className="text-sm">Test in progress...</span>
+            </div>
+          )}
+        </div>
+        
+        {renderTestInterface()}
+      </div>
+
+      {/* Test Results */}
+      {Object.keys(testResults).length > 0 && (
+        <div className="bg-gray-800 rounded-lg p-4">
+          <h4 className="text-white font-semibold mb-4">Recent Results</h4>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {testResults.reaction && (
+              <div className="bg-gray-700 p-3 rounded-lg">
+                <h5 className="text-blue-400 font-semibold mb-2 flex items-center">
+                  <Timer className="mr-1" size={16} />
+                  Reaction Time
+                </h5>
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Average:</span>
+                    <span className="text-white">{testResults.reaction.average}ms</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Best:</span>
+                    <span className="text-green-400">{testResults.reaction.best}ms</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Consistency:</span>
+                    <span className="text-yellow-400">{(testResults.reaction.consistency * 100).toFixed(1)}%</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {testResults.memory && (
+              <div className="bg-gray-700 p-3 rounded-lg">
+                <h5 className="text-purple-400 font-semibold mb-2 flex items-center">
+                  <Brain className="mr-1" size={16} />
+                  Memory Test
+                </h5>
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Result:</span>
+                    <span className={testResults.memory.correct ? "text-green-400" : "text-red-400"}>
+                      {testResults.memory.correct ? "Correct" : "Incorrect"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Level:</span>
+                    <span className="text-white">{testResults.memory.level}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Accuracy:</span>
+                    <span className="text-yellow-400">{testResults.memory.accuracy}%</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {testResults.color && (
+              <div className="bg-gray-700 p-3 rounded-lg">
+                <h5 className="text-orange-400 font-semibold mb-2 flex items-center">
+                  <Palette className="mr-1" size={16} />
+                  Color Perception
+                </h5>
+                <div className="text-sm space-y-1">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Result:</span>
+                    <span className={testResults.color.correct ? "text-green-400" : "text-red-400"}>
+                      {testResults.color.correct ? "Correct" : "Incorrect"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Time:</span>
+                    <span className="text-white">{testResults.color.responseTime}ms</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Difficulty:</span>
+                    <span className="text-yellow-400">{testResults.color.difficulty}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default InteractivePsychology;

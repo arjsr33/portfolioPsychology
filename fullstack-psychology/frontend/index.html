@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology-Driven Development Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+            background-attachment: fixed;
+            color: #F8FAFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .redirect-container {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .brain-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            background: linear-gradient(45deg, #EC4899, #3B82F6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+            color: #CBD5E1;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            max-width: 800px;
+        }
+        
+        .nav-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .nav-card h3 {
+            margin-bottom: 0.5rem;
+            color: #F8FAFC;
+        }
+        
+        .nav-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #8B5CF6, #EC4899);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="brain-icon">🧠</div>
+        <h1>Psychology-Driven Development</h1>
+        <p>Choose your skill level demonstration</p>
+        
+        <div class="nav-grid">
+            <a href="/visual-psychology.html" class="nav-card">
+                <div class="level-badge">Level 1</div>
+                <h3>Visual Psychology</h3>
+                <p>Pure HTML5 & CSS3 mastery with advanced styling techniques</p>
+            </a>
+            
+            <a href="/responsive-psychology/responsive.html" class="nav-card">
+                <div class="level-badge">Level 2</div>
+                <h3>Responsive Mind</h3>
+                <p>Bootstrap framework with JavaScript interactions</p>
+            </a>
+            
+            <a href="/src/" class="nav-card">
+                <div class="level-badge">Level 3</div>
+                <h3>Interactive Cognition</h3>
+                <p>React application with real-time consciousness monitoring</p>
+            </a>
+            
+            <a href="http://localhost:3001/demo" target="_blank" class="nav-card">
+                <div class="level-badge">Full Stack</div>
+                <h3>Subconscious Systems</h3>
+                <p>Node.js backend with MongoDB and RESTful APIs</p>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        console.log('🧠 Psychology-Driven Development Portfolio');
+        console.log('📊 Choose your demonstration level');
+        
+        // Auto-redirect to Level 1 after 3 seconds if no interaction
+        let redirectTimer = setTimeout(() => {
+            window.location.href = '/visual-psychology.html';
+        }, 5000);
+        
+        // Clear timer if user interacts
+        document.addEventListener('click', () => {
+            clearTimeout(redirectTimer);
+        });
+    </script>
+</body>
+</html>

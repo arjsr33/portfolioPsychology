@@ -10,15 +10,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <!-- Import main CSS files AFTER Bootstrap to override navbar -->
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/animations.css">
-    <link rel="stylesheet" href="../css/color-psychology.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/color-psychology.css">
     
     <!-- Bootstrap-specific enhancements only -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="/responsive-psychology/css/responsive.css">
 </head>
 <body>
-    <!-- Navigation - Exact match with index.html -->
+    <!-- Navigation - Updated navigation links for Vite serving -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -26,9 +26,9 @@
                 <span>Psychology-Driven Development</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Visual Psychology</a></li>
-                <li><a href="#" class="nav-link active">Responsive Mind</a></li>
-                <li><a href="../fullstack-psychology/frontend/dist/index.html" class="nav-link">Interactive Cognition</a></li>
+                <li><a href="/" class="nav-link">Visual Psychology</a></li>
+                <li><a href="/responsive-psychology/responsive.html" class="nav-link active">Responsive Mind</a></li>
+                <li><a href="/src/" class="nav-link">Interactive Cognition</a></li>
                 <li><a href="http://localhost:3001/demo" class="nav-link" target="_blank">Subconscious Systems</a></li>
             </ul>
         </div>
@@ -341,6 +341,41 @@
                 </div>
             </div>
         </section>
+
+        <!-- Skills Navigation at the bottom -->
+        <div class="text-center mt-8">
+            <h3 class="text-2xl font-bold text-white mb-4">Explore Development Levels</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a 
+                    href="/"
+                    class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center"
+                >
+                    Level 1: Visual Psychology (Pure CSS)
+                </a>
+                
+                <div class="px-6 py-3 bg-green-600 text-white rounded-lg flex items-center">
+                    <div class="mr-3">
+                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+                    Level 2: Responsive Mind (Bootstrap + JS)
+                </div>
+                
+                <a 
+                    href="/src/"
+                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center"
+                >
+                    Level 3: Interactive Psychology (React)
+                </a>
+                
+                <a 
+                    href="http://localhost:3001/demo"
+                    target="_blank"
+                    class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors flex items-center"
+                >
+                    Backend Systems (Node.js + MongoDB)
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- Skills Modal -->
@@ -389,7 +424,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="../fullstack-psychology/frontend/dist/index.html" class="btn-primary">
+                    <a href="/src/" class="btn-primary">
                         Next: React Implementation
                     </a>
                 </div>
@@ -404,9 +439,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JavaScript - Order matters for proper initialization -->
-    <script src="js/psychology-sim.js"></script>
-    <script src="js/test-simulation.js"></script>
-    <script src="js/bootstrap-custom.js"></script>
+    <script src="/responsive-psychology/js/psychology-sim.js"></script>
+    <script src="/responsive-psychology/js/test-simulation.js"></script>
+    <script src="/responsive-psychology/js/bootstrap-custom.js"></script>
     <script>
         // Initialize the psychology system using external JS files
         document.addEventListener('DOMContentLoaded', function() {

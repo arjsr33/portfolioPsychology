@@ -22,17 +22,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
   
-  <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  
   <!-- Theme Color -->
   <meta name="theme-color" content="#8B5CF6" />
-  
-  <!-- Preload Critical CSS -->
-  <link rel="preload" href="/src/index.css" as="style" />
   
   <style>
     /* Critical CSS for initial paint */
@@ -76,6 +67,7 @@
       margin-bottom: 24px;
       animation: pulse 2s ease-in-out infinite;
       color: #8B5CF6;
+      font-size: 64px;
     }
     
     .loading-text {
@@ -88,12 +80,14 @@
     .loading-subtitle {
       color: #94A3B8;
       font-size: 0.875rem;
+      margin-bottom: 24px;
+      text-align: center;
+      max-width: 300px;
     }
     
     .loading-spinner {
       width: 40px;
       height: 40px;
-      margin-top: 24px;
       border: 3px solid #374151;
       border-top: 3px solid #8B5CF6;
       border-radius: 50%;
@@ -110,7 +104,7 @@
       100% { transform: rotate(360deg); }
     }
     
-    /* Error fallback */
+    /* Error fallback styles */
     .error-fallback {
       display: flex;
       flex-direction: column;
@@ -118,4 +112,160 @@
       justify-content: center;
       min-height: 100vh;
       padding: 2rem;
-      text-align
+      text-align: center;
+    }
+    
+    .error-fallback h1 {
+      color: #EF4444;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .error-fallback p {
+      color: #CBD5E1;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+    
+    .error-fallback button {
+      background: #8B5CF6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .error-fallback button:hover {
+      background: #7C3AED;
+    }
+    
+    /* Navigation breadcrumb */
+    .nav-breadcrumb {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-breadcrumb a {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    
+    .nav-breadcrumb a:hover {
+      color: #F8FAFC;
+    }
+    
+    .nav-breadcrumb .separator {
+      color: #4B5563;
+    }
+    
+    .nav-breadcrumb .current {
+      color: #8B5CF6;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Breadcrumb -->
+  <div class="nav-breadcrumb">
+    <a href="/">Visual Psychology</a>
+    <span class="separator">→</span>
+    <a href="/responsive-psychology/responsive.html">Responsive Mind</a>
+    <span class="separator">→</span>
+    <span class="current">Interactive Cognition</span>
+  </div>
+
+  <div id="root">
+    <!-- Loading screen while React loads -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="brain-icon">🧠</div>
+      <div class="loading-text">Interactive Psychology</div>
+      <div class="loading-subtitle">Loading React application with real-time consciousness monitoring...</div>
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Error fallback (hidden by default) -->
+    <div class="error-fallback" id="errorFallback" style="display: none;">
+      <h1>⚠️ Something went wrong</h1>
+      <p>The React application failed to load. This might be due to a JavaScript error or network issue.</p>
+      <button onclick="window.location.reload()">Reload Application</button>
+      <div style="margin-top: 2rem;">
+        <a href="/" style="color: #8B5CF6; text-decoration: none;">← Back to Visual Psychology</a>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.jsx"></script>
+  
+  <script>
+    // Handle loading screen and error states
+    let loadingTimer;
+    let hasLoaded = false;
+    
+    // Start a timer to show error if React doesn't load within 10 seconds
+    loadingTimer = setTimeout(() => {
+      if (!hasLoaded) {
+        console.error('React application failed to load within 10 seconds');
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('errorFallback').style.display = 'flex';
+      }
+    }, 10000);
+    
+    // Listen for React to signal it has loaded
+    window.addEventListener('load', () => {
+      hasLoaded = true;
+      clearTimeout(loadingTimer);
+      
+      // Give React a moment to render
+      setTimeout(() => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+          loadingScreen.classList.add('hidden');
+          setTimeout(() => {
+            loadingScreen.remove();
+          }, 500);
+        }
+      }, 1000);
+    });
+    
+    // Global error handler
+    window.addEventListener('error', (event) => {
+      console.error('Global error caught:', event.error);
+      if (!hasLoaded) {
+        clearTimeout(loadingTimer);
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('errorFallback').style.display = 'flex';
+      }
+    });
+    
+    // Handle unhandled promise rejections
+    window.addEventListener('unhandledrejection', (event) => {
+      console.error('Unhandled promise rejection:', event.reason);
+    });
+    
+    // React app loaded signal (called from React)
+    window.reactAppLoaded = () => {
+      hasLoaded = true;
+      clearTimeout(loadingTimer);
+    };
+    
+    console.log('🧠 Interactive Psychology React App - Level 3 Skills');
+    console.log('📊 Features: Real-time consciousness monitoring, psychology tests, brainwave simulation');
+    console.log('⚛️ Technology: React 18 + Hooks + Custom State Management + Node.js APIs');
+  </script>
+</body>
+</html>

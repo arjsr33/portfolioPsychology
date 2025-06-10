@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Interactive Psychology - React Frontend with Real-time Consciousness Monitoring",
   "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
-    "analyze": "vite-bundle-analyzer"
+    "analyze": "vite-bundle-analyzer",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -25,6 +27,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "prettier": "^3.0.0",
+    "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-bundle-analyzer": "^0.7.0"
   },
@@ -35,7 +38,9 @@
     "real-time",
     "frontend",
     "vite",
-    "portfolio"
+    "portfolio",
+    "nodejs",
+    "mongodb"
   ],
   "author": "Psychology-Driven Development Portfolio",
   "license": "MIT",
@@ -55,5 +60,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
