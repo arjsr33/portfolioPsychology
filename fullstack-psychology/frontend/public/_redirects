@@ -1,8 +1,19 @@
-# Handle client-side routing
-/*    /index.html   200
+# _redirects - Updated for interactive.html
 
-# API calls should go to backend (if you had relative API calls)
-/api/*  http://psychology-backend.ap-south-1.elasticbeanstalk.com/api/:splat  200
+# React app routes - serve the React app
+/interactive/*    /interactive.html   200
+/interactive      /interactive.html   200
 
-# Health check
-/health  http://psychology-backend.ap-south-1.elasticbeanstalk.com/health  200
+# Static portfolio routes (other levels)
+/visual-psych/*   /index.html         200
+/responsive-psychology/*  /index.html   200
+
+# Root portfolio landing page
+/                 /index.html         200
+
+# API calls to backend
+/api/*            http://psychology-backend.ap-south-1.elasticbeanstalk.com/api/:splat  200
+/health           http://psychology-backend.ap-south-1.elasticbeanstalk.com/health  200
+
+# Catch-all for unknown routes - redirect to home
+/*                /index.html         200

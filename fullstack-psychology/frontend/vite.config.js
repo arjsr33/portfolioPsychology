@@ -36,8 +36,13 @@ export default defineConfig({
     minify: 'esbuild', // CHANGED: Use esbuild instead of terser
     target: 'es2020',
     rollupOptions: {
-      // Single entry point - your main landing page
-      input: path.resolve(__dirname, 'index.html'),
+      // CHANGED: Multiple entry points instead of single entry point
+      input: {
+        // Static portfolio landing page
+        main: path.resolve(__dirname, 'index.html'),
+        // React application - NEW ENTRY POINT
+        interactive: path.resolve(__dirname, 'src/interactive.html')
+      },
       output: {
         // SIMPLIFIED: Remove manual chunks that cause empty chunk warnings
         chunkFileNames: 'js/[name]-[hash].js',
