@@ -17,7 +17,7 @@ const logger = winston.createLogger({
     })
   ]
 });
-
+// Now change
 // Add custom methods
 logger.database = (action, details) => logger.info(`[DB] ${action}`, details);
 logger.api = (method, endpoint, status, time) => logger.info(`[API] ${method} ${endpoint} ${status} ${time}ms`);
