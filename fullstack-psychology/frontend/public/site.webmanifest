@@ -1,0 +1,23 @@
+{
+  "name": "Arjun K - Full Stack Developer Portfolio",
+  "short_name": "Arjun K Portfolio",
+  "description": "Progressive skill demonstration through psychology-driven development",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#8B5CF6",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

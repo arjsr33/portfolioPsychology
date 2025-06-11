@@ -36,15 +36,8 @@ export default defineConfig({
     minify: 'terser',
     target: 'es2020',
     rollupOptions: {
-      // Multiple entry points for different levels
-      input: {
-        // Level 1: Main landing page (served from public/)
-        main: path.resolve(__dirname, 'public/index.html'),
-        // Level 2: Responsive psychology (served from public/)
-        responsive: path.resolve(__dirname, 'public/responsive-psychology/responsive.html'),
-        // Level 3: React app (served from src/)
-        react: path.resolve(__dirname, 'src/index.html')
-      },
+      // Single entry point - your main landing page
+      input: path.resolve(__dirname, 'index.html'),
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
