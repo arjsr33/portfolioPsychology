@@ -182,7 +182,8 @@ async function startServer() {
     }
 }
 
-// Initialize server
-startServer();
-
 export default app;
+// Keep the existing server startup code for local development
+if (process.env.NODE_ENV !== 'production') {
+  startServer();
+}
