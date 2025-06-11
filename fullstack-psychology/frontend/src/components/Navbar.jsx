@@ -24,7 +24,7 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/src/" className="nav-link active">
+            <a href="/src/interactive.html" className="nav-link active">
               Interactive Cognition
             </a>
           </li>
