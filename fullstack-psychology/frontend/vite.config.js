@@ -1,4 +1,4 @@
-// fullstack-psychology/frontend/vite.config.js - Unified Development Server Configuration
+// fullstack-psychology/frontend/vite.config.js - Fixed for AWS Amplify Build
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -28,21 +28,20 @@ export default defineConfig({
     }
   },
   
-  // Build configuration
+  // Build configuration - FIXED FOR AMPLIFY
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    sourcemap: true,
-    minify: 'terser',
+    sourcemap: false, // Disabled for faster builds
+    minify: 'esbuild', // CHANGED: Use esbuild instead of terser
     target: 'es2020',
     rollupOptions: {
       // Single entry point - your main landing page
       input: path.resolve(__dirname, 'index.html'),
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          icons: ['lucide-react']
-        },
+        // SIMPLIFIED: Remove manual chunks that cause empty chunk warnings
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js',
         // Ensure proper asset organization
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name.split('.');
@@ -54,9 +53,7 @@ export default defineConfig({
             return `css/[name]-[hash][extname]`;
           }
           return `assets/[name]-[hash][extname]`;
-        },
-        chunkFileNames: 'js/[name]-[hash].js',
-        entryFileNames: 'js/[name]-[hash].js'
+        }
       }
     },
     // Optimize bundle size
@@ -78,14 +75,9 @@ export default defineConfig({
   // Public directory configuration
   publicDir: 'public',
   
-  // CSS configuration
+  // CSS configuration - SIMPLIFIED
   css: {
-    devSourcemap: true,
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "@/styles/variables.scss";`
-      }
-    },
+    devSourcemap: false, // Disabled for production builds
     modules: {
       localsConvention: 'camelCaseOnly'
     }
@@ -130,7 +122,7 @@ export default defineConfig({
     }
   },
   
-  // ESBuild configuration
+  // ESBuild configuration - ENHANCED
   esbuild: {
     // Drop console logs in production
     drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : []
@@ -142,16 +134,6 @@ export default defineConfig({
   // Worker configuration
   worker: {
     format: 'es'
-  },
-  
-  // Experimental features
-  experimental: {
-    renderBuiltUrl(filename, { hostType }) {
-      if (hostType === 'js') {
-        return { js: `/${filename}` };
-      }
-      return { relative: true };
-    }
   },
   
   // Base URL configuration
