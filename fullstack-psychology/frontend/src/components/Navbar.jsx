@@ -10,6 +10,11 @@ const Navbar = () => {
         </div>
         <ul className="nav-menu">
           <li>
+            <a href="/" className="nav-link">
+              Home
+            </a>
+          </li>  
+          <li>
             <a href="/visual-psychology.html" className="nav-link">
               Visual Psychology
             </a>

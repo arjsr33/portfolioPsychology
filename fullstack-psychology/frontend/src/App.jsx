@@ -359,7 +359,7 @@ const App = () => {
             
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="/"
+                href="/visual-psychology.html"
                 className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center"
               >
                 <div className="mr-3">

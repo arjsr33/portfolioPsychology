@@ -1,6 +1,9 @@
 /* fullstack-psychology/frontend/src/index.css - Complete React Frontend Styles */
 
 /* ===== CSS CUSTOM PROPERTIES (Psychology Color System) ===== */
+
+@import url('/css/unified-navbar.css');
+
 :root {
   /* Psychology-driven color palette */
   --psychology-blue: #3B82F6;      /* Focus/Concentration */
@@ -131,72 +134,6 @@ p {
   border: 1px solid var(--glass-border-strong);
   box-shadow: var(--shadow-xl);
 }
-/* Navigation - matching visual-psychology.html exactly */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all var(--transition-normal);
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-4) var(--space-6);
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 1.25rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, var(--psychology-pink), var(--psychology-blue));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
-}
-
-.nav-link {
-  color: #F8FAFC;
-  text-decoration: none;
-  font-weight: 500;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-lg);
-  transition: all var(--transition-normal);
-  position: relative;
-}
-
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-  color: #F8FAFC;
-}
-
-.nav-link.active {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--psychology-pink);
-}
-
-/* ===== PSYCHOLOGY PAGE LAYOUT ===== */
 
 .psychology-page {
   background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);

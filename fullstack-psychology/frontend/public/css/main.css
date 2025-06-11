@@ -93,68 +93,6 @@ body {
   background-attachment: fixed;
 }
 
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: var(--glass-light);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all var(--duration-normal) ease;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-md) var(--space-lg);
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: var(--font-xl);
-  font-weight: 700;
-  background: linear-gradient(45deg, var(--secondary-pink), var(--accent-blue));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: var(--space-md);
-}
-
-.nav-link {
-  color: var(--text-primary);
-  text-decoration: none;
-  font-weight: 500;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-lg);
-  transition: all var(--duration-normal) ease;
-  position: relative;
-}
-
-.nav-link:hover {
-  background: var(--bg-surface-hover);
-  transform: translateY(-2px);
-  color: var(--text-primary);
-}
-
-.nav-link.active {
-  background: var(--glass-medium);
-  color: var(--secondary-pink);
-}
-
 /* Main container */
 .psychology-container {
   max-width: 1200px;

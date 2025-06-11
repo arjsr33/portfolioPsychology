@@ -1,0 +1,301 @@
+/* unified-navbar.css - EXACT consistency across all three implementations */
+
+/* CSS Variables for absolute precision */
+:root {
+  /* Navbar specific variables for exact matching */
+  --navbar-height: 64px;
+  --navbar-padding-y: 16px;
+  --navbar-padding-x: 24px;
+  --navbar-font-size: 16px;
+  --navbar-font-weight: 500;
+  --navbar-brand-font-size: 20px;
+  --navbar-brand-font-weight: 700;
+  --navbar-link-padding-y: 8px;
+  --navbar-link-padding-x: 16px;
+  --navbar-gap: 16px;
+  --navbar-border-radius: 16px;
+  
+  /* Exact color values */
+  --navbar-bg: rgba(255, 255, 255, 0.1);
+  --navbar-border: rgba(255, 255, 255, 0.2);
+  --navbar-text: #F8FAFC;
+  --navbar-hover-bg: rgba(255, 255, 255, 0.08);
+  --navbar-active-bg: rgba(255, 255, 255, 0.15);
+  --navbar-brand-gradient: linear-gradient(45deg, #EC4899, #3B82F6);
+  
+  /* Animation timing */
+  --navbar-transition: all 0.3s ease;
+}
+
+/* CRITICAL: Reset all potential conflicting styles */
+.navbar,
+.navbar *,
+.navbar *::before,
+.navbar *::after {
+  box-sizing: border-box;
+}
+
+/* Main navbar container - EXACT specifications */
+.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  
+  /* Background and effects */
+  background: var(--navbar-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--navbar-border) !important;
+  
+  /* Remove ALL inherited styles */
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: var(--navbar-height) !important;
+  height: var(--navbar-height) !important;
+  
+  /* Flexbox reset */
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  
+  /* Animation */
+  transition: var(--navbar-transition) !important;
+  
+  /* Bootstrap overrides */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Inner container - EXACT specifications */
+.nav-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: var(--navbar-padding-y) var(--navbar-padding-x) !important;
+  height: 100% !important;
+}
+
+/* Brand styling - EXACT specifications */
+.nav-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+  
+  /* Typography */
+  font-size: var(--navbar-brand-font-size) !important;
+  font-weight: var(--navbar-brand-font-weight) !important;
+  line-height: 1 !important;
+  
+  /* Gradient text */
+  background: var(--navbar-brand-gradient) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  
+  /* Remove inherited styles */
+  border: none !important;
+  outline: none !important;
+}
+
+.nav-brand i {
+  font-size: var(--navbar-brand-font-size) !important;
+  margin-right: 0 !important;
+  /* Icon gets gradient too */
+  background: var(--navbar-brand-gradient) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.nav-brand span {
+  font-size: var(--navbar-brand-font-size) !important;
+  font-weight: var(--navbar-brand-font-weight) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Navigation menu - EXACT specifications */
+.nav-menu {
+  display: flex !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: var(--navbar-gap) !important;
+  align-items: center !important;
+  height: 100% !important;
+  
+  /* Remove Bootstrap styles */
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+.nav-menu li {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Navigation links - EXACT specifications */
+.nav-link {
+  /* Display and positioning */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Spacing */
+  padding: var(--navbar-link-padding-y) var(--navbar-link-padding-x) !important;
+  margin: 0 !important;
+  
+  /* Typography */
+  font-size: var(--navbar-font-size) !important;
+  font-weight: var(--navbar-font-weight) !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  
+  /* Colors */
+  color: var(--navbar-text) !important;
+  background: transparent !important;
+  
+  /* Border and shape */
+  border: none !important;
+  border-radius: var(--navbar-border-radius) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  
+  /* Animation */
+  transition: var(--navbar-transition) !important;
+  transform: translateY(0) !important;
+  
+  /* Remove inherited styles */
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
+
+/* Hover state - EXACT specifications */
+.nav-link:hover {
+  background: var(--navbar-hover-bg) !important;
+  color: var(--navbar-text) !important;
+  transform: translateY(-2px) !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Active state - EXACT specifications */
+.nav-link.active {
+  background: var(--navbar-active-bg) !important;
+  color: var(--navbar-text) !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.nav-link.active:hover {
+  background: var(--navbar-active-bg) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Responsive adjustments - EXACT specifications */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: var(--navbar-padding-y) 16px !important;
+  }
+  
+  .nav-menu {
+    gap: 8px !important;
+  }
+  
+  .nav-link {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
+  
+  .nav-brand {
+    font-size: 18px !important;
+  }
+  
+  .nav-brand i {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-menu {
+    display: none !important;
+  }
+  
+  /* Add mobile menu toggle if needed */
+}
+
+/* Override ANY potential framework conflicts */
+.navbar .navbar-brand,
+.navbar .nav-item,
+.navbar .nav-link,
+.navbar .navbar-nav,
+.navbar .navbar-toggler,
+.navbar .container,
+.navbar .container-fluid {
+  all: unset;
+}
+
+/* Force consistency in React/Tailwind environment */
+.navbar[class*="bg-"],
+.navbar[class*="border-"],
+.navbar[class*="p-"],
+.navbar[class*="m-"],
+.navbar[class*="text-"],
+.navbar[class*="font-"] {
+  background: var(--navbar-bg) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--navbar-border) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: var(--navbar-text) !important;
+  font-size: var(--navbar-font-size) !important;
+}
+
+/* Additional Bootstrap 5 overrides */
+.navbar-expand-lg .navbar-collapse,
+.navbar-expand-lg .navbar-nav {
+  flex-direction: row !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar-brand,
+.navbar-brand:hover,
+.navbar-brand:focus {
+  color: inherit !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: var(--navbar-brand-font-size) !important;
+  font-weight: var(--navbar-brand-font-weight) !important;
+}
+
+/* Ensure body margin adjustment for fixed navbar */
+body {
+  padding-top: var(--navbar-height) !important;
+}
+
+.main-content,
+.psychology-container,
+.container,
+.container-fluid {
+  margin-top: 0 !important;
+  padding-top: 24px !important;
+}
