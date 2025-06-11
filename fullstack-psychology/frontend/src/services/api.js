@@ -1,9 +1,9 @@
 // fullstack-psychology/frontend/src/services/api.js - Backend API Service
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 class PsychologyAPI {
   constructor() {
-    this.baseURL = API_BASE;
+    this.baseURL = `${API_BASE}/api`;
     this.timeout = 10000; // 10 second timeout
   }
 
@@ -199,7 +199,29 @@ class PsychologyAPI {
 
   // Health and Status
   async getHealth() {
-    return this.request('/health', { timeout: 5000 });
+    // Health endpoint is not under /api path
+    const url = `${API_BASE}/health`;
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
+      const response = await fetch(url, {
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        throw new Error('Request timeout');
+      }
+      throw error;
+    }
   }
 
   async getStatus() {
