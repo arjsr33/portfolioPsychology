@@ -1,0 +1,8 @@
+# Handle client-side routing
+/*    /index.html   200
+
+# API calls should go to backend (if you had relative API calls)
+/api/*  http://psychology-backend.ap-south-1.elasticbeanstalk.com/api/:splat  200
+
+# Health check
+/health  http://psychology-backend.ap-south-1.elasticbeanstalk.com/health  200
