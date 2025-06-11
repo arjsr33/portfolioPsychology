@@ -1,7 +1,7 @@
 // fullstack-psychology/frontend/src/App.jsx - Main Application Component with React Router
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
-import { Brain, Activity, BarChart3, Play, Pause, Settings, TrendingUp, ArrowLeft } from 'lucide-react';
+import { Brain, Activity, BarChart3, Play, Pause, Settings, TrendingUp, ArrowLeft, Home } from 'lucide-react';
 
 // Import our custom hook and components
 import Navbar from './components/Navbar.jsx';
@@ -12,157 +12,7 @@ import NeuralNetwork from './components/NeuralNetwork.jsx';
 import BrainwaveVisualizer from './components/BrainwaveVisualizer.jsx';
 import api from './services/api.js';
 
-// Home/Landing Page Component
-const HomePage = () => {
-  const navigate = useNavigate();
-
-  const handleStartInteractive = () => {
-    navigate('/interactive');
-  };
-
-  return (
-    <div className="psychology-page">
-      <Navbar />
-      
-      <div className="psychology-container">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center mb-6">
-              <Brain className="w-16 h-16 text-blue-400 mr-4" />
-              <h1 className="text-5xl font-bold text-white">Interactive Psychology</h1>
-            </div>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              Real-time consciousness monitoring and psychology testing platform. 
-              Experience advanced brainwave simulation, mental state tracking, and cognitive assessments.
-            </p>
-            
-            {/* Main CTA Button */}
-            <button
-              onClick={handleStartInteractive}
-              className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white text-xl rounded-xl transition-all transform hover:scale-105 flex items-center mx-auto"
-            >
-              <Play className="w-6 h-6 mr-2" />
-              Start Interactive Experience
-            </button>
-          </div>
-
-          {/* Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
-              <Activity className="w-12 h-12 text-green-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Real-time Monitoring</h3>
-              <p className="text-gray-400">Live consciousness tracking with brainwave simulation</p>
-            </div>
-            
-            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
-              <Brain className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Psychology Tests</h3>
-              <p className="text-gray-400">Cognitive assessments and mental performance analytics</p>
-            </div>
-            
-            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
-              <BarChart3 className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Advanced Analytics</h3>
-              <p className="text-gray-400">Detailed insights into mental state patterns</p>
-            </div>
-          </div>
-
-          {/* Skills Navigation */}
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-white mb-4">Explore Development Levels</h3>
-            <p className="text-gray-400 mb-6">
-              This React application demonstrates Level 3 full-stack development skills
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4">
-              <a 
-                href="/visual-psychology.html"
-                className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center"
-              >
-                <div className="mr-3">
-                  <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
-                </div>
-                Level 1: Visual Psychology (Pure CSS)
-              </a>
-              
-              <a 
-                href="/responsive-psychology/responsive.html"
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center"
-              >
-                <div className="mr-3">
-                  <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                </div>
-                Level 2: Responsive Mind (Bootstrap + JS)
-              </a>
-              
-              <button
-                onClick={handleStartInteractive}
-                className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center"
-              >
-                <div className="mr-3">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                </div>
-                Level 3: Interactive Psychology (React + Node)
-              </button>
-              
-              <a 
-                href="http://psychology-backend.ap-south-1.elasticbeanstalk.com/demo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors flex items-center"
-              >
-                <div className="mr-3">
-                  <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                </div>
-                Backend Systems (Node.js + MongoDB)
-              </a>
-            </div>
-          </div>
-
-          {/* Technical Details */}
-          <div className="mt-8 text-center">
-            <div className="glass-effect rounded-xl p-6">
-              <h4 className="text-lg font-semibold text-white mb-4">Technical Implementation</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <div className="text-blue-400 font-semibold">Frontend</div>
-                  <div className="text-gray-400">React 18 + Hooks</div>
-                  <div className="text-gray-400">React Router</div>
-                  <div className="text-gray-400">Custom State Management</div>
-                  <div className="text-gray-400">Real-time Updates</div>
-                </div>
-                
-                <div>
-                  <div className="text-green-400 font-semibold">Backend</div>
-                  <div className="text-gray-400">Node.js + Express</div>
-                  <div className="text-gray-400">RESTful APIs</div>
-                  <div className="text-gray-400">Psychology Algorithms</div>
-                </div>
-                
-                <div>
-                  <div className="text-orange-400 font-semibold">Database</div>
-                  <div className="text-gray-400">MongoDB + Mongoose</div>
-                  <div className="text-gray-400">Real-time Analytics</div>
-                  <div className="text-gray-400">Session Management</div>
-                </div>
-                
-                <div>
-                  <div className="text-purple-400 font-semibold">Deployment</div>
-                  <div className="text-gray-400">AWS Amplify</div>
-                  <div className="text-gray-400">Elastic Beanstalk</div>
-                  <div className="text-gray-400">MongoDB Atlas</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Interactive Psychology Page Component
+// Main Interactive Psychology Page Component - Now the Default
 const InteractivePage = () => {
   const navigate = useNavigate();
   const {
@@ -231,8 +81,8 @@ const InteractivePage = () => {
     }
   };
 
-  const handleBackToHome = () => {
-    navigate('/');
+  const handleGoToOverview = () => {
+    navigate('/overview');
   };
 
   const formatDuration = (ms) => {
@@ -279,11 +129,11 @@ const InteractivePage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
-                onClick={handleBackToHome}
+                onClick={handleGoToOverview}
                 className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-300 rounded-lg transition-colors flex items-center"
               >
-                <ArrowLeft className="mr-2" size={16} />
-                Back to Home
+                <Home className="mr-2" size={16} />
+                Project Overview
               </button>
 
               <button
@@ -519,14 +369,173 @@ const InteractivePage = () => {
   );
 };
 
-// Main App Component with Router
+// Project Overview/Landing Page Component
+const OverviewPage = () => {
+  const navigate = useNavigate();
+
+  const handleStartInteractive = () => {
+    navigate('/');  // Go back to the main interactive page
+  };
+
+  return (
+    <div className="psychology-page">
+      <Navbar />
+      
+      <div className="psychology-container">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-6">
+              <Brain className="w-16 h-16 text-blue-400 mr-4" />
+              <h1 className="text-5xl font-bold text-white">Interactive Psychology</h1>
+            </div>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+              Real-time consciousness monitoring and psychology testing platform. 
+              Experience advanced brainwave simulation, mental state tracking, and cognitive assessments.
+            </p>
+            
+            {/* Main CTA Button */}
+            <button
+              onClick={handleStartInteractive}
+              className="px-8 py-4 bg-green-600 hover:bg-green-700 text-white text-xl rounded-xl transition-all transform hover:scale-105 flex items-center mx-auto"
+            >
+              <Play className="w-6 h-6 mr-2" />
+              Enter Interactive Experience
+            </button>
+          </div>
+
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
+              <Activity className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Real-time Monitoring</h3>
+              <p className="text-gray-400">Live consciousness tracking with brainwave simulation</p>
+            </div>
+            
+            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
+              <Brain className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Psychology Tests</h3>
+              <p className="text-gray-400">Cognitive assessments and mental performance analytics</p>
+            </div>
+            
+            <div className="glass-effect rounded-xl p-6 text-center hover:scale-105 transition-transform">
+              <BarChart3 className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-white mb-2">Advanced Analytics</h3>
+              <p className="text-gray-400">Detailed insights into mental state patterns</p>
+            </div>
+          </div>
+
+          {/* Skills Navigation */}
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-white mb-4">Explore Development Levels</h3>
+            <p className="text-gray-400 mb-6">
+              This React application demonstrates Level 3 full-stack development skills
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              <a 
+                href="/visual-psychology.html"
+                className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors flex items-center"
+              >
+                <div className="mr-3">
+                  <div className="w-3 h-3 bg-purple-400 rounded-full"></div>
+                </div>
+                Level 1: Visual Psychology (Pure CSS)
+              </a>
+              
+              <a 
+                href="/responsive-psychology/responsive.html"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center"
+              >
+                <div className="mr-3">
+                  <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                </div>
+                Level 2: Responsive Mind (Bootstrap + JS)
+              </a>
+              
+              <button
+                onClick={handleStartInteractive}
+                className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center"
+              >
+                <div className="mr-3">
+                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                </div>
+                Level 3: Interactive Psychology (React + Node)
+              </button>
+              
+              <a 
+                href="http://psychology-backend.ap-south-1.elasticbeanstalk.com/demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors flex items-center"
+              >
+                <div className="mr-3">
+                  <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                </div>
+                Backend Systems (Node.js + MongoDB)
+              </a>
+            </div>
+          </div>
+
+          {/* Technical Details */}
+          <div className="mt-8 text-center">
+            <div className="glass-effect rounded-xl p-6">
+              <h4 className="text-lg font-semibold text-white mb-4">Technical Implementation</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                <div>
+                  <div className="text-blue-400 font-semibold">Frontend</div>
+                  <div className="text-gray-400">React 18 + Hooks</div>
+                  <div className="text-gray-400">React Router</div>
+                  <div className="text-gray-400">Custom State Management</div>
+                  <div className="text-gray-400">Real-time Updates</div>
+                </div>
+                
+                <div>
+                  <div className="text-green-400 font-semibold">Backend</div>
+                  <div className="text-gray-400">Node.js + Express</div>
+                  <div className="text-gray-400">RESTful APIs</div>
+                  <div className="text-gray-400">Psychology Algorithms</div>
+                </div>
+                
+                <div>
+                  <div className="text-orange-400 font-semibold">Database</div>
+                  <div className="text-gray-400">MongoDB + Mongoose</div>
+                  <div className="text-gray-400">Real-time Analytics</div>
+                  <div className="text-gray-400">Session Management</div>
+                </div>
+                
+                <div>
+                  <div className="text-purple-400 font-semibold">Deployment</div>
+                  <div className="text-gray-400">AWS Amplify</div>
+                  <div className="text-gray-400">Elastic Beanstalk</div>
+                  <div className="text-gray-400">MongoDB Atlas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Main App Component with Router - Interactive Psychology as Default
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/interactive" element={<InteractivePage />} />
-        <Route path="/interactive-psychology" element={<Navigate to="/interactive" replace />} />
+        {/* Main interactive psychology interface as the default route */}
+        <Route path="/" element={<InteractivePage />} />
+        
+        {/* Project overview/landing page as secondary route */}
+        <Route path="/overview" element={<OverviewPage />} />
+        
+        {/* Legacy route redirects */}
+        <Route path="/interactive" element={<Navigate to="/" replace />} />
+        <Route path="/interactive-psychology" element={<Navigate to="/" replace />} />
+        <Route path="/home" element={<Navigate to="/overview" replace />} />
+        
+        {/* Catch-all redirect to main page */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
